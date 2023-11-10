@@ -1,8 +1,9 @@
-import {AppBar, Box, Toolbar, Typography} from "@mui/material";
+import {AppBar, Box, Stack, Toolbar, Typography} from "@mui/material";
 import LoginButton from "@/components/Login/LoginButton";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/auth/auth";
 import ColorModeButton from "@/components/Nav/ColorModeButton";
+import Logo from "@/components/Logo/Logo";
 
 export default async function Home() {
     const session = await getServerSession(authOptions);
@@ -10,10 +11,14 @@ export default async function Home() {
       <>
           <AppBar position="static">
               <Toolbar>
-                  <Typography variant="h6" sx={{flexGrow: 1}}>vZDC IDS</Typography>
-                  <ColorModeButton/>
-                  <Box sx={{width: '1rem',}}></Box>
-                  <LoginButton session={session}/>
+                  <Stack direction="row" spacing={2} alignItems="center" sx={{flexGrow: 1,}}>
+                      <Logo/>
+                      <Typography variant="h4">vIDS</Typography>
+                  </Stack>
+                  <Stack direction="row" alignItems="center" spacing={2}>
+                      <ColorModeButton/>
+                      <LoginButton session={session}/>
+                  </Stack>
               </Toolbar>
           </AppBar>
           <Box sx={{
