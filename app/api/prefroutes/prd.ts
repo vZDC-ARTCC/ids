@@ -3,10 +3,33 @@ import * as path from "path";
 
 // hi carson
 
+class PreferredRoute {
+    origin: string;
+    route: string;
+    destination: string;
+    type: string;
+    altitude: string;
+    aircraft: string;
+    originARTCC: string;
+    destinationARTCC: string;
+
+    constructor(origin: string, route: string, destination: string, type: string, altitude: string, aircraft: string, originARTCC: string, destinationARTCC: string) {
+        this.origin = origin;
+        this.route = route;
+        this.destination = destination;
+        this.type = type;
+        this.altitude = altitude;
+        this.aircraft = aircraft;
+        this.originARTCC = originARTCC;
+        this.destinationARTCC = destinationARTCC;
+    }
+}
+
+
 // TODO: confirm file path for preferred routes database
 const databasePath: string = "app/api/prefroutes/prefroutes_db.csv"
 
-function loadPreferredRoutes(): string[][] {
+function loadPreferredRoutes(): PreferredRoute[] {
     // fetches preferred routes from faa website and writes to local csv file
     fetch("https://www.fly.faa.gov/rmt/data_file/prefroutes_db.csv")
         .then(response => response.text())
@@ -19,7 +42,7 @@ function loadPreferredRoutes(): string[][] {
     // reads local csv file and omits unnecessary information
     return fs.readFileSync(csvFilePath, {encoding: 'utf-8'})
         .split("\n")
-        .map((row: string): string[] => {
+        .map((row: string): PreferredRoute => {
             const splitRow = row.split(",")
 
             /**
@@ -34,13 +57,13 @@ function loadPreferredRoutes(): string[][] {
              * Other values are unnecessary.
              */
 
-            return [splitRow[0], splitRow[1], splitRow[2], splitRow[6], splitRow[8], splitRow[9], splitRow[12], splitRow[13]]
+            return new PreferredRoute(splitRow[0], splitRow[1], splitRow[2], splitRow[6], splitRow[8], splitRow[9], splitRow[12], splitRow[13])
         });
 }
 
-function findPreferredRoutes(routeDatabase: string[][], origin: string, destination: string): string[][] {
+function findPreferredRoutes(routeDatabase: PreferredRoute[], origin: string, destination: string): PreferredRoute[] {
     return routeDatabase.filter(route => {
-        return route[0] === origin.toUpperCase() && route[2] === destination.toUpperCase()
+        return route.origin === origin.toUpperCase() && route.destination === destination.toUpperCase()
     })
 }
 
