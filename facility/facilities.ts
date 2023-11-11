@@ -1,6 +1,6 @@
 import {AirportConfig, TraconConfig} from "@/types";
 import {PCT_CONFIG} from "@/facility/tracon/pct/pct";
-import {IAD_CONFIG} from "@/facility/atct/iad";
+import {iadAirportConfig} from "@/facility/atct/iad";
 
 export enum FacilityType {
     ATCT, TRACON
@@ -21,7 +21,7 @@ export const FACILITIES: FacilityListItem[] = [
     {
         name: 'IAD',
         type: FacilityType.ATCT,
-        config: IAD_CONFIG,
+        config: iadAirportConfig,
     }
 ]
 

@@ -1,42 +1,42 @@
-export type TraconConfig = {
-    name: string,
-    longName: string,
-    departureGates: string[],
-    areas: TraconAreaConfig[],
-}
-
-export type TraconAreaConfig = {
-    name: string,
-    sectors: TraconSectorConfig[],
-}
-
-export type TraconSectorConfig = {
-    name: string,
-    frequency: string,
-}
-
 export type AirportConfig = {
-    name: string,
+    id: string,
     icao: string,
     parentTracon: string,
     parentTraconArea: string,
-    runways: string[],
+    availableRunways: AvailableRunway[],
+    customizableOptions: CustomizableOption[],
     flows: AirportFlowConfig[],
-    positions: AirportPositionConfig[],
-}
-
-export type AirportPositionConfig = {
-    name: string,
-    longName: string,
-    type: AirportPositionType,
+    localControlPositions: string[],
 }
 
 export type AirportFlowConfig = {
     name: string,
-    departureRunways: string[],
-    arrivalRunways: string[],
+    arrivalRunways: AvailableRunway[],
+    departureRunways: AvailableRunway[],
+    traconVisibleOptions: CustomizableOption[],
 }
 
-export enum AirportPositionType {
-    DELIVERY, METERING, RAMP, GROUND, TOWER
+export type AvailableRunway = {
+    id: string,
+    availableApproachTypes?: string[],
+    availableDepartureTypes?: string[],
+}
+
+export type TraconConfig = {
+    id: string,
+    name: string,
+
+}
+
+export type TraconAreaConfig = {
+    id: string,
+    name: string,
+    majorFieldIcao: string,
+    minorFieldsIcao: string[],
+    customizableOptions: CustomizableOption[],
+}
+
+export type CustomizableOption = {
+    name: string,
+    choices: string[],
 }
