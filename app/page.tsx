@@ -4,6 +4,7 @@ import {getServerSession} from "next-auth";
 import {authOptions} from "@/auth/auth";
 import ColorModeButton from "@/components/Nav/ColorModeButton";
 import Logo from "@/components/Logo/Logo";
+import FacilityPicker from "@/components/FacilityPicker/FacilityPicker";
 
 export default async function Home() {
     const session = await getServerSession(authOptions);
@@ -25,10 +26,14 @@ export default async function Home() {
               width: '100%',
               marginTop: '15rem',
               display: 'flex',
-              justifyContent: 'center',
+              flexDirection: 'column',
+              gap: '1rem',
+              alignItems: 'center',
           }}>
+              <Typography variant="h6" sx={{display: 'block',}}>Select a facility or login below to access the
+                  IDS:</Typography>
               {!session && <LoginButton session={session}/>}
-              {session && <Typography>Placeholder for airport picker</Typography>}
+              {session && <FacilityPicker/>}
           </Box>
       </>
     )
