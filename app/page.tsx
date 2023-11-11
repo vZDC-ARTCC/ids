@@ -10,18 +10,6 @@ export default async function Home() {
     const session = await getServerSession(authOptions);
     return (
       <>
-          <AppBar position="static">
-              <Toolbar>
-                  <Stack direction="row" spacing={2} alignItems="center" sx={{flexGrow: 1,}}>
-                      <Logo/>
-                      <Typography variant="h4">vIDS</Typography>
-                  </Stack>
-                  <Stack direction="row" alignItems="center" spacing={2}>
-                      <ColorModeButton/>
-                      <LoginButton session={session}/>
-                  </Stack>
-              </Toolbar>
-          </AppBar>
           <Box sx={{
               width: '100%',
               marginTop: '15rem',

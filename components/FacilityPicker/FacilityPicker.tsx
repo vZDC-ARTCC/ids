@@ -18,13 +18,13 @@ function FacilityPicker() {
                 <Stack spacing={2}>
                     {atcts.map((atct) => (
                         <Button key={atct.name} variant="contained"
-                                onClick={() => router.replace(`/atct/${atct.config.name}`)}>{atct.name} ATCT</Button>
+                                onClick={() => router.replace(`/atct/${atct.config.id}`)}>{atct.name} ATCT</Button>
                     ))}
                 </Stack>
                 <Stack spacing={2}>
                     {tracons.map((tracon) => (
                         <Button key={tracon.name} variant="contained"
-                                onClick={() => router.replace(`/tracon/${tracon.config.name}`)}>{tracon.name} TRACON</Button>
+                                onClick={() => router.replace(`/tracon/${tracon.config.id}`)}>{tracon.name} TRACON</Button>
                     ))}
                 </Stack>
             </Stack>

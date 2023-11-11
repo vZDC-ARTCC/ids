@@ -7,6 +7,8 @@ export type AirportConfig = {
     customizableOptions: CustomizableOption[],
     flows: AirportFlowConfig[],
     localControlPositions: string[],
+    sop: string,
+    sidebarOptions: SidebarOption[],
 }
 
 export type AirportFlowConfig = {
@@ -25,7 +27,8 @@ export type AvailableRunway = {
 export type TraconConfig = {
     id: string,
     name: string,
-
+    departureGates: string[],
+    areas: TraconAreaConfig[],
 }
 
 export type TraconAreaConfig = {
@@ -33,10 +36,23 @@ export type TraconAreaConfig = {
     name: string,
     majorFieldIcao: string,
     minorFieldsIcao: string[],
+    sop: string,
+    sectors: TraconSectorConfig[],
     customizableOptions: CustomizableOption[],
+
+}
+
+export type TraconSectorConfig = {
+    name: string,
+    frequency: string,
 }
 
 export type CustomizableOption = {
     name: string,
     choices: string[],
+}
+
+export type SidebarOption = {
+    name: string,
+    resourceLink: string,
 }

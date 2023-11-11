@@ -499,4 +499,6 @@ export const iadAirportConfig: AirportConfig = {
     ],
     localControlPositions: ['LCE', 'LCW', 'LCN'],
     customizableOptions: [],
+    sop: '/sop/iad_sop.pdf',
+    sidebarOptions: [],
 }

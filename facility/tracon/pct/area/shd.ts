@@ -1,7 +1,12 @@
 import {TraconAreaConfig} from "@/types";
 
 export const PCT_SHD: TraconAreaConfig = {
-    name: 'SHD',
+    id: 'SHD',
+    name: 'Shenandoah',
+    sop: '/sop/pct_shd_sop.pdf',
+    majorFieldIcao: 'KIAD',
+    minorFieldsIcao: [],
+    customizableOptions: [],
     sectors: [
         {
             name: 'ASPER',
