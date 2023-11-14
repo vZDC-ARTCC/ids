@@ -1,7 +1,7 @@
 import {AirportConfig} from "@/types";
 
 export const iadAirportConfig: AirportConfig = {
-    id: 'IAD',
+    faaIdentifier: 'IAD',
     icao: 'KIAD',
     parentTracon: 'PCT',
     parentTraconArea: 'SHD',

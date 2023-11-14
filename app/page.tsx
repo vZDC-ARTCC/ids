@@ -1,9 +1,8 @@
-import {AppBar, Box, Stack, Toolbar, Typography} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import LoginButton from "@/components/Login/LoginButton";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/auth/auth";
-import ColorModeButton from "@/components/Nav/ColorModeButton";
-import Logo from "@/components/Logo/Logo";
+
 import FacilityPicker from "@/components/FacilityPicker/FacilityPicker";
 
 export default async function Home() {
@@ -20,8 +19,8 @@ export default async function Home() {
           }}>
               <Typography variant="h6" sx={{display: 'block',}}>Select a facility or login below to access the
                   IDS:</Typography>
-              {!session && <LoginButton session={session}/>}
-              {session && <FacilityPicker/>}
+              {!session && (<LoginButton session={session}/>)}
+              {session && (<FacilityPicker/>)}
           </Box>
       </>
     )

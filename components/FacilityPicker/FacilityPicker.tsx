@@ -1,31 +1,49 @@
 "use client";
-import React from 'react';
-import {Button, Stack} from "@mui/material";
-import {FACILITIES, FacilityType} from "@/facility/facilities";
+import React, {useCallback, useEffect, useState} from 'react';
+import {Button, CircularProgress, Stack} from "@mui/material";
 import {useRouter} from "next/navigation";
 
 function FacilityPicker() {
 
-    const facilities = FACILITIES;
-    const atcts = facilities.filter((facility) => facility.type === FacilityType.ATCT);
-    const tracons = facilities.filter((facility) => facility.type === FacilityType.TRACON);
-
     const router = useRouter();
+    const [facilities, setFacilities] = useState<{
+        tracons: {
+            faaIdentifier: string,
+            areas: {
+                faaIdentifier: string,
+                name: string,
+            }[]
+        }[],
+        atcts: {
+            icao: string,
+            faaIdentifier: string,
+        }[]
+    }>();
+
+    const fetchFacilities = useCallback(async () => {
+        const res = await fetch('/api/facility/all');
+        return await res.json();
+    }, []);
+
+    useEffect(() => {
+        fetchFacilities().then(setFacilities);
+    }, [fetchFacilities]);
 
     return (
         <>
             <Stack direction="row" spacing={2}>
+                { !facilities && <CircularProgress /> }
                 <Stack spacing={2}>
-                    {atcts.map((atct) => (
-                        <Button key={atct.name} variant="contained"
-                                onClick={() => router.replace(`/atct/${atct.config.id}`)}>{atct.name} ATCT</Button>
+                    {facilities?.atcts.map((atct) => (
+                        <Button key={atct.icao} variant="contained"
+                                onClick={() => router.replace(`/atct/${atct.icao}`)}>{atct.faaIdentifier} ATCT</Button>
                     ))}
                 </Stack>
                 <Stack spacing={2}>
-                    {tracons.map((tracon) => (
-                        <Button key={tracon.name} variant="contained"
-                                onClick={() => router.replace(`/tracon/${tracon.config.id}`)}>{tracon.name} TRACON</Button>
-                    ))}
+                    {facilities?.tracons.map((tracon) => tracon.areas.map((area) => (
+                        <Button key={tracon.faaIdentifier + area.faaIdentifier} variant="contained"
+                                onClick={() => router.replace(`/tracon/${tracon.faaIdentifier}/${area.faaIdentifier}`)}>{`${tracon.faaIdentifier}-${area.faaIdentifier}`}</Button>
+                    )))}
                 </Stack>
             </Stack>
         </>

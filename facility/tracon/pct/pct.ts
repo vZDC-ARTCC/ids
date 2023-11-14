@@ -2,7 +2,7 @@ import {TraconConfig} from "@/types";
 import {PCT_SHD} from "@/facility/tracon/pct/area/shd";
 
 export const PCT_CONFIG: TraconConfig = {
-    id: 'PCT',
+    faaIdentifier: 'PCT',
     name: 'Potomac Consolidated TRACON',
     departureGates: [
         'SWANN',

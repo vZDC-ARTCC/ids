@@ -1,11 +1,11 @@
 import {NextAuthOptions, User} from "next-auth";
 import {PrismaAdapter} from "@auth/prisma-adapter";
-import {PrismaClient} from "@prisma/client";
 import VatsimProvider from "@/auth/vatsimProvider";
 import {Adapter} from "next-auth/adapters";
+import DBClient from "@/prisma/db_client";
 
 // grab a new instance of Prisma
-const prisma = new PrismaClient();
+const prisma = DBClient.getInstance().prisma;
 
 // get facility from environment variables
 const VATUSA_FACILITY = process.env['VATUSA_FACILITY'];

@@ -60,3 +60,98 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Tracon {
+  faaIdentifier  String       @id
+  name           String?
+  departureGates String[]
+  areas          TraconArea[]
+}
+
+model TraconArea {
+  id            String         @id @default(cuid())
+  faaIdentifier String
+  name          String
+  sopLink       String
+  sectors       TraconSector[]
+  majorField    Airport?       @relation("Airport_majorField")
+  minorFields   Airport[]      @relation("Airport_minorFields")
+
+  parentTracon        Tracon? @relation(fields: [traconFaaIdentifier], references: [faaIdentifier], onDelete: Cascade, onUpdate: Cascade)
+  traconFaaIdentifier String?
+
+  @@unique([traconFaaIdentifier, faaIdentifier])
+}
+
+model TraconSector {
+  id           String @id @default(cuid())
+  name         String
+  sectorLetter String
+  frequency    String
+
+  parentTraconArea   TraconArea? @relation(fields: [parentTraconAreaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  parentTraconAreaId String?
+
+  @@unique([parentTraconAreaId, name])
+}
+
+model Airport {
+  icao                  String               @id
+  faaIdentifier         String               @unique
+  sopLink               String
+  localControlPositions String[]
+  customizableOptions   CustomizableOption[] @relation("Airport_customizableOptions")
+  activeFlow            AirportFlow?         @relation("Airport_activeFlow")
+  flows                 AirportFlow[]
+
+  runways Runway[] @relation("Airport_runways")
+
+  parentMajorTraconArea TraconArea? @relation("Airport_majorField", fields: [parentTraconAreaId], references: [id], map: "airport_major_fields_fkey", onDelete: Cascade, onUpdate: Cascade)
+  parentMinorTraconArea TraconArea? @relation("Airport_minorFields", fields: [parentTraconAreaId], references: [id], map: "airport_minor_fields_fkey", onDelete: Cascade, onUpdate: Cascade)
+
+  parentTraconAreaId String @unique
+}
+
+model AirportFlow {
+  id   String @id @default(cuid())
+  name String
+
+  flowActiveAirport   Airport? @relation("Airport_activeFlow", fields: [flowActiveAirportId], references: [icao])
+  flowActiveAirportId String?  @unique
+
+  airport   Airport? @relation(fields: [airportId], references: [icao], onDelete: Cascade, onUpdate: Cascade)
+  airportId String?
+
+  departureRunways Runway[] @relation("AirportFlow_departureRunways")
+  arrivalRunways   Runway[] @relation("AirportFlow_arrivalRunways")
+
+  traconVisibleOptions CustomizableOption[] @relation("AirportFlow_traconVisibleOptions")
+
+  @@unique([airportId, name])
+}
+
+model Runway {
+  id             String   @id @default(cuid())
+  runwayNumber   String
+  approachTypes  String[]
+  departureTypes String[]
+
+  flowDeparture AirportFlow? @relation("AirportFlow_departureRunways", fields: [flowId], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "runway_departure_flow_fkey")
+  flowArrival   AirportFlow? @relation("AirportFlow_arrivalRunways", fields: [flowId], references: [id], onDelete: Cascade, onUpdate: Cascade, map: "runway_arrival_flow_fkey")
+  flowId        String?
+
+  airport   Airport? @relation("Airport_runways", fields: [airportId], references: [icao], onDelete: Cascade, onUpdate: Cascade)
+  airportId String?
+}
+
+model CustomizableOption {
+  id      String   @id @default(cuid())
+  name    String
+  choices String[]
+
+  flowOption AirportFlow? @relation("AirportFlow_traconVisibleOptions", fields: [flowId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  flowId     String?
+
+  airportOption Airport? @relation("Airport_customizableOptions", fields: [airportId], references: [icao], onDelete: Cascade, onUpdate: Cascade)
+  airportId     String?
+}
