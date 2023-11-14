@@ -28,7 +28,7 @@ function AirportFlowDisplay({ icao, condensed = false }: { icao: string, condens
         fetchFlows().then(setFlows);
         fetchActiveFlow().then(setActiveFlow);
 
-        const interval = setInterval(() => {
+        setInterval(() => {
             fetchActiveFlow().then(setActiveFlow);
         }, 15000);
     }, [fetchFlows, fetchActiveFlow]);

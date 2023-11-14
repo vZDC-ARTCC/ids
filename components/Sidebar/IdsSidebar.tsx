@@ -1,12 +1,10 @@
 import React from 'react';
-import {AirportConfig, TraconAreaConfig} from "@/types";
-import {Divider, Drawer, List, ListItem, ListItemButton, ListItemText, Toolbar} from "@mui/material";
+import {Divider, Drawer, List, Toolbar} from "@mui/material";
 import SidebarListItem from "@/components/Sidebar/SidebarListItem";
 import {Airport} from "@prisma/client";
 
 function IdsSidebar({ airport }: { airport: Airport }) {
 
-    const sopLink = airport.sopLink;
     const id = airport.icao;
     const drawerWidth = '5rem';
 

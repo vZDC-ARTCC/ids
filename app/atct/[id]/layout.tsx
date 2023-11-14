@@ -1,7 +1,6 @@
-import React, {ReactNode} from 'react';
-import {Box, Typography} from "@mui/material";
+import React from 'react';
+import {Typography} from "@mui/material";
 import IdsSidebar from "@/components/Sidebar/IdsSidebar";
-import {AirportConfig} from "@/types";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/auth/auth";
 import LoginButton from "@/components/Login/LoginButton";

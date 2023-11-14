@@ -3,7 +3,7 @@ import {Grid, Typography} from "@mui/material";
 import AtisLetter from "@/components/AtisInformation/AtisLetter";
 import {VatsimATISConnection} from "@/types";
 import AirportFlowDisplay from '@/components/AtisInformation/AirportFlowDisplay';
-import {Airport, AirportFlow} from "@prisma/client";
+import {Airport} from "@prisma/client";
 
 async function AirportHeader({ icao }: { icao: string }) {
 

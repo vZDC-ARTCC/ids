@@ -1,5 +1,4 @@
 import React from 'react';
-import {getAtctConfig} from "@/lib/fetchConfig";
 import ChartsTab from "@/components/Tabs/ChartsTab";
 import {Airport} from "@prisma/client";
 import {Typography} from "@mui/material";

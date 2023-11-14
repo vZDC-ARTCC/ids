@@ -1,6 +1,6 @@
 "use client";
 import React, {useCallback, useEffect, useState} from 'react';
-import {Airport, Runway} from "@prisma/client";
+import {Runway} from "@prisma/client";
 import {
     Box,
     Button,

@@ -1,6 +1,6 @@
 "use client";
 import React, {useState} from 'react';
-import {Button, FormControl, InputLabel, MenuItem, Modal, Select, Stack, Typography} from "@mui/material";
+import {Button, FormControl, InputLabel, MenuItem, Select, Stack} from "@mui/material";
 import {AirportFlow} from "@prisma/client";
 import {Add} from "@mui/icons-material";
 import CustomFlowModal from "@/components/flow/CustomFlowModal";
@@ -26,7 +26,7 @@ function FlowPicker({ icao, flows, changeFlow }: { icao: string, flows: AirportF
     return flows && (
         <>
             <CustomFlowModal icao={icao} open={customDialogOpen} onClose={() => setCustomDialogOpen(false)} onSubmit={createFlow} />
-            { !formOpen && <Button variant="contained" onClick={(e) => setFormOpen(true)}>Change Flow</Button> }
+            { !formOpen && <Button variant="contained" onClick={() => setFormOpen(true)}>Change Flow</Button> }
             { formOpen && <form onSubmit={(e) => {
                 e.preventDefault();
                 changeFlow(flowId).then(() => setFormOpen(false));

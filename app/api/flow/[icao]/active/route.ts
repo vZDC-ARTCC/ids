@@ -1,5 +1,5 @@
 import DBClient from "@/prisma/db_client";
-import {NextRequest, NextResponse} from "next/server";
+import {NextRequest} from "next/server";
 
 const prisma = DBClient.getInstance().prisma;
 

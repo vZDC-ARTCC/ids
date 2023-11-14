@@ -1,5 +1,4 @@
 import DBClient from "@/prisma/db_client";
-import {Tracon} from "@prisma/client";
 
 const PRISMA = DBClient.getInstance().prisma;
 export async function GET() {

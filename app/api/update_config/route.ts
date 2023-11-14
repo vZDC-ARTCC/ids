@@ -1,6 +1,5 @@
 import DBClient from "@/prisma/db_client";
 import {IDS_TRACON_FACILITIES} from "@/facility/facilities";
-import {Tracon} from "@prisma/client";
 import {TraconConfig} from "@/types";
 
 const PRISMA = DBClient.getInstance().prisma;
