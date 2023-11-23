@@ -1,5 +1,4 @@
 import React from 'react';
-import IdsTab from "@/components/Tabs/IdsTab";
 import {Checkbox, FormControlLabel, FormGroup, TextField, Typography} from "@mui/material";
 
 function EmergencyChecklistTab() {

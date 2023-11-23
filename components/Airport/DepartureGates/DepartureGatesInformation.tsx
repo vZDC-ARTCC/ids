@@ -2,7 +2,6 @@ import React from 'react';
 import {Box, Typography} from "@mui/material";
 import AssignedDepartureGateList from "@/components/Airport/DepartureGates/AssignedDepartureGateList";
 import {fetchParentArea} from "@/actions/traconArea";
-import AddAssignmentForm from "@/components/Airport/DepartureGates/AddAssignmentForm";
 
 async function DepartureGatesInformation({ icao }: { icao: string, }) {
 

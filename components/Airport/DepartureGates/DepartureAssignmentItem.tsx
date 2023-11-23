@@ -4,7 +4,7 @@ import {DepartureGatesAssignment} from "@prisma/client";
 import {
     Box, Button,
     Checkbox,
-    IconButton, List,
+    IconButton,
     ListItem,
     ListItemText,
     MenuItem,

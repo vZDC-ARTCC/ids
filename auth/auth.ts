@@ -1,4 +1,4 @@
-import {NextAuthOptions, User} from "next-auth";
+import {NextAuthOptions} from "next-auth";
 import {PrismaAdapter} from "@auth/prisma-adapter";
 import VatsimProvider from "@/auth/vatsimProvider";
 import {Adapter} from "next-auth/adapters";

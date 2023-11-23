@@ -1,7 +1,6 @@
 "use client";
 import React, {useEffect, useState} from 'react';
 import {Chart} from "@/types";
-import IdsTab from "@/components/Tabs/IdsTab";
 import {Button, ButtonGroup, CircularProgress, Stack, Typography} from "@mui/material";
 
 function ChartsTab({ icao }: { icao: string, }) {

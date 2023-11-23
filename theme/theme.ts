@@ -1,3 +1,5 @@
+// noinspection JSUnusedLocalSymbols
+
 import {createTheme, PaletteMode, PaletteOptions, Theme} from "@mui/material";
 import {Roboto} from "next/font/google";
 

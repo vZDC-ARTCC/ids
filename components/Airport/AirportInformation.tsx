@@ -2,9 +2,8 @@
 import React, {useEffect, useState} from 'react';
 import {fetchActiveFlow} from "@/actions/flow";
 import {Box, CircularProgress, Grid, Stack, Typography} from "@mui/material";
-import {CustomizableOption, Runway} from "@prisma/client";
+import {CustomizableOption} from "@prisma/client";
 import OptionSelect from "@/components/Airport/Option/OptionSelect";
-import ActiveRunway from "@/components/Flow/ActiveRunway";
 import FlowDisplay from "@/components/Flow/FlowDisplay";
 
 function AirportInformation({ icao, condensed }: { icao: string, condensed: boolean, }) {

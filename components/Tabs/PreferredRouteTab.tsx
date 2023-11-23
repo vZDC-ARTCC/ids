@@ -1,7 +1,6 @@
 "use client";
 import React, {useState} from 'react';
 import {PreferredRoute} from "@/types";
-import IdsTab from "@/components/Tabs/IdsTab";
 import {Table, TableBody, TableCell, TableHead, TableRow, Typography} from "@mui/material";
 import PrdForm from "@/components/PRD/PrdForm";
 

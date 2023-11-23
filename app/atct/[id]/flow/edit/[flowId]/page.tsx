@@ -1,8 +1,6 @@
 import React from 'react';
 import {Typography} from "@mui/material";
 import FlowAttributesForm from "@/components/Flow/FlowAttributesForm";
-import {Runway} from "@prisma/client";
-import {AvailableRunway, CustomizableOption} from "@/types";
 import {fetchFlow} from "@/actions/flow";
 import {fetchAvailableRunways} from "@/actions/runway";
 

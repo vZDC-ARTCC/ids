@@ -1,7 +1,7 @@
 "use client"
 import React, {useState} from 'react';
 import {TraconSector} from "@prisma/client";
-import {Button, Checkbox, ListItemText, MenuItem, Select, SelectChangeEvent, Stack, Typography} from "@mui/material";
+import {Button, Checkbox, ListItemText, MenuItem, Select, SelectChangeEvent, Stack} from "@mui/material";
 import {Add} from "@mui/icons-material";
 import {createAssignment} from "@/actions/departureGate";
 

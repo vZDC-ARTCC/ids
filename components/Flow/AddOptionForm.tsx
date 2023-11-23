@@ -1,7 +1,7 @@
 "use client";
 import React, {useState} from 'react';
 import {CustomizableOption} from "@/types";
-import {Autocomplete, Box, Button, Chip, Stack, TextField, Typography} from "@mui/material";
+import {Box, Button, Stack, TextField} from "@mui/material";
 import {Add} from "@mui/icons-material";
 
 function AddOptionForm({ onSubmit }: { onSubmit: (option: CustomizableOption) => void }) {

@@ -1,6 +1,5 @@
 import React from 'react';
 import {Typography} from "@mui/material";
-import IdsTab from "@/components/Tabs/IdsTab";
 
 function AircraftTypesTab() {
     return (

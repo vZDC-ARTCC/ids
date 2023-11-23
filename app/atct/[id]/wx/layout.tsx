@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Button, Stack, Tab, Tabs} from "@mui/material";
+import {Button, Stack} from "@mui/material";
 import Link from "next/link";
 
 function WeatherLayout({ children }: { children: React.ReactNode, }) {

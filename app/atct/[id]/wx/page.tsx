@@ -1,7 +1,7 @@
 import React from 'react';
 import {Container} from "@mui/material";
 
-function WeatherPage({ params }: { params: { id: string, }, }) {
+function WeatherPage() {
 
     return (
         <Container maxWidth="xl">

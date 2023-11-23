@@ -30,7 +30,7 @@ function PirepForm() {
         currentDateTime.setUTCSeconds(0);
         currentDateTime.setUTCMilliseconds(0);
 
-        createPirep({ ...pirep, time: currentDateTime.toISOString(), }).then((pirep) => {
+        createPirep({ ...pirep, time: currentDateTime.toISOString(), }).then(() => {
             setPirep(undefined);
             router.refresh();
         })
