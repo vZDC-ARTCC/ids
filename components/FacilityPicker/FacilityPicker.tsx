@@ -2,6 +2,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {Button, CircularProgress, Stack} from "@mui/material";
 import {useRouter} from "next/navigation";
+import {fetchAllFacilities} from "@/actions/facility";
 
 function FacilityPicker() {
 
@@ -21,8 +22,7 @@ function FacilityPicker() {
     }>();
 
     const fetchFacilities = useCallback(async () => {
-        const res = await fetch('/api/facility/all');
-        return await res.json();
+        return await fetchAllFacilities();
     }, []);
 
     useEffect(() => {

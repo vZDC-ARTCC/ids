@@ -3,16 +3,15 @@ import React, {useState} from 'react';
 import {PreferredRoute} from "@/types";
 import {Table, TableBody, TableCell, TableHead, TableRow, Typography} from "@mui/material";
 import PrdForm from "@/components/PRD/PrdForm";
+import {getRoutes} from "@/actions/prd";
 
 function PreferredRouteTab({ defaultOriginAirport }: { defaultOriginAirport?: string, }) {
 
     const [routes, setRoutes] = useState<PreferredRoute[]>();
 
     const submit = async (origin: string, dest: string) => {
-        const res = await fetch(`/api/prd?origin=${origin}&dest=${dest}`);
-        const data = await res.json();
-        if (data.message) alert(data.message);
-        else setRoutes(data);
+        const data = await getRoutes(origin, dest);
+        setRoutes(data);
     }
 
     return (

@@ -163,10 +163,10 @@ model CustomizableOption {
 model DepartureGatesAssignment {
   id String @id @default(cuid())
 
-  airport   Airport @relation(fields: [airportId], references: [icao])
+  airport   Airport @relation(fields: [airportId], references: [icao], onDelete: Cascade, onUpdate: Cascade)
   airportId String
 
-  sector   TraconSector @relation(fields: [sectorId], references: [id])
+  sector   TraconSector @relation(fields: [sectorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   sectorId String
 
   gates String[]
@@ -177,7 +177,7 @@ model TowerRunwayAssignment {
   runwayIdentifiers String[]
   localIdentifier   String
 
-  airport   Airport @relation(fields: [airportId], references: [icao])
+  airport   Airport @relation(fields: [airportId], references: [icao], onDelete: Cascade)
   airportId String
 }
 

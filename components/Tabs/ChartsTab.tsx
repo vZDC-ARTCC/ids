@@ -2,18 +2,13 @@
 import React, {useEffect, useState} from 'react';
 import {Chart} from "@/types";
 import {Button, ButtonGroup, CircularProgress, Stack, Typography} from "@mui/material";
+import {getCharts} from "@/actions/chart";
 
 function ChartsTab({ icao }: { icao: string, }) {
     const [charts, setCharts] = useState<Chart[]>();
 
     const fetchCharts = async (icao: string) => {
-        const res = await fetch(`/api/charts/${icao}`, {
-            next: {
-                revalidate: 3600,
-            }
-        });
-        const data: Chart[] = await res.json();
-        return data;
+        return getCharts(icao);
     }
 
     useEffect(() => {

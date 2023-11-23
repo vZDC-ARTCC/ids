@@ -28,6 +28,9 @@ export async function fetchFlows(icao: string) {
             departureRunways: true,
             arrivalRunways: true,
             traconVisibleOptions: true,
+        },
+        orderBy: {
+            name: 'asc',
         }
     })
 }
