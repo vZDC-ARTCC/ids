@@ -6,7 +6,6 @@ function WeatherPage() {
     return (
         <Container maxWidth="xl">
 
-            <embed src="https://www.weather.gov/zdc/" type="application/html"/>
         </Container>
         
     );

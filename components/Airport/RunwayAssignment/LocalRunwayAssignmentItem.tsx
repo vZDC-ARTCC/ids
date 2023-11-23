@@ -52,7 +52,7 @@ function LocalRunwayAssignmentItem({ icao, position, runways, availableRunways, 
             <Stack direction="row" spacing={2} alignItems="center">
                 <Typography variant="h4" color="turquoise" fontWeight={700} sx={{ minWidth: '4rem', }}>{position}</Typography>
                 <ArrowForward fontSize="large" />
-                { !edit && runways.length === 0 && <Typography color="red">N/A</Typography> }
+                { !edit && runways.length === 0 && <Typography color="red">CLOSED</Typography> }
                 { !edit && runways.length > 0 &&
                     <Stack direction="row">
                         {runways.map((rwy) => <Typography key={rwy} variant="h5" color="lawngreen" fontWeight={700} sx={{ padding: 1, }}>{rwy}</Typography>)}
