@@ -1,5 +1,5 @@
 import {TraconAreaConfig} from "@/types";
-import {iadAirportConfig} from "@/facility/atct/iad";
+import {iadAirportConfig} from "@/facility/atct/kiad";
 
 export const PCT_SHD: TraconAreaConfig = {
     id: 'Shenandoah',
