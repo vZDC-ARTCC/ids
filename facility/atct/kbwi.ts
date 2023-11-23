@@ -1,156 +1,140 @@
 import {AirportConfig} from "@/types";
 
-export const dcaAirportConfig: AirportConfig = {
-    faaIdentifier: 'DCA',
-    icao: 'KDCA',
+export const bwiAirportConfig: AirportConfig = {
+    faaIdentifier: 'BWI',
+    icao: 'KBWI',
     parentTracon: 'PCT',
-    parentTraconArea: 'MTV',
+    parentTraconArea: 'CHP',
     availableRunways: [
         {
-            id: '01',
-            availableApproachTypes: ['ILS', 'RNP', 'MTV-VIS'],
+            id: '33L',
+            availableApproachTypes: ['ILS', 'RNP-Z','GPS-Y', 'VIS',],
             availableDepartureTypes: ['RV', 'ROTG'],
         },
         {
-            id: '19',
-            availableApproachTypes: ['ILS', 'RNP', 'RIV-VIS', 'LDA-Y', 'LDA-Z'],
-            availableDepartureTypes: ['RV', 'ROTG'],
-        },
-        {
-            id: '33',
-            availableApproachTypes: ['GPS', 'VIS'],
-            availableDepartureTypes: ['RV', 'ROTG'],
-        },
-        {
-            id: '15',
-            availableApproachTypes: ['GPS', 'VIS'],
-            availableDepartureTypes: ['RV', 'ROTG'],
-        },
-        {
-            id: '04',
+            id: '33R',
             availableApproachTypes: ['VIS'],
             availableDepartureTypes: ['RV', 'ROTG'],
         },
         {
-            id: '22',
+            id: '28',
+            availableApproachTypes: ['ILS', 'RNP-Z','GPS-Y', 'VIS',],
+            availableDepartureTypes: ['RV', 'ROTG'],
+        },
+        {
+            id: '15L',
             availableApproachTypes: ['VIS'],
-            availableDepartureTypes: ['RV'],
+            availableDepartureTypes: ['RV', 'ROTG'],
+        },
+        {
+            id: '15R',
+            availableApproachTypes: ['ILS', 'RNP-Z','GPS-Y', 'VIS',],
+            availableDepartureTypes: ['RV', 'ROTG'],
+        },
+        {
+            id: '10',
+            availableApproachTypes: ['ILS', 'RNP-Z','GPS-Y', 'VIS',],
+            availableDepartureTypes: ['RV', 'ROTG'],
         },
     ],
     flows: [
         {
-            name: 'NORTH VMC',
+            name: 'WEST VMC',
             departureRunways: [
                 {
-                    id: '01',
+                    id: '15R',
                     availableDepartureTypes: ['RV', 'ROTG'],
                 },
                 {
-                    id: '33',
+                    id: '15L',
                     availableDepartureTypes: ['RV', 'ROTG'],
                 },
-                {
-                    id: '04',
-                    availableDepartureTypes: ['RV', 'ROTG'],
-                },
+
             ],
             arrivalRunways: [
                 {
-                    id: '01',
-                    availableApproachTypes: ['ILS', 'RNP', 'VIS',],
+                    id: '10',
+                    availableApproachTypes: ['ILS', 'RNP-Z','GPS-Y', 'VIS'],
                 },
                 {
-                    id: '33',
-                    availableApproachTypes: ['GPS', 'VIS'],
-                },
-                {
-                    id: '04',
+                    id: '15L',
                     availableApproachTypes: ['VIS'],
                 },
             ],
             traconVisibleOptions: [],
         },
         {
-            name: 'NORTH IMC',
+            name: 'WEST IMC',
             departureRunways: [
                 {
-                    id: '01',
+                    id: '15R',
                     availableDepartureTypes: ['RV', 'ROTG'],
                 },
                 {
-                    id: '33',
+                    id: '15L',
                     availableDepartureTypes: ['RV', 'ROTG'],
                 },
-                {
-                    id: '04',
-                    availableDepartureTypes: ['RV', 'ROTG'],
-                },
-            ],
-            arrivalRunways: [
-                {
-                    id: '01',
-                    availableApproachTypes: ['ILS', 'RNP'],
-                },
-                {
-                    id: '33',
-                    availableApproachTypes: ['GPS'],
-                },
-            ],
-            traconVisibleOptions: [],
-        },
-        {
-            name: 'SOUTH VMC',
-            departureRunways: [
-                {
-                    id: '19',
-                    availableDepartureTypes: ['RV', 'ROTG'],
-                },
-                {
-                    id: '15',
-                    availableDepartureTypes: ['RV', 'ROTG'],
-                },
-            ],
-            arrivalRunways: [
-                {
-                    id: '19',
-                    availableApproachTypes: ['ILS', 'RNP', 'RIV-VIS'],
-                },
-                {
-                    id: '15',
-                    availableApproachTypes: ['GPS', 'RIV-VIS'],
-                },
-            ],
-            traconVisibleOptions: [],
-        },
-        {
-            name: 'SOUTH IMC',
-            departureRunways: [
-                {
-                    id: '19',
-                    availableDepartureTypes: ['RV', 'ROTG'],
-                },
-                {
-                    id: '15',
-                    availableDepartureTypes: ['RV', 'ROTG'],
-                },
-            ],
-            arrivalRunways: [
-                {
-                    id: '19',
-                    availableApproachTypes: ['ILS', 'RNP'],
-                },
-                {
-                    id: '15',
-                    availableApproachTypes: ['GPS'],
-                },
-            ],
-            traconVisibleOptions: [],
-        },
 
+            ],
+            arrivalRunways: [
+                {
+                    id: '10',
+                    availableApproachTypes: ['ILS', 'RNP-Z','GPS-Y'],
+                },
+            ],
+            traconVisibleOptions: [],
+        },
+        {
+            name: 'EAST VMC',
+            departureRunways: [
+                {
+                    id: '28',
+                    availableDepartureTypes: ['RV', 'ROTG'],
+                },
+                {
+                    id: '33R',
+                    availableDepartureTypes: ['RV', 'ROTG'],
+                },
+
+            ],
+            arrivalRunways: [
+                {
+                    id: '33L',
+                    availableApproachTypes: ['ILS', 'RNP-Z','GPS-Y', 'VIS'],
+                },
+                {
+                    id: '33R',
+                    availableApproachTypes: ['VIS'],
+                },
+            ],
+            traconVisibleOptions: [],
+        },
+        {
+            name: 'EAST IMC',
+            departureRunways: [
+                {
+                    id: '28',
+                    availableDepartureTypes: ['RV', 'ROTG'],
+                },
+                {
+                    id: '33R',
+                    availableDepartureTypes: ['RV', 'ROTG'],
+                },
+
+            ],
+            arrivalRunways: [
+                {
+                    id: '33L',
+                    availableApproachTypes: ['ILS', 'RNP-Z','GPS-Y', 'VIS'],
+                },
+            ],
+            traconVisibleOptions: [],
+        },
     ],
 
-    localControlPositions: ['LC'],
+
+    localControlPositions: ['LCE', 'LCW'],
     customizableOptions: [],
-    sop: '/sop/dca_sop.pdf',
+    sop: '/sop/bwi_sop.pdf',
     sidebarOptions: [],
 }

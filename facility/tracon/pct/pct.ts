@@ -1,6 +1,7 @@
 import {TraconConfig} from "@/types";
 import {PCT_SHD} from "@/facility/tracon/pct/area/shd";
 import {PCT_MTV} from "@/facility/tracon/pct/area/mtv";
+import {PCT_CHP} from "@/facility/tracon/pct/area/chp";
 
 export const PCT_CONFIG: TraconConfig = {
     faaIdentifier: 'PCT',
@@ -37,6 +38,7 @@ export const PCT_CONFIG: TraconConfig = {
     areas: [
         PCT_SHD,
         PCT_MTV,
+        PCT_CHP,
     ],
     sectors: [
         {
@@ -144,5 +146,42 @@ export const PCT_CONFIG: TraconConfig = {
             frequency: '128.000',
             sectorLetter: 'A',
         },
+        {
+            name: 'GRACO',
+            frequency: '124.550',
+            sectorLetter: 'G',
+        },
+        {
+            name: 'WOOLY',
+            frequency: '128.700',
+            sectorLetter: 'W',
+        },
+        {
+            name: 'BELAY',
+            frequency: '125.525',
+            sectorLetter: 'B',
+        },
+        {
+            name: 'BUFFER',
+            frequency: '133.850',
+            sectorLetter: 'H',
+        },
+        {
+            name: 'PALEO',
+            frequency: '133.750',
+            sectorLetter: 'P',
+        },
+        {
+            name: 'BWIFS',
+            frequency: '119.700',
+            sectorLetter: 'S',
+        },
+        {
+            name: 'BWIFN',
+            frequency: '119.000',
+            sectorLetter: 'N',
+        },
+
+
     ],
 }
