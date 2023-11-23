@@ -20,8 +20,6 @@ export async function GET(request: Request, { params }: { params: { icao: string
         },
     });
 
-    console.log(flow?.departureRunways);
-
     return Response.json(flow);
 }
 

@@ -12,7 +12,9 @@ function IdsTab({ children }: { children: ReactNode }) {
             padding: '2rem 2rem 2rem 7rem',
             gap: '1rem',
         }}>
-            {children}
+            <>
+                {children}
+            </>
         </Box>
     );
 }

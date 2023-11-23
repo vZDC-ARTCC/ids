@@ -29,18 +29,17 @@ export type TraconConfig = {
     name: string,
     departureGates: string[],
     areas: TraconAreaConfig[],
+    sectors: TraconSectorConfig[],
 }
 
 export type TraconAreaConfig = {
     id: string,
     faaIdentifier: string,
     name: string,
-    majorField: AirportConfig,
+    majorFields: AirportConfig[],
     minorFields: AirportConfig[],
     sop: string,
-    sectors: TraconSectorConfig[],
     customizableOptions: CustomizableOption[],
-
 }
 
 export type TraconSectorConfig = {

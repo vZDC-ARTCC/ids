@@ -1,10 +1,10 @@
 import React from 'react';
-import {AppBar, Stack, Toolbar, Typography} from "@mui/material";
+import {AppBar, Stack, Toolbar} from "@mui/material";
 import Logo from "@/components/Logo/Logo";
-import ColorModeButton from "@/components/Nav/ColorModeButton";
 import LoginButton from "@/components/Login/LoginButton";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/auth/auth";
+import ZuluTime from "@/components/Nav/ZuluTime";
 
 async function Navbar() {
 
@@ -15,10 +15,10 @@ async function Navbar() {
             <Toolbar>
                 <Stack direction="row" spacing={2} alignItems="center" sx={{flexGrow: 1,}}>
                     <Logo/>
-                    <Typography variant="h4">vIDS</Typography>
+                    <ZuluTime />
                 </Stack>
                 <Stack direction="row" alignItems="center" spacing={2}>
-                    <ColorModeButton/>
+                    {/*<ColorModeButton/>*/}
                     <LoginButton session={session}/>
                 </Stack>
             </Toolbar>

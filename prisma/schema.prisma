@@ -62,20 +62,20 @@ model VerificationToken {
 }
 
 model Tracon {
-  faaIdentifier  String       @id
+  faaIdentifier  String         @id
   name           String?
   departureGates String[]
   areas          TraconArea[]
+  sectors        TraconSector[]
 }
 
 model TraconArea {
-  id            String         @id @default(cuid())
+  id            String    @id @default(cuid())
   faaIdentifier String
   name          String
   sopLink       String
-  sectors       TraconSector[]
-  majorField    Airport?       @relation("Airport_majorField")
-  minorFields   Airport[]      @relation("Airport_minorFields")
+  majorFields   Airport[] @relation("Airport_majorField")
+  minorFields   Airport[] @relation("Airport_minorFields")
 
   parentTracon        Tracon? @relation(fields: [traconFaaIdentifier], references: [faaIdentifier], onDelete: Cascade, onUpdate: Cascade)
   traconFaaIdentifier String?
@@ -84,25 +84,28 @@ model TraconArea {
 }
 
 model TraconSector {
-  id           String @id @default(cuid())
-  name         String
-  sectorLetter String
-  frequency    String
+  id            String                     @id @default(cuid())
+  name          String
+  sectorLetter  String
+  frequency     String
+  assignedGates DepartureGatesAssignment[]
 
-  parentTraconArea   TraconArea? @relation(fields: [parentTraconAreaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  parentTraconAreaId String?
+  parentTracon   Tracon? @relation(fields: [parentTraconId], references: [faaIdentifier], onDelete: Cascade, onUpdate: Cascade)
+  parentTraconId String?
 
-  @@unique([parentTraconAreaId, name])
+  @@unique([parentTraconId, name])
 }
 
 model Airport {
-  icao                  String               @id
-  faaIdentifier         String               @unique
-  sopLink               String
-  localControlPositions String[]
-  customizableOptions   CustomizableOption[] @relation("Airport_customizableOptions")
-  activeFlow            AirportFlow?         @relation("Airport_activeFlow")
-  flows                 AirportFlow[]
+  icao                     String                     @id
+  faaIdentifier            String                     @unique
+  sopLink                  String
+  localControlPositions    String[]
+  customizableOptions      CustomizableOption[]       @relation("Airport_customizableOptions")
+  activeFlow               AirportFlow?               @relation("Airport_activeFlow")
+  flows                    AirportFlow[]
+  departureGateAssignments DepartureGatesAssignment[]
+  localRunwayAssignments   TowerRunwayAssignment[]
 
   runways Runway[] @relation("Airport_runways")
 
@@ -147,6 +150,7 @@ model Runway {
 model CustomizableOption {
   id      String   @id @default(cuid())
   name    String
+  value   String?
   choices String[]
 
   flowOption AirportFlow? @relation("AirportFlow_traconVisibleOptions", fields: [flowId], references: [id], onDelete: Cascade, onUpdate: Cascade)
@@ -154,4 +158,45 @@ model CustomizableOption {
 
   airportOption Airport? @relation("Airport_customizableOptions", fields: [airportId], references: [icao], onDelete: Cascade, onUpdate: Cascade)
   airportId     String?
+}
+
+model DepartureGatesAssignment {
+  id String @id @default(cuid())
+
+  airport   Airport @relation(fields: [airportId], references: [icao])
+  airportId String
+
+  sector   TraconSector @relation(fields: [sectorId], references: [id])
+  sectorId String
+
+  gates String[]
+}
+
+model TowerRunwayAssignment {
+  id                String   @id @default(cuid())
+  runwayIdentifiers String[]
+  localIdentifier   String
+
+  airport   Airport @relation(fields: [airportId], references: [icao])
+  airportId String
+}
+
+model Pirep {
+  id           String    @id @default(cuid())
+  urgency      PirepType
+  location     String
+  time         DateTime
+  flightLevel  String
+  aircraftType String
+  remarks      String
+}
+
+model Broadcast {
+  id      String @id @default(cuid())
+  message String
+}
+
+enum PirepType {
+  ROUTINE
+  URGENT
 }

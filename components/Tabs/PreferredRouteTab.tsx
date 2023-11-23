@@ -17,7 +17,7 @@ function PreferredRouteTab({ defaultOriginAirport }: { defaultOriginAirport?: st
     }
 
     return (
-        <IdsTab>
+        <>
             <Typography variant="h3">Preferred Routes Database</Typography>
             <PrdForm onSubmit={submit} defaultOriginAirport={defaultOriginAirport} />
             <Table sx={{ maxWidth: '70rem', }}>
@@ -61,7 +61,7 @@ function PreferredRouteTab({ defaultOriginAirport }: { defaultOriginAirport?: st
                     ))}
                 </TableBody>
             </Table>
-        </IdsTab>
+        </>
     );
 }
 

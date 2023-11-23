@@ -31,7 +31,7 @@ function FacilityPicker() {
 
     return (
         <>
-            <Stack direction="row" spacing={2}>
+            <Stack direction="row" spacing={2} justifyContent="center">
                 { !facilities && <CircularProgress /> }
                 <Stack spacing={2}>
                     {facilities?.atcts.map((atct) => (

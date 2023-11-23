@@ -15,21 +15,12 @@ export async function GET() {
         }
     });
 
-    const airports = await PRISMA.airport.findMany({
+    const atcts: any = await PRISMA.airport.findMany({
         select: {
             icao: true,
             faaIdentifier: true,
         }
     });
-
-    const traconArray: any = [];
-    const atcts: any = airports;
-    for (const tracon of tracons) {
-        traconArray.push({
-            faaIdentifier: tracon.faaIdentifier,
-            areas: tracon.areas,
-        })
-    }
 
     return Response.json({ tracons, atcts, });
 

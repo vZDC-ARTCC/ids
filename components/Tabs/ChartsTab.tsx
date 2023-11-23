@@ -22,7 +22,7 @@ function ChartsTab({ icao }: { icao: string, }) {
     }, [icao]);
 
     return (
-        <IdsTab>
+        <>
             { !charts && <CircularProgress color="primary" /> }
             <Stack direction="row" spacing={10} justifyContent="center" flexWrap="wrap">
                 { charts && getUniqueCategories(charts).map((category) =>
@@ -36,8 +36,7 @@ function ChartsTab({ icao }: { icao: string, }) {
                     )
                 )}
             </Stack>
-
-        </IdsTab>
+        </>
     );
 }
 

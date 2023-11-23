@@ -18,16 +18,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-
         <ThemeRegistry>
             <body>
-            <Box>
-                <Navbar />
-                {children}
-            </Box>
+                <>
+                    <Navbar />
+                    {children}
+                </>
             </body>
         </ThemeRegistry>
-
     </html>
   )
 }

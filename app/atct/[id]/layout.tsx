@@ -1,10 +1,11 @@
 import React from 'react';
 import {Typography} from "@mui/material";
-import IdsSidebar from "@/components/Sidebar/IdsSidebar";
+import IdsAtctSidebar from "@/components/Sidebar/IdsAtctSidebar";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/auth/auth";
 import LoginButton from "@/components/Login/LoginButton";
-import DBClient from "@/prisma/db_client";
+import {fetchAirport} from "@/actions/airport";
+import IdsTab from "@/components/Tabs/IdsTab";
 
 async function AtctLayout({ children, params }: { children: React.ReactNode, params: { id: string, } }) {
 
@@ -16,16 +17,7 @@ async function AtctLayout({ children, params }: { children: React.ReactNode, par
 
     const { id } = params;
 
-    const prisma = DBClient.getInstance().prisma;
-
-    const airport = await prisma.airport.findFirst({
-        where: {
-            icao: id,
-        },
-        include: {
-            runways: true,
-        }
-    });
+    const airport = await fetchAirport(id);
 
     if (!airport) {
         return <Typography>Airport not found</Typography>
@@ -33,11 +25,10 @@ async function AtctLayout({ children, params }: { children: React.ReactNode, par
 
     return (
         <>
-            <IdsSidebar airport={airport} />
-            <div>
+            <IdsAtctSidebar airport={airport} />
+            <IdsTab>
                 {children}
-            </div>
-
+            </IdsTab>
         </>
     );
 }

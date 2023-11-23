@@ -35,7 +35,8 @@ const roboto = Roboto({
 
 export default function getTheme(mode: PaletteMode): Theme {
     return createTheme({
-        palette: mode === "light" ? lightPalette : darkPalette,
+        palette: darkPalette,
+        // palette: mode === "light" ? lightPalette : darkPalette,
         typography: {
             fontFamily: roboto.style.fontFamily,
             fontSize: 12,

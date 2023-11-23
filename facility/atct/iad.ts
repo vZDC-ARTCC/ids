@@ -74,7 +74,12 @@ export const iadAirportConfig: AirportConfig = {
                     availableApproachTypes: ['ILS', 'RNP-Y', 'RNP-Z', 'VIS',],
                 },
             ],
-            traconVisibleOptions: [],
+            traconVisibleOptions: [
+                {
+                    name: 'SFRA',
+                    choices: ['WEST', 'EAST'],
+                },
+            ],
         },
         {
             name: 'NORTH/30',

@@ -5,7 +5,7 @@ import {Checkbox, FormControlLabel, FormGroup, TextField, Typography} from "@mui
 function EmergencyChecklistTab() {
 
     return (
-        <IdsTab>
+        <>
             <Typography variant="h3" color="red">EMERGENCY CHECKLIST</Typography>
             <Typography variant="h6" color="red" sx={{ textDecoration: 'underline', }}>!! Do not close this window or switch to a different IDS tab !!</Typography>
             <Typography>To access other IDS features, open a new IDS tab.  If you leave this checklist, all changes will be lost.</Typography>
@@ -32,7 +32,7 @@ function EmergencyChecklistTab() {
                 <FormControlLabel control={<Checkbox />} label="Point of departure and destination." />
                 <FormControlLabel control={<Checkbox />} label="Emergency equipment on board." />
             </FormGroup>
-        </IdsTab>
+        </>
     );
 }
 
