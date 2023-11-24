@@ -1,3 +1,5 @@
+// noinspection JSUnusedLocalSymbols
+
 import {createTheme, PaletteMode, PaletteOptions, Theme} from "@mui/material";
 import {Roboto} from "next/font/google";
 
@@ -35,7 +37,8 @@ const roboto = Roboto({
 
 export default function getTheme(mode: PaletteMode): Theme {
     return createTheme({
-        palette: mode === "light" ? lightPalette : darkPalette,
+        palette: darkPalette,
+        // palette: mode === "light" ? lightPalette : darkPalette,
         typography: {
             fontFamily: roboto.style.fontFamily,
             fontSize: 12,

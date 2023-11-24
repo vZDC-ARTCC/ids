@@ -1,7 +1,7 @@
 import {AirportConfig} from "@/types";
 
 export const iadAirportConfig: AirportConfig = {
-    id: 'IAD',
+    faaIdentifier: 'IAD',
     icao: 'KIAD',
     parentTracon: 'PCT',
     parentTraconArea: 'SHD',
@@ -74,7 +74,12 @@ export const iadAirportConfig: AirportConfig = {
                     availableApproachTypes: ['ILS', 'RNP-Y', 'RNP-Z', 'VIS',],
                 },
             ],
-            traconVisibleOptions: [],
+            traconVisibleOptions: [
+                {
+                    name: 'SFRA',
+                    choices: ['WEST', 'EAST'],
+                },
+            ],
         },
         {
             name: 'NORTH/30',
@@ -499,4 +504,6 @@ export const iadAirportConfig: AirportConfig = {
     ],
     localControlPositions: ['LCE', 'LCW', 'LCN'],
     customizableOptions: [],
+    sop: '/sop/iad_sop.pdf',
+    sidebarOptions: [],
 }

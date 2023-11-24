@@ -2,6 +2,7 @@ import React from "react";
 import type {Metadata} from 'next'
 import './globals.css'
 import ThemeRegistry from "@/theme/ThemeRegistry";
+import Navbar from "@/components/Nav/Navbar";
 
 // noinspection JSUnusedGlobalSymbols
 export const metadata: Metadata = {
@@ -16,11 +17,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-    <ThemeRegistry>
-      <body>
-      {children}
-      </body>
-    </ThemeRegistry>
+        <ThemeRegistry>
+            <body>
+                <>
+                    <Navbar />
+                    {children}
+                </>
+            </body>
+        </ThemeRegistry>
     </html>
   )
 }

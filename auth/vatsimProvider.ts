@@ -37,7 +37,7 @@ export default function VatsimProvider(clientId?: string, clientSecret?: string)
                 lastName: data.personal.name_last,
                 fullName: data.personal.name_full,
                 email: data.personal.email,
-                artcc: data.vatsim.subdivision.id,
+                artcc: data.vatsim.subdivision.id || '',
                 division: data.vatsim.division.id,
                 rating: data.vatsim.rating.id,
             } as User;

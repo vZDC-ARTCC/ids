@@ -1,5 +1,5 @@
 export type AirportConfig = {
-    id: string,
+    faaIdentifier: string,
     icao: string,
     parentTracon: string,
     parentTraconArea: string,
@@ -7,6 +7,8 @@ export type AirportConfig = {
     customizableOptions: CustomizableOption[],
     flows: AirportFlowConfig[],
     localControlPositions: string[],
+    sop: string,
+    sidebarOptions: SidebarOption[],
 }
 
 export type AirportFlowConfig = {
@@ -23,20 +25,73 @@ export type AvailableRunway = {
 }
 
 export type TraconConfig = {
-    id: string,
+    faaIdentifier: string,
     name: string,
-
+    departureGates: string[],
+    areas: TraconAreaConfig[],
+    sectors: TraconSectorConfig[],
 }
 
 export type TraconAreaConfig = {
     id: string,
+    faaIdentifier: string,
     name: string,
-    majorFieldIcao: string,
-    minorFieldsIcao: string[],
+    majorFields: AirportConfig[],
+    minorFields: AirportConfig[],
+    sop: string,
     customizableOptions: CustomizableOption[],
+}
+
+export type TraconSectorConfig = {
+    name: string,
+    frequency: string,
+    sectorLetter: string,
 }
 
 export type CustomizableOption = {
     name: string,
     choices: string[],
+}
+
+export type SidebarOption = {
+    name: string,
+    resourceLink: string,
+}
+
+export type Chart = {
+    name: string,
+    category: string,
+    url: string,
+}
+
+export type PreferredRoute = {
+    origin: string,
+    route: string,
+    destination: string,
+    hours1?: string,
+    hours2?: string,
+    hours3?: string,
+    type?: string,
+    area?: string,
+    altitude?: string,
+    aircraft?: string,
+    flow?: string,
+    seq?: number,
+    d_artcc: string,
+    a_artcc: string,
+}
+
+export type VatsimATISConnection = {
+    cid: string,
+    name: string,
+    callsign: string,
+    frequency: string,
+    facility: number,
+    rating: number,
+    server: string,
+    visual_range: number,
+    atis_code: string,
+    text_atis: string[],
+    last_updated: string,
+    logon_time: string,
 }
