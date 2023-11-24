@@ -50,7 +50,7 @@ export async function fetchFlow(icao: string, flowId: string) {
 }
 
 export async function setActiveFlow(icao: string, flowId: string) {
-    return prisma.airport.update({
+    const airport = await prisma.airport.update({
         data: {
             activeFlow: {
                 connect: {
@@ -62,6 +62,12 @@ export async function setActiveFlow(icao: string, flowId: string) {
             icao,
         }
     });
+    await prisma.towerRunwayAssignment.deleteMany({
+        where: {
+            airportId: icao,
+        }
+    });
+    return airport;
 }
 
 export async function createFlow(icao: string, flowConfig: AirportFlowConfig) {

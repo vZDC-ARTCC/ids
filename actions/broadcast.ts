@@ -6,6 +6,7 @@ export async function fetchBroadcasts() {
 }
 
 export async function createBroadcast(message: string) {
+    if (message === '') return;
     return prisma.broadcast.create({
         data: {
             message,

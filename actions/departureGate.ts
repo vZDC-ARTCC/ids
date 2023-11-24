@@ -19,6 +19,7 @@ export async function fetchDepartureGateAssignments(icao: string) {
 }
 
 export async function createAssignment(icao: string, sectorId: string, gates: string[]) {
+    if (icao === '' || sectorId === '' || gates.length === 0) return;
     return prisma.departureGatesAssignment.create({
         data: {
             airportId: icao,
@@ -28,6 +29,7 @@ export async function createAssignment(icao: string, sectorId: string, gates: st
     });
 }
 export async function updateAssignment(id: string, gates: string[]) {
+    if (gates.length === 0) return;
     return prisma.departureGatesAssignment.update({
         data: {
             gates,
