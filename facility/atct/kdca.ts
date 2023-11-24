@@ -57,15 +57,15 @@ export const dcaAirportConfig: AirportConfig = {
             arrivalRunways: [
                 {
                     id: '01',
-                    availableApproachTypes: ['ILS', 'RNP', 'VIS',],
+                    availableApproachTypes: ['LDA-Y', 'LDA-Z', 'RNP', 'MTV-VIS',],
                 },
                 {
                     id: '33',
-                    availableApproachTypes: ['GPS', 'VIS'],
+                    availableApproachTypes: ['GPS', 'MTV-VIS'],
                 },
                 {
                     id: '04',
-                    availableApproachTypes: ['VIS'],
+                    availableApproachTypes: ['MTV-VIS'],
                 },
             ],
             traconVisibleOptions: [],
@@ -113,7 +113,7 @@ export const dcaAirportConfig: AirportConfig = {
             arrivalRunways: [
                 {
                     id: '19',
-                    availableApproachTypes: ['ILS', 'RNP', 'RIV-VIS'],
+                    availableApproachTypes: ['LDA-Y', 'LDA-Z', 'RNP', 'RIV-VIS'],
                 },
                 {
                     id: '15',
@@ -137,7 +137,7 @@ export const dcaAirportConfig: AirportConfig = {
             arrivalRunways: [
                 {
                     id: '19',
-                    availableApproachTypes: ['ILS', 'RNP'],
+                    availableApproachTypes: ['LDA-Y', 'LDA-Z', 'RNP'],
                 },
                 {
                     id: '15',
