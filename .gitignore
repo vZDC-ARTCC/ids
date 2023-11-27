@@ -3,9 +3,6 @@
 # IDE
 /.idea
 
-# Prisma
-/prisma/migrations
-
 # dependencies
 /node_modules
 /.pnp

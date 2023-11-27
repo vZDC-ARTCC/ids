@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# vZDC IDS
+The Virtual Washington ARTCC Information Display System is intended to simplify controlling the local and terminal environment.
 
-## Getting Started
+### Setup
+#### Prerequisites
+- Node v18 or later
+- NPM 9.6 or later
+- **EMPTY** Relational Database (preferably Postgres)
+- VATSIM Connect Keys (Development or Production)
 
-First, run the development server:
+#### Steps
+Clone this repository:
+```bash
+git clone https://github.com/vZDC-ARTCC/ids vzdc_ids
+```
+Change directories:
+```bash
+cd vzdc_ids
+```
+Install dependencies:
+```bash
+npm i
+```
+In the root of the project, create a file called `.env.local` and configure your environment variables.
 
+Use the `.env.example` file as a reference.
+
+Environment Variables (all are required):
+- `DEV_MODE`: If set to `true`, disables the VATUSA roster check and grants access to all pages regardless of rating.
+- `DATABASE_URL`: URL for the database
+- `NEXTAUTH_URL`: URL to specify where VATSIM should redirect users after a successful login.  This should just be the url without anything after `.com` `.org` etc.
+- `NEXTAUTH_SECRET`: Secret key to encrypt tokens, this can be anything (hopefully secure).
+- `VATSIM_CLIENT_ID`: Client ID for VATSIM Connect.
+- `VATSIM_CLIENT_SECRET`: Client Secret for VATSIM Connect.
+- `VATSIM_OAUTH_ENDPOINT`: When the VATSIM endpoint is located. (https://auth-dev.vatsim.net for development OR https://auth.vatsim.net for production)
+- `VATUSA_FACILITY`: Name of the facility the IDS should check logged-in users against.
+- `WEATHER_BRIEFING_VIDEO_LINK`: Link to the FAA Pre-Duty Weather Briefing Video for your ARTCC.
+
+Migrate the database:
+```bash
+npm run db:deploy
+```
+Run the development server:
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
+Navigate to http://localhost:3000/api/seed
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+> **COMMENT OUT THE ENTIRE /app/api/seed/route.js FILE AFTER YOU SEE THE SUCCESS MESSAGE**
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+Navigate to http://localhost:3000 and enjoy!
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Developed by the vZDC ARTCC Web Team.
