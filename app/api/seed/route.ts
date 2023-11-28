@@ -5,6 +5,10 @@ import prisma from "@/lib/db";
 // feel free to comment out this entire file or just the GET method.
 export async function GET() {
 
+    if ((await prisma.tracon.findMany()).length > 0) {
+        return Response.json("Database has already been seeded.  If you have changed the configuration, make sure all the previous data is deleted.");
+    }
+
     await prisma.tracon.deleteMany();
     for (const tracon of IDS_TRACON_FACILITIES) {
         await prisma.tracon.upsert({

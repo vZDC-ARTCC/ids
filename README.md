@@ -51,7 +51,7 @@ Reference the PCT TRACON and the IAD ATCT as examples on how to configure all of
 Once a TRACON has been configured correctly, add it to the `IDS_TRACON_FACILITIES` array in `facility/facilities.ts` file.
 
 > You must re-seed the database if you make any changes to the configuration files.
-> This will **permanently delete** anything content in the database
+> Make sure you delete any data in the database.
 
 #### Development
 Run the development server:
@@ -59,8 +59,6 @@ Run the development server:
 npm run dev
 ```
 Navigate to http://localhost:3000/api/seed
-
-> **COMMENT OUT THE ENTIRE `/app/api/seed/route.js` FILE AFTER YOU SEE THE SUCCESS MESSAGE**
 
 Navigate to http://localhost:3000 and enjoy!
 
