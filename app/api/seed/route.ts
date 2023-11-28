@@ -20,7 +20,7 @@ export async function GET() {
         });
     }
 
-    return Response.json("Database seeded successfully! ** MAKE SURE TO COMMENT OUT THIS API IN /app/api/seed/route.ts **");
+    return Response.json("Database seeded successfully!");
 }
 
 function getConfig(tracon: TraconConfig) {

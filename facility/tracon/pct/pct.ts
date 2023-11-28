@@ -162,7 +162,7 @@ export const PCT_CONFIG: TraconConfig = {
             sectorLetter: 'B',
         },
         {
-            name: 'BUFFER',
+            name: 'BUFFR',
             frequency: '133.850',
             sectorLetter: 'H',
         },
