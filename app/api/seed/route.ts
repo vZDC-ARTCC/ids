@@ -2,7 +2,7 @@ import {IDS_TRACON_FACILITIES} from "@/facility/facilities";
 import {TraconConfig} from "@/types";
 import prisma from "@/lib/db";
 
-// feel free to comment out this entire file or just the GET method.
+export const dynamic = "force-dynamic";
 export async function GET() {
 
     if ((await prisma.tracon.findMany()).length > 0) {
