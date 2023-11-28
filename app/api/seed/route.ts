@@ -1,13 +1,17 @@
-import DBClient from "@/prisma/db_client";
 import {IDS_TRACON_FACILITIES} from "@/facility/facilities";
 import {TraconConfig} from "@/types";
+import prisma from "@/lib/db";
 
-const PRISMA = DBClient.getInstance().prisma;
+// feel free to comment out this entire file or just the GET method.
 export async function GET() {
 
-    await PRISMA.tracon.deleteMany();
+    if ((await prisma.tracon.findMany()).length > 0) {
+        return Response.json("Database has already been seeded.  If you have changed the configuration, make sure all the previous data is deleted.");
+    }
+
+    await prisma.tracon.deleteMany();
     for (const tracon of IDS_TRACON_FACILITIES) {
-        await PRISMA.tracon.upsert({
+        await prisma.tracon.upsert({
             create: getConfig(tracon),
             update: getConfig(tracon),
             where: {
@@ -16,7 +20,7 @@ export async function GET() {
         });
     }
 
-    return Response.json({ ok: true, });
+    return Response.json("Database seeded successfully! ** MAKE SURE TO COMMENT OUT THIS API IN /app/api/seed/route.ts **");
 }
 
 function getConfig(tracon: TraconConfig) {
