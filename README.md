@@ -6,7 +6,7 @@ The Virtual Washington ARTCC Information Display System is intended to simplify 
 - Node v18 or later
 - NPM 9.6 or later
 - **EMPTY** Relational Database (preferably Postgres)
-- VATSIM Connect Keys (Development or Production)
+- VATSIM Connect Keys (Development or Production) (redirect url should be `{NEXTAUTH_URL}/api/auth/callback/vatsim` replace `NEXTAUTH_URL` with the actual url in the environment variables)
 
 #### Steps
 Clone this repository:
@@ -61,5 +61,21 @@ npm run dev
 Navigate to http://localhost:3000/api/seed
 
 Navigate to http://localhost:3000 and enjoy!
+
+#### Production
+Make sure you run the `npm run db:deploy` on your production database.
+
+Build the project:
+```bash
+npm run build
+```
+
+Start the production server:
+**Make sure environment variables on the server are configured correctly**
+```bash
+npm run start
+```
+
+Seed the database (`/api/seed`) on your production URL.
 
 Developed by the vZDC ARTCC Web Team.
