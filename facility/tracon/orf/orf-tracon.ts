@@ -5,7 +5,14 @@ export const ORF_CONFIG: TraconConfig = {
     faaIdentifier: 'ORF',
     name: 'Norfolk TRACON',
     departureGates: [
-        '',
+        'FAK',
+        'HPW',
+        'HCM',
+        'ECG',
+        'ORF',
+        'CCV',
+        'SWL',
+        'SBY',
     ],
     sectors: [
         {
