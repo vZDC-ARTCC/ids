@@ -27,14 +27,14 @@ Use the `.env.example` file as a reference.
 
 Environment Variables (all are required):
 - `DEV_MODE`: If set to `true`, disables the VATUSA roster check and grants access to all pages regardless of rating.
-- `DATABASE_URL`: URL for the database
-- `NEXTAUTH_URL`: URL to specify where VATSIM should redirect users after a successful login.  This should just be the url without anything after `.com` `.org` etc.
-- `NEXTAUTH_SECRET`: Secret key to encrypt tokens, this can be anything (hopefully secure).
+- `DATABASE_URL`: URL for the database. Example: `postgres://postgres:password@localhost:5432/ids-db`
+- `NEXTAUTH_URL`: URL to specify where VATSIM should redirect users after a successful login.  This should just be the url without anything after `.com` `.org` etc.  Example: `https://ids.vzdc.org`
+- `NEXTAUTH_SECRET`: Secret key to encrypt tokens, this can be anything (hopefully secure).  Example: `anything`
 - `VATSIM_CLIENT_ID`: Client ID for VATSIM Connect.
 - `VATSIM_CLIENT_SECRET`: Client Secret for VATSIM Connect.
 - `VATSIM_OAUTH_ENDPOINT`: When the VATSIM endpoint is located. (https://auth-dev.vatsim.net for development OR https://auth.vatsim.net for production)
-- `VATUSA_FACILITY`: Name of the facility the IDS should check logged-in users against.
-- `WEATHER_BRIEFING_VIDEO_LINK`: Link to the FAA Pre-Duty Weather Briefing Video for your ARTCC.
+- `VATUSA_FACILITY`: Name of the facility the IDS should check logged-in users against. Example: `ZDC`
+- `WEATHER_BRIEFING_VIDEO_LINK`: Link to the FAA Pre-Duty Weather Briefing Video for your ARTCC.  Example: `https://www.weather.gov/media/zdc/PDWB/ZDC.mp4`
 
 Migrate the database:
 ```bash
@@ -50,8 +50,9 @@ Reference the PCT TRACON and the IAD ATCT as examples on how to configure all of
 
 Once a TRACON has been configured correctly, add it to the `IDS_TRACON_FACILITIES` array in `facility/facilities.ts` file.
 
+> [!WARNING]
 > You must re-seed the database if you make any changes to the configuration files.
-> Make sure you delete any data in the database.
+> Make sure you delete any data in the database or else the seed API will not work.
 
 #### Development
 Run the development server:
@@ -71,11 +72,28 @@ npm run build
 ```
 
 Start the production server:
-**Make sure environment variables on the server are configured correctly**
+> [!IMPORTANT]
+> Make sure environment variables on the server are configured correctly
 ```bash
 npm run start
 ```
 
 Seed the database (`/api/seed`) on your production URL.
+
+##### Docker
+
+After setting environment variables and configuring facilities correctly, run the `docker build` command:
+> [!WARNING]
+> Make sure `DATABASE_URL` is set in `.env` correctly.  The migration will not work during the build process if it is not set.
+```bash
+docker build -t ids .
+```
+
+Run the image:
+```bash
+docker run -p 80:80 ids
+```
+> [!IMPORTANT]
+> The container will run on port 80, unlike the development server.
 
 Developed by the vZDC ARTCC Web Team.

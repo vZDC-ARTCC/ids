@@ -2,7 +2,7 @@ import {IDS_TRACON_FACILITIES} from "@/facility/facilities";
 import {TraconConfig} from "@/types";
 import prisma from "@/lib/db";
 
-// feel free to comment out this entire file or just the GET method.
+export const dynamic = "force-dynamic";
 export async function GET() {
 
     if ((await prisma.tracon.findMany()).length > 0) {
@@ -20,7 +20,7 @@ export async function GET() {
         });
     }
 
-    return Response.json("Database seeded successfully! ** MAKE SURE TO COMMENT OUT THIS API IN /app/api/seed/route.ts **");
+    return Response.json("Database seeded successfully!");
 }
 
 function getConfig(tracon: TraconConfig) {
