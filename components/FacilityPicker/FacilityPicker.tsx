@@ -41,7 +41,7 @@ function FacilityPicker() {
                 </Stack>
                 <Stack spacing={2}>
                     {facilities?.tracons.map((tracon) => tracon.areas.map((area) => (
-                        <Button disabled key={tracon.faaIdentifier + area.faaIdentifier} variant="contained"
+                        <Button key={tracon.faaIdentifier + area.faaIdentifier} variant="contained"
                                 onClick={() => router.replace(`/tracon/${tracon.faaIdentifier}/${area.faaIdentifier}`)}>{`${tracon.faaIdentifier}-${area.faaIdentifier}`}</Button>
                     )))}
                 </Stack>
