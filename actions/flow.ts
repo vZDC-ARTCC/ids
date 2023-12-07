@@ -1,6 +1,9 @@
 "use server";
 import prisma from "@/lib/db";
 import {AirportFlowConfig} from "@/types";
+import log from "@/lib/log";
+import {getServerSession} from "next-auth";
+import {authOptions} from "@/auth/auth";
 
 export async function fetchActiveFlow(icao: string) {
     return prisma.airportFlow.findFirst({
@@ -60,8 +63,12 @@ export async function setActiveFlow(icao: string, flowId: string) {
         },
         where: {
             icao,
+        },
+        include: {
+            activeFlow: true,
         }
     });
+    await log(`${(await getServerSession(authOptions))?.user.cid} activated flow '${airport.activeFlow?.name}' at ${icao}`);
     await prisma.towerRunwayAssignment.deleteMany({
         where: {
             airportId: icao,
@@ -70,8 +77,8 @@ export async function setActiveFlow(icao: string, flowId: string) {
     return airport;
 }
 
-export async function createFlow(icao: string, flowConfig: AirportFlowConfig) {
-    return prisma.airportFlow.create({
+export async function createFlow(icao: string, flowConfig: AirportFlowConfig, noLog = false) {
+    const flow = await prisma.airportFlow.create({
         data: {
             name: flowConfig.name,
             departureRunways: {
@@ -103,17 +110,26 @@ export async function createFlow(icao: string, flowConfig: AirportFlowConfig) {
                     icao,
                 }
             },
-        }
+        },
+        include: {
+            departureRunways: true,
+            arrivalRunways: true,
+            traconVisibleOptions: true,
+        },
     });
+    !noLog && await log(`${(await getServerSession(authOptions))?.user.cid} created flow '${flow.name}' at ${icao}: ${JSON.stringify(flow)}`);
+    return flow;
 }
 
 export async function deleteFlow(icao: string, flowId: string) {
-    return prisma.airportFlow.delete({
+    const flow = await prisma.airportFlow.delete({
         where: {
             airportId: icao,
             id: flowId,
         },
     });
+    await log(`${(await getServerSession(authOptions))?.user.cid} deleted flow '${flow.name}' at ${icao}`);
+    return flow;
 }
 
 export async function updateFlow(icao: string, flowId: string, flowConfig: AirportFlowConfig) {
@@ -122,5 +138,7 @@ export async function updateFlow(icao: string, flowId: string, flowConfig: Airpo
             id: flowId,
         }
     });
-    return createFlow(icao, flowConfig);
+    const flow = await createFlow(icao, flowConfig, true);
+    await log(`${(await getServerSession(authOptions))?.user.cid} updated flow '${flow.name}' at ${icao}: ${JSON.stringify(flow)}`);
+    return flow;
 }

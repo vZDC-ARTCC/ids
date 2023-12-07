@@ -1,6 +1,9 @@
 "use server";
 import {Pirep} from "@prisma/client";
 import prisma from "@/lib/db";
+import log from "@/lib/log";
+import {getServerSession} from "next-auth";
+import {authOptions} from "@/auth/auth";
 
 export async function fetchPireps() {
     await deleteExpiredPireps();
@@ -12,17 +15,21 @@ export async function fetchPireps() {
 }
 
 export async function createPirep(pirep: Pirep) {
-    return prisma.pirep.create({
+    const savedPirep = await prisma.pirep.create({
         data: pirep,
     });
+    await log(`${(await getServerSession(authOptions))?.user.cid} filed a PIREP: ${JSON.stringify(pirep)}`);
+    return savedPirep;
 }
 
 export async function deletePirep(id: string) {
-    return prisma.pirep.delete({
+    const pirep = await prisma.pirep.delete({
         where: {
             id,
         },
     });
+    await log(`${(await getServerSession(authOptions))?.user.cid} deleted a PIREP: ${JSON.stringify(pirep)}`);
+    return pirep;
 }
 
 export async function deleteExpiredPireps() {
