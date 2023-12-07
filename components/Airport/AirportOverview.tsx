@@ -7,10 +7,10 @@ async function AirportOverview({ icao, condensed = false, }: { icao: string, con
 
     return (
         <Grid container columns={4} sx={{ border: 1, }}>
-            <Grid item xs={4} xl={2} sx={{ borderRight: { lg: 1, } }}>
+            <Grid item xs={4} xl={condensed ? 4 : 2} sx={{ borderRight: { lg: 1, } }}>
                 <AirportLiveWeather icao={icao} condensed={condensed} />
             </Grid>
-            <Grid item xs={4} xl={2} sx={{ borderRight: { lg: 1, } }}>
+            <Grid item xs={4} xl={condensed ? 4 : 2} sx={{ borderRight: { lg: 1, }, borderTop: condensed ? 1 : 0, }}>
                 <AirportInformation icao={icao} condensed={condensed} />
             </Grid>
         </Grid>

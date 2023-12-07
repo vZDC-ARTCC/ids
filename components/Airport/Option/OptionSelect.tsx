@@ -22,7 +22,7 @@ function OptionSelect({ option, condensed }: { option: CustomizableOption, conde
             <Select
                 sx={{
                     color: 'green',
-                    fontSize: condensed ? 20 : 30,
+                    fontSize: 15,
                     fontWeight: 700,
                 }}
                 labelId={`${option.id}-label`}

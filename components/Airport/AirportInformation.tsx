@@ -5,6 +5,7 @@ import {Box, CircularProgress, Grid, Stack, Typography} from "@mui/material";
 import {CustomizableOption} from "@prisma/client";
 import OptionSelect from "@/components/Airport/Option/OptionSelect";
 import FlowDisplay from "@/components/Flow/FlowDisplay";
+import LocalRunwayAssignment from "@/components/Airport/RunwayAssignment/LocalRunwayAssignment";
 
 function AirportInformation({ icao, condensed }: { icao: string, condensed: boolean, }) {
 
@@ -22,10 +23,10 @@ function AirportInformation({ icao, condensed }: { icao: string, condensed: bool
     return (
         <Grid container columns={10} sx={{ height: '100%', borderTop: { xs: 1, xl: 0, }, }}>
             <Grid item xs={10} md={4} sx={{ borderRight: { md: 1, }, }}>
-                <Stack direction="column" spacing={2} sx={{ padding: '1rem', }}>
+                <Stack direction="column" spacing={4} sx={{ padding: '1rem', }}>
                     { loading && <CircularProgress /> }
                     {activeFlow && activeFlow.traconVisibleOptions.map((option: CustomizableOption) => (
-                        <Stack key={option.id} direction="row" alignItems="center" spacing={4}>
+                        <Stack key={option.id} direction="column" alignItems="center" spacing={1}>
                             <Typography variant={condensed ? 'h6' : 'h5'} color="gold" fontWeight={700}>{option.name}</Typography>
                             <OptionSelect option={option} condensed={condensed} />
                         </Stack>

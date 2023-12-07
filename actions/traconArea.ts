@@ -11,6 +11,21 @@ export async function fetchTraconArea(traconFaa: string, areaFaa: string) {
     });
     return areas[0] || null
 }
+
+export async function fetchTraconAreaWithFields(traconFaa: string, areaFaa: string) {
+    const areas = await prisma.traconArea.findMany({
+        where: {
+            traconFaaIdentifier: traconFaa,
+            faaIdentifier: areaFaa,
+        },
+        include: {
+            majorFields: true,
+            minorFields: true
+        }
+    });
+    return areas[0] || null
+}
+
 export async function fetchParentArea(icao: string) {
     const airport = await prisma.airport.findUnique({
         where: {
