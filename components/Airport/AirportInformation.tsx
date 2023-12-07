@@ -5,7 +5,6 @@ import {Box, CircularProgress, Grid, Stack, Typography} from "@mui/material";
 import {CustomizableOption} from "@prisma/client";
 import OptionSelect from "@/components/Airport/Option/OptionSelect";
 import FlowDisplay from "@/components/Flow/FlowDisplay";
-import LocalRunwayAssignment from "@/components/Airport/RunwayAssignment/LocalRunwayAssignment";
 
 function AirportInformation({ icao, condensed }: { icao: string, condensed: boolean, }) {
 
