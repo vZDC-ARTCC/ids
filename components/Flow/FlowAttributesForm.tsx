@@ -51,7 +51,7 @@ function FlowAttributesForm({ icao, runways, presetFlowConfig }: { icao: string,
             } else {
                 flow = await updateFlow(icao, presetFlowConfig.id, flowConfig);
             }
-            router.push(`../activate/${flow.id}`);
+            router.replace(`/atct/${icao}/flow/activate/${flow.id}`);
         }
     }
 
