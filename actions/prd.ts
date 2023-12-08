@@ -9,6 +9,7 @@ export async function getRoutes(origin: string, dest: string) {
     }
 
     const res = await fetch(`https://api.aviationapi.com/v1/preferred-routes/search?origin=${origin}&dest=${dest}`);
+    if (!res.ok) return [];
     const data: PreferredRoute[] = await res.json();
     await log(`${(await getServerSession(authOptions))?.user.cid} looked up preferred routes from '${origin}' - '${dest}'`);
     return data;
