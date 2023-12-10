@@ -1,5 +1,5 @@
 import {TraconConfig} from "@/types";
-import {ACY_ACY} from "@/facility/tracon/ACY/area/acy";
+import {ACY_ACY} from "@/facility/tracon/acy/area/acy";
 
 
 export const ACY_CONFIG: TraconConfig = {
