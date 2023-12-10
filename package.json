@@ -1,11 +1,10 @@
 {
   "name": "vzdc-ids",
-  "version": "0.1.0",
+  "version": "0.8.0",
   "private": true,
   "scripts": {
-    "prisma:push:dev": "dotenv -e .env.development -- npx prisma db push",
-    "prisma:pull:dev": "dotenv -e .env.development -- npx prisma db pull",
-    "prisma:migrate:dev": "dotenv -e .env.development -- npx prisma migrate dev",
+    "db:migrate": "dotenv -e .env.local -- npx prisma migrate dev",
+    "db:deploy": "dotenv -e .env.local -- npx prisma migrate deploy",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
@@ -21,12 +20,14 @@
     "next": "^14.0.3-canary.5",
     "next-auth": "^4.24.4",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "sharp": "^0.32.6"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "dotenv-cli": "^7.3.0",
     "eslint": "^8",
     "eslint-config-next": "14.0.1",
     "prisma": "^5.6.0",

@@ -38,11 +38,11 @@ function ZuluTime() {
 
     return (
         <Stack direction="row" justifyContent="center" sx={{ border: 1, padding: 1, minWidth: '15rem', }}>
-            <Typography variant="h4" fontFamily={clockFont.style.fontFamily}>{convertToTwoDigit(time.hours)}</Typography>
+            <Typography variant="h4" sx={{ minWidth: '3.5rem', }} textAlign="center" fontFamily={clockFont.style.fontFamily}>{convertToTwoDigit(time.hours)}</Typography>
             <Typography variant="h4" fontFamily={clockFont.style.fontFamily}>:</Typography>
-            <Typography variant="h4" fontFamily={clockFont.style.fontFamily}>{convertToTwoDigit(time.minutes)}</Typography>
+            <Typography variant="h4" sx={{ minWidth: '3.5rem', }} textAlign="center" fontFamily={clockFont.style.fontFamily}>{convertToTwoDigit(time.minutes)}</Typography>
             <Typography variant="h4" fontFamily={clockFont.style.fontFamily}>:</Typography>
-            <Typography variant="h4" fontFamily={clockFont.style.fontFamily}>{convertToTwoDigit(time.seconds)}</Typography>
+            <Typography variant="h4" sx={{ minWidth: '3.5rem', }} textAlign="center" fontFamily={clockFont.style.fontFamily}>{convertToTwoDigit(time.seconds)}</Typography>
             <Typography variant="h4" fontFamily={clockFont.style.fontFamily}>z</Typography>
         </Stack>
     );

@@ -3,6 +3,7 @@ import type {Metadata} from 'next'
 import './globals.css'
 import ThemeRegistry from "@/theme/ThemeRegistry";
 import Navbar from "@/components/Nav/Navbar";
+import Footer from "@/components/Footer/Footer";
 
 // noinspection JSUnusedGlobalSymbols
 export const metadata: Metadata = {
@@ -22,6 +23,7 @@ export default function RootLayout({
                 <>
                     <Navbar />
                     {children}
+                    <Footer />
                 </>
             </body>
         </ThemeRegistry>

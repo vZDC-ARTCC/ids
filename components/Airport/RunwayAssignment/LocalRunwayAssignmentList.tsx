@@ -2,7 +2,7 @@
 import React, {useEffect, useState} from 'react';
 import {TowerRunwayAssignment} from "@prisma/client";
 import {fetchLocalRunwayAssignments} from "@/actions/runwayAssignment";
-import {CircularProgress, List} from "@mui/material";
+import {CircularProgress, List, Typography} from "@mui/material";
 import LocalRunwayAssignmentItem from "@/components/Airport/RunwayAssignment/LocalRunwayAssignmentItem";
 import {fetchActiveFlow} from "@/actions/flow";
 
@@ -29,7 +29,11 @@ function LocalRunwayAssignmentList({ icao, localPositions }: { icao: string, loc
         }
     }, [icao, edit]);
 
-    return (
+
+    if (runways.length === 0 ) {
+        return <Typography variant="h5" color="red">No active flow has been selected.</Typography>
+    }
+    return runways.length > 0 && (
         <List>
             { !assignments && <CircularProgress /> }
             {assignments && localPositions.map((local) => {
