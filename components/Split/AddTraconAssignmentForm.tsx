@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
 import {Button, Checkbox, ListItemText, MenuItem, Select, SelectChangeEvent, Stack} from "@mui/material";
-import {createAssignment} from "@/actions/departureGate";
 import {Add} from "@mui/icons-material";
 import {TraconSector} from "@prisma/client";
 import {createTraconAssignment} from "@/actions/traconAssignment";
