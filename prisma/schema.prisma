@@ -84,11 +84,14 @@ model TraconArea {
 }
 
 model TraconSector {
-  id            String                     @id @default(cuid())
-  name          String
-  sectorLetter  String
-  frequency     String
-  assignedGates DepartureGatesAssignment[]
+  id                      String                     @id @default(cuid())
+  name                    String
+  sectorLetter            String
+  frequency               String
+  assignedGates           DepartureGatesAssignment[]
+  consolidatedAssignments TraconSectorAssignment[]   @relation("parent")
+  childSectorFor          TraconSectorAssignment?    @relation("child", fields: [childSectorAssignmentId], references: [id])
+  childSectorAssignmentId String?
 
   parentTracon   Tracon? @relation(fields: [parentTraconId], references: [faaIdentifier], onDelete: Cascade, onUpdate: Cascade)
   parentTraconId String?
@@ -158,6 +161,15 @@ model CustomizableOption {
 
   airportOption Airport? @relation("Airport_customizableOptions", fields: [airportId], references: [icao], onDelete: Cascade, onUpdate: Cascade)
   airportId     String?
+}
+
+model TraconSectorAssignment {
+  id String @id @default(cuid())
+
+  parentSector   TraconSector @relation("parent", fields: [parentSectorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  parentSectorId String
+
+  childSectors TraconSector[] @relation("child")
 }
 
 model DepartureGatesAssignment {

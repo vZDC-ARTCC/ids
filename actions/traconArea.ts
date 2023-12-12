@@ -12,7 +12,7 @@ export async function fetchTraconArea(traconFaa: string, areaFaa: string) {
     return areas[0] || null
 }
 
-export async function fetchTraconAreaWithFields(traconFaa: string, areaFaa: string) {
+export async function fetchTraconAreaWithDetail(traconFaa: string, areaFaa: string) {
     const areas = await prisma.traconArea.findMany({
         where: {
             traconFaaIdentifier: traconFaa,
@@ -20,7 +20,12 @@ export async function fetchTraconAreaWithFields(traconFaa: string, areaFaa: stri
         },
         include: {
             majorFields: true,
-            minorFields: true
+            minorFields: true,
+            parentTracon: {
+                include: {
+                    sectors: true,
+                }
+            },
         }
     });
     return areas[0] || null

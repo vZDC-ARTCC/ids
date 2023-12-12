@@ -78,6 +78,7 @@ CREATE TABLE "TraconSector" (
     "name" TEXT NOT NULL,
     "sectorLetter" TEXT NOT NULL,
     "frequency" TEXT NOT NULL,
+    "childSectorAssignmentId" TEXT,
     "parentTraconId" TEXT,
 
     CONSTRAINT "TraconSector_pkey" PRIMARY KEY ("id")
@@ -126,6 +127,14 @@ CREATE TABLE "CustomizableOption" (
     "airportId" TEXT,
 
     CONSTRAINT "CustomizableOption_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "TraconSectorAssignment" (
+    "id" TEXT NOT NULL,
+    "parentSectorId" TEXT NOT NULL,
+
+    CONSTRAINT "TraconSectorAssignment_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -212,6 +221,9 @@ ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId"
 ALTER TABLE "TraconArea" ADD CONSTRAINT "TraconArea_traconFaaIdentifier_fkey" FOREIGN KEY ("traconFaaIdentifier") REFERENCES "Tracon"("faaIdentifier") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "TraconSector" ADD CONSTRAINT "TraconSector_childSectorAssignmentId_fkey" FOREIGN KEY ("childSectorAssignmentId") REFERENCES "TraconSectorAssignment"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "TraconSector" ADD CONSTRAINT "TraconSector_parentTraconId_fkey" FOREIGN KEY ("parentTraconId") REFERENCES "Tracon"("faaIdentifier") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -240,6 +252,9 @@ ALTER TABLE "CustomizableOption" ADD CONSTRAINT "CustomizableOption_flowId_fkey"
 
 -- AddForeignKey
 ALTER TABLE "CustomizableOption" ADD CONSTRAINT "CustomizableOption_airportId_fkey" FOREIGN KEY ("airportId") REFERENCES "Airport"("icao") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "TraconSectorAssignment" ADD CONSTRAINT "TraconSectorAssignment_parentSectorId_fkey" FOREIGN KEY ("parentSectorId") REFERENCES "TraconSector"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "DepartureGatesAssignment" ADD CONSTRAINT "DepartureGatesAssignment_airportId_fkey" FOREIGN KEY ("airportId") REFERENCES "Airport"("icao") ON DELETE CASCADE ON UPDATE CASCADE;
