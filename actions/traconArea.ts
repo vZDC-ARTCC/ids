@@ -19,8 +19,26 @@ export async function fetchTraconAreaWithDetail(traconFaa: string, areaFaa: stri
             faaIdentifier: areaFaa,
         },
         include: {
-            majorFields: true,
-            minorFields: true,
+            majorFields: {
+                include: {
+                    flows: {
+                        include: {
+                            departureRunways: true,
+                            arrivalRunways: true,
+                        },
+                    },
+                },
+            },
+            minorFields: {
+                include: {
+                    flows: {
+                        include: {
+                            departureRunways: true,
+                            arrivalRunways: true,
+                        },
+                    },
+                },
+            },
             parentTracon: {
                 include: {
                     sectors: true,

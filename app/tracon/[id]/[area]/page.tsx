@@ -24,19 +24,6 @@ async function TraconHome({ params }: { params: { id: string, area: string, }}) 
                         <LocalRunwayAssignment icao={field.icao} />
                     </Grid>
                 ))}
-                {traconArea?.majorFields.map((field) => (
-                    <Grid key={field.icao} item xs>
-                        <AirportOverview icao={field.icao} condensed />
-                        <LocalRunwayAssignment icao={field.icao} />
-                    </Grid>
-                ))}
-                {traconArea?.majorFields.map((field) => (
-                    <Grid key={field.icao} item xs>
-                        <AirportOverview icao={field.icao} condensed />
-                        <LocalRunwayAssignment icao={field.icao} />
-                    </Grid>
-                ))}
-
                 <Grid item xs={3}>
                     <BroadcastPirepGrid horizontal />
                 </Grid>

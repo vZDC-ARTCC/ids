@@ -24,7 +24,7 @@ function FlowSelectForm({ icao, flows }: { icao: string, flows: any[] }) {
     const router = useRouter();
 
     const submitFlow = (flowId: string) => {
-        router.push(`flow/activate/${flowId}`);
+        router.replace(`/atct/${icao}/flow/activate/${flowId}`);
     }
 
     const onDeleteFlow = (flowId: string) => {
@@ -63,10 +63,10 @@ function FlowSelectForm({ icao, flows }: { icao: string, flows: any[] }) {
                             </FormControl>
                             <Stack direction="row" spacing={2} sx={{ marginTop: '1rem', }}>
                                 <Button variant="contained" size="large" type="submit">Activate Flow</Button>
-                                <Button variant="outlined" disabled={!selectedFlowId} color="inherit" startIcon={<Edit />} sx={{ marginTop: '1rem', flexGrow: 1, }} onClick={() => router.push(`flow/edit/${selectedFlowId}`)}>Edit Flow</Button>
+                                <Button variant="outlined" disabled={!selectedFlowId} color="inherit" startIcon={<Edit />} sx={{ marginTop: '1rem', flexGrow: 1, }} onClick={() => router.replace(`/atct/${icao}/flow/edit/${selectedFlowId}`)}>Edit Flow</Button>
                                 <Button variant="outlined" disabled={!selectedFlowId} color="inherit" startIcon={<Delete />} sx={{ marginTop: '1rem', }} onClick={() => onDeleteFlow(selectedFlowId)}>Delete Flow</Button>
                             </Stack>
-                            <Button variant="contained" size="large" sx={{ marginTop: '1rem', }} startIcon={<Add />} onClick={() => router.push('flow/new')}>New Flow</Button>
+                            <Button variant="contained" size="large" sx={{ marginTop: '1rem', }} startIcon={<Add />} onClick={() => router.replace(`/atct/${icao}/flow/new`)}>New Flow</Button>
                         </form>
 
                     </Grid>

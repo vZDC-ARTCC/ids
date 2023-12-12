@@ -7,7 +7,7 @@ function TraconSplitOverview({ tracon }: { tracon: Tracon | any, }) {
 
     return (
         <Box sx={{ padding: 1, border: 1, }}>
-            <Typography variant="h6">{tracon.faaIdentifier}</Typography>
+            <Typography variant="h6">{tracon.faaIdentifier} SECTOR ASSIGNMENTS</Typography>
             <TraconSectorAssignmentList faaIdentifier={tracon.faaIdentifier} sectors={tracon.sectors} />
         </Box>
     );

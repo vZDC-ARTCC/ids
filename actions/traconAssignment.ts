@@ -19,13 +19,35 @@ export async function fetchTraconAssignments(faaIdentifier: string) {
 }
 
 export async function createTraconAssignment(faaIdentifier: string, sectorId: string, sectors: string[]) {
-
+    if (!faaIdentifier || !sectorId || sectors.length === 0) return;
+    return prisma.traconSectorAssignment.create({
+        data: {
+            parentSectorId: sectorId,
+            childSectors: {
+                connect: sectors.map((s) => ({id: s,})),
+            },
+        },
+    });
 }
 
 export async function updateTraconAssignment(id: string, sectors: string[]) {
-
+    if (sectors.length === 0) return;
+    return prisma.traconSectorAssignment.update({
+        data: {
+            childSectors: {
+                connect: sectors.map((s) => ({id: s,})),
+            },
+        },
+        where: {
+            id,
+        },
+    });
 }
 
-export async function deleteTraconAssignment(id: string) {
-
+export async function deleteTraconAssignment(id: string){
+    return prisma.traconSectorAssignment.delete({
+        where: {
+            id,
+        }
+    });
 }
