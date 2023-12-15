@@ -31,8 +31,6 @@ export async function createTraconAssignment(faaIdentifier: string, sectorId: st
 }
 
 export async function updateTraconAssignment(id: string, sectors: string[]) {
-    if (sectors.length === 0) return;
-    console.log(sectors);
     return prisma.traconSectorAssignment.update({
         data: {
             childSectors: {

@@ -10,7 +10,7 @@ import {
     MenuItem,
     Select,
     SelectChangeEvent,
-    Stack,
+    Stack, Tooltip,
     Typography
 } from "@mui/material";
 import {ArrowForward, Delete, Edit} from "@mui/icons-material";
@@ -48,11 +48,6 @@ function TraconSectorAssignmentItem({ sectorAssignment, allSectors, onEdit, onDe
     }
 
     const saveTraconAssignment = async () => {
-        if (!selectedSectorIds || selectedSectorIds.length === 0) {
-            alert('You must select at least one sector.  If you want to remove the sector, then press the delete button.');
-            return;
-        }
-
         await updateTraconAssignment(sectorAssignment.id, selectedSectorIds);
         changeEdit(false);
     }
@@ -75,6 +70,11 @@ function TraconSectorAssignmentItem({ sectorAssignment, allSectors, onEdit, onDe
                         { !allSectors.every(v => sectorAssignment.childSectors.map((s: TraconSector) => s.id).includes(v.id)) && sectorAssignment.childSectors.map((sector: TraconSector) => (
                             <Typography key={sector.id} color="limegreen" fontWeight={600} sx={{ padding: 0.5, }}>{sector.name}</Typography>
                         ))}
+                        { !allSectors.every(v => sectorAssignment.childSectors.map((s: TraconSector) => s.id).includes(v.id)) && sectorAssignment.childSectors.length === 0 &&
+                            <Tooltip title="DO NOT HANDOFF TO THIS SECTOR! No sectors are currently assigned to this sector.  The airspace is probably being re-consolidated.  This sector could disappear or be assigned sectors.">
+                                <Typography color="yellow" variant="h5" fontWeight={600}>PARKED</Typography>
+                            </Tooltip>
+                        }
                     </Stack> }
                 { edit &&
                     <Stack direction="row" spacing={1}>
