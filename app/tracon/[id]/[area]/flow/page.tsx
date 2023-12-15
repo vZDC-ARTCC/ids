@@ -4,7 +4,6 @@ import FlowSelectForm from "@/components/Flow/FlowSelectForm";
 import {fetchTraconAreaWithDetail} from "@/actions/traconArea";
 import {AirportFlow} from "@prisma/client";
 import {ListItemText, MenuItem, Select, Stack, Typography} from "@mui/material";
-import {usePathname, useRouter} from "next/navigation";
 
 function FlowPage({ params }: { params: { id: string, area: string, }, }) {
 
