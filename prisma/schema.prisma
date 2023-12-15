@@ -112,10 +112,11 @@ model Airport {
 
   runways Runway[] @relation("Airport_runways")
 
-  parentMajorTraconArea TraconArea? @relation("Airport_majorField", fields: [parentTraconAreaId], references: [id], map: "airport_major_fields_fkey", onDelete: Cascade, onUpdate: Cascade)
-  parentMinorTraconArea TraconArea? @relation("Airport_minorFields", fields: [parentTraconAreaId], references: [id], map: "airport_minor_fields_fkey", onDelete: Cascade, onUpdate: Cascade)
+  parentMajorTraconArea TraconArea? @relation("Airport_majorField", fields: [parentTraconAreaMajorId], references: [id], map: "airport_major_fields_fkey", onDelete: Cascade, onUpdate: Cascade)
+  parentMinorTraconArea TraconArea? @relation("Airport_minorFields", fields: [parentTraconAreaMinorId], references: [id], map: "airport_minor_fields_fkey", onDelete: Cascade, onUpdate: Cascade)
 
-  parentTraconAreaId String @unique
+  parentTraconAreaMajorId String?
+  parentTraconAreaMinorId String?
 }
 
 model AirportFlow {

@@ -33,6 +33,15 @@ function TraconSectorAssignmentItem({ sectorAssignment, allSectors, onEdit, onDe
 
     const changeTraconAssignment = (e: SelectChangeEvent<any>) => {
         const { target: { value }} = e;
+        if ((typeof value === 'string' && value === 'everything') ||
+            value.includes('everything')) {
+            if (allSectors.every(v => selectedSectorIds.includes(v.id))) {
+                setSelectedSectorIds([]);
+                return;
+            }
+            setSelectedSectorIds([...allSectors.map((s: TraconSector) => s.id)]);
+            return;
+        }
         setSelectedSectorIds(
             typeof  value === 'string' ? value.split(',') : value,
         );
@@ -60,11 +69,10 @@ function TraconSectorAssignmentItem({ sectorAssignment, allSectors, onEdit, onDe
             </Box>
         }>
             <Stack direction="row" alignItems="center" spacing={2}>
-                <Typography variant="h5" color="red" fontWeight={600} textAlign="center" sx={{ padding: 1, border: 1, minWidth: '5rem', }}>{sectorAssignment.parentSector.name}</Typography>
-                <ArrowForward fontSize="large" />
                 { !edit &&
                     <Stack direction="row" spacing={0} flexWrap="wrap">
-                        {sectorAssignment.childSectors.map((sector: TraconSector) => (
+                        { allSectors.every(v => sectorAssignment.childSectors.map((s: TraconSector) => s.id).includes(v.id)) && <Typography variant="h3" fontWeight={600} color="limegreen">ALL</Typography> }
+                        { !allSectors.every(v => sectorAssignment.childSectors.map((s: TraconSector) => s.id).includes(v.id)) && sectorAssignment.childSectors.map((sector: TraconSector) => (
                             <Typography key={sector.id} color="limegreen" fontWeight={600} sx={{ padding: 0.5, }}>{sector.name}</Typography>
                         ))}
                     </Stack> }
@@ -77,6 +85,10 @@ function TraconSectorAssignmentItem({ sectorAssignment, allSectors, onEdit, onDe
                             onChange={changeTraconAssignment}
                             renderValue={(selected) => `${selected.length} selected`}
                         >
+                            <MenuItem value="everything">
+                                <Checkbox checked={allSectors.every(v => selectedSectorIds.includes(v.id))} />
+                                <ListItemText primary="Select All" />
+                            </MenuItem>
                             {allSectors.map((sector) => (
                                 <MenuItem key={sector.id} value={sector.id}>
                                     <Checkbox checked={selectedSectorIds.indexOf(sector.id) > -1} />
@@ -91,6 +103,8 @@ function TraconSectorAssignmentItem({ sectorAssignment, allSectors, onEdit, onDe
                         }}>Cancel</Button>
                     </Stack>
                 }
+                <ArrowForward fontSize="large" />
+                <Typography variant="h5" color="red" fontWeight={600} textAlign="center" sx={{ padding: 1, border: 1, minWidth: '5rem', }}>{sectorAssignment.parentSector.name}</Typography>
             </Stack>
         </ListItem>
     );

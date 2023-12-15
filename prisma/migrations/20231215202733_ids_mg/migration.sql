@@ -90,7 +90,8 @@ CREATE TABLE "Airport" (
     "faaIdentifier" TEXT NOT NULL,
     "sopLink" TEXT NOT NULL,
     "localControlPositions" TEXT[],
-    "parentTraconAreaId" TEXT NOT NULL,
+    "parentTraconAreaMajorId" TEXT,
+    "parentTraconAreaMinorId" TEXT,
 
     CONSTRAINT "Airport_pkey" PRIMARY KEY ("icao")
 );
@@ -203,9 +204,6 @@ CREATE UNIQUE INDEX "TraconSector_parentTraconId_name_key" ON "TraconSector"("pa
 CREATE UNIQUE INDEX "Airport_faaIdentifier_key" ON "Airport"("faaIdentifier");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Airport_parentTraconAreaId_key" ON "Airport"("parentTraconAreaId");
-
--- CreateIndex
 CREATE UNIQUE INDEX "AirportFlow_flowActiveAirportId_key" ON "AirportFlow"("flowActiveAirportId");
 
 -- CreateIndex
@@ -227,10 +225,10 @@ ALTER TABLE "TraconSector" ADD CONSTRAINT "TraconSector_childSectorAssignmentId_
 ALTER TABLE "TraconSector" ADD CONSTRAINT "TraconSector_parentTraconId_fkey" FOREIGN KEY ("parentTraconId") REFERENCES "Tracon"("faaIdentifier") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Airport" ADD CONSTRAINT "airport_major_fields_fkey" FOREIGN KEY ("parentTraconAreaId") REFERENCES "TraconArea"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Airport" ADD CONSTRAINT "airport_major_fields_fkey" FOREIGN KEY ("parentTraconAreaMajorId") REFERENCES "TraconArea"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Airport" ADD CONSTRAINT "airport_minor_fields_fkey" FOREIGN KEY ("parentTraconAreaId") REFERENCES "TraconArea"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "Airport" ADD CONSTRAINT "airport_minor_fields_fkey" FOREIGN KEY ("parentTraconAreaMinorId") REFERENCES "TraconArea"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "AirportFlow" ADD CONSTRAINT "AirportFlow_flowActiveAirportId_fkey" FOREIGN KEY ("flowActiveAirportId") REFERENCES "Airport"("icao") ON DELETE SET NULL ON UPDATE CASCADE;

@@ -11,6 +11,15 @@ function AddTraconAssignmentForm({ faaIdentifier, sectors, onSubmit }: { faaIden
 
     const changeSectors = (e: SelectChangeEvent<typeof childSectorIds>) => {
         const { target: { value }} = e;
+        if ((typeof value === 'string' && value === 'everything') ||
+            value.includes('everything')) {
+            if (sectors.every(v => childSectorIds.includes(v.id))) {
+                setChildSectorIds([]);
+                return;
+            }
+            setChildSectorIds([...sectors.map((s: TraconSector) => s.id)]);
+            return;
+        }
         setChildSectorIds(
             typeof  value === 'string' ? value.split(',') : value,
         );
@@ -53,6 +62,10 @@ function AddTraconAssignmentForm({ faaIdentifier, sectors, onSubmit }: { faaIden
                     onChange={changeSectors}
                     renderValue={(selected) => `${selected.length} selected`}
                 >
+                    <MenuItem value="everything">
+                        <Checkbox checked={sectors.every(v => childSectorIds.includes(v.id))} />
+                        <ListItemText primary="Select All" />
+                    </MenuItem>
                     {sectors.map((sector) => (
                         <MenuItem key={sector.id} value={sector.id}>
                             <Checkbox checked={childSectorIds.indexOf(sector.id) > -1} />
