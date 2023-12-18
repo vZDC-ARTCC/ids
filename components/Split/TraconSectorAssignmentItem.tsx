@@ -71,7 +71,7 @@ function TraconSectorAssignmentItem({ sectorAssignment, allSectors, onEdit, onDe
                             <Typography key={sector.id} color="limegreen" fontWeight={600} sx={{ padding: 0.5, }}>{sector.name}</Typography>
                         ))}
                         { !allSectors.every(v => sectorAssignment.childSectors.map((s: TraconSector) => s.id).includes(v.id)) && sectorAssignment.childSectors.length === 0 &&
-                            <Tooltip title="DO NOT HANDOFF TO THIS SECTOR! No sectors are currently assigned to this sector.  The airspace is probably being re-consolidated.  This sector could disappear or be assigned sectors.">
+                            <Tooltip title="DO NOT HANDOFF TO THIS SECTOR! No airspace is currently assigned to this sector.">
                                 <Typography color="yellow" variant="h5" fontWeight={600}>PARKED</Typography>
                             </Tooltip>
                         }

@@ -21,7 +21,7 @@ function FlowPage({ params }: { params: { id: string, area: string, }, }) {
     }, [id, area]);
 
     return (
-        <Stack direction="column" spacing={2}>
+        <Stack direction="column" spacing={2} sx={{ width: '100%', }}>
             <Typography>Select an airport from the list.</Typography>
             <Select
                 required
