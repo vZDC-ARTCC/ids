@@ -1,7 +1,7 @@
 import React from 'react';
 import {fetchTraconAssignments} from "@/actions/traconAssignment";
 import {Tracon, TraconSector} from "@prisma/client";
-import {Box, Grid, List, ListItem, Stack, Typography} from "@mui/material";
+import {Grid, Stack, Typography} from "@mui/material";
 import RefreshButton from "@/components/Utils/RefreshButton";
 
 async function TraconSectorsList({ tracon, allSectors }: { tracon: Tracon | null, allSectors: TraconSector[], }) {
