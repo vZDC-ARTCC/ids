@@ -1,16 +1,21 @@
-import React from 'react';
+"use client";
+import React, {useEffect, useState} from 'react';
 import {fetchTraconAssignments} from "@/actions/traconAssignment";
-import {Tracon, TraconSector} from "@prisma/client";
-import {Grid, Stack, Typography} from "@mui/material";
-import RefreshButton from "@/components/Utils/RefreshButton";
+import {Tracon, TraconSector, TraconSectorAssignment} from "@prisma/client";
+import {CircularProgress, Grid, Stack, Typography} from "@mui/material";
 
-async function TraconSectorsList({ tracon, allSectors }: { tracon: Tracon | null, allSectors: TraconSector[], }) {
+function TraconSectorsList({ tracon, allSectors }: { tracon: Tracon, allSectors: TraconSector[], }) {
 
-    if (!tracon) {
-        return;
-    }
-    const splits = await fetchTraconAssignments(tracon.faaIdentifier);
-
+    const [splits, setSplits] = useState<any>();
+    
+    useEffect(() => {
+        fetchTraconAssignments(tracon.faaIdentifier).then(setSplits);
+        const interval = setInterval(() => {
+            fetchTraconAssignments(tracon.faaIdentifier).then(setSplits);
+        }, 15000);
+        return () => clearInterval(interval);
+    }, [tracon.faaIdentifier]);
+    
     const sectors: {
         name: string,
         status: string,
@@ -18,7 +23,7 @@ async function TraconSectorsList({ tracon, allSectors }: { tracon: Tracon | null
         position: number,
     }[] = []
 
-    splits.forEach((sp) => {
+    splits?.forEach((sp: TraconSectorAssignment | any) => {
         if (sp.childSectors.length === 0) return;
         const sector = sp.parentSector;
         if (!sectors.map((s) => s.name).includes(sector.name)) {
@@ -30,9 +35,9 @@ async function TraconSectorsList({ tracon, allSectors }: { tracon: Tracon | null
             });
         }
 
-        sectors.push(...sp.childSectors.filter((sf) => {
+        sectors.push(...sp.childSectors.filter((sf: TraconSectorAssignment | any) => {
             return !sectors.map((s) => s.name).includes(sf.name)
-        }).map((cs) => {
+        }).map((cs: TraconSectorAssignment | any) => {
             return {
                 name: cs.name,
                 status: `> ${sector.name}`,
@@ -59,7 +64,7 @@ async function TraconSectorsList({ tracon, allSectors }: { tracon: Tracon | null
         <Stack direction="column" spacing={2} sx={{ border: 1, padding: 1, }}>
             <Stack direction="row" spacing={1} alignItems="center">
                 <Typography variant="h6">{tracon.faaIdentifier} SECTOR DISPLAY</Typography>
-                <RefreshButton />
+                {!splits && <CircularProgress />}
             </Stack>
             <Grid container>
                 {sectors

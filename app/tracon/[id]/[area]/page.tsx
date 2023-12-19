@@ -12,11 +12,11 @@ async function TraconHome({ params }: { params: { id: string, area: string, }}) 
 
     const traconArea = await fetchTraconAreaWithDetail(id, area);
 
-    return (
+    return traconArea.parentTracon && (
         <>
             <Grid container columns={3} justifyContent="center" spacing={2}>
-                <Grid item xs>
-                    { traconArea.parentTracon && <TraconSectorsList tracon={traconArea.parentTracon} allSectors={traconArea.parentTracon.sectors}/> }
+                <Grid item xs={3} md>
+                    { traconArea.parentTracon && <TraconSectorsList tracon={traconArea.parentTracon} allSectors={traconArea.parentTracon.sectors} /> }
                 </Grid>
                 {traconArea?.majorFields.map((field) => (
                     <Grid key={field.icao} item xs>

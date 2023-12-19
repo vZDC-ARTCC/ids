@@ -1,53 +1,72 @@
 "use client";
-import React, {useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {VatsimATISConnection} from "@/types";
-import {FormControlLabel, Stack, Switch, Typography} from "@mui/material";
+import {Alert, Button, FormControlLabel, Stack, Switch, Typography} from "@mui/material";
+import {fetchMetar, fetchVatsimATIS} from '@/actions/atis';
 
-const VATSIM_DATA_URL = "https://data.vatsim.net/v3/vatsim-data.json";
-const VATSIM_METAR_URL = "https://metar.vatsim.net/metar.php";
-const fetchVatsimATIS = async (icao: string) => {
-    const res = await fetch(VATSIM_DATA_URL, {
-        next: {
-            revalidate: 15,
-        }
-    });
-    const { atis }: { atis: VatsimATISConnection[] } = await res.json();
-    const filteredAtisConnections = atis.filter((atisConnection) => atisConnection.callsign.startsWith(icao));
 
-    if (filteredAtisConnections.length === 0) {
-        return undefined;
-    } else {
-        return filteredAtisConnections[0];
-    }
-}
-
-const fetchMetar = async (icao: string) => {
-    const res = await fetch(`${VATSIM_METAR_URL}?id=${icao}`, {
-        next: {
-            revalidate: 15,
-        }
-    });
-    return await res.text();
-}
 
 function AirportLiveWeather({ icao, condensed, }: { icao: string, condensed: boolean, }) {
 
     const [vatsimATIS, setVatsimATIS] = useState<VatsimATISConnection>();
     const [metar, setMetar] = useState<string>();
     const [atisOpen, setAtisOpen] = useState(false);
+    const [metarChanged, setMetarChanged] = useState(false);
+    const [atisChanged, setAtisChanged] = useState(false);
+    const [first, setFirst] = useState(true);
+    
+    const updateAtis = useCallback(() => {
+        fetchVatsimATIS(icao).then((newAtis) => {
+            setVatsimATIS((prev) => {
+                if (!first && newAtis?.last_updated !== prev?.last_updated) {
+                    setAtisChanged(true);
+                }
+                return newAtis;
+            })
+        });
+    }, [first, icao]);
+    
+    const updateMetar = useCallback(() => {
+        fetchMetar(icao).then((newMetar) => {
+            setMetar((prev) => {
+                if (!first && newMetar !== prev) {
+                    setMetarChanged(true);
+                }
+                return newMetar;
+            })
+        });
 
+    }, [first, icao]);
+    
     useEffect(() => {
-        fetchVatsimATIS(icao).then(setVatsimATIS);
-        fetchMetar(icao).then(setMetar);
+        updateAtis();
+        updateMetar();
+        setFirst(false);
         const weatherInterval = setInterval(() => {
-            fetchVatsimATIS(icao).then(setVatsimATIS);
-            fetchMetar(icao).then(setMetar);
+            updateAtis();
+            updateMetar();
         }, 15000);
         return () => clearInterval(weatherInterval);
-    }, [icao])
+    }, [updateAtis, updateMetar])
 
     return (
         <Stack direction="column" spacing={condensed ? 1 : 2} sx={{ padding: 1, }}>
+            { atisChanged && <Alert
+                variant="filled"
+                severity="error"
+                action={<Button color="inherit" variant="outlined" size="large" onClick={() => setAtisChanged(false)}>Acknowledge</Button>}
+                sx={{ position: 'fixed', bottom: 0, left: 0, padding: 2, zIndex: 9999, width: '100%', }}
+            >
+                {icao} ATIS CHANGED
+            </Alert> }
+            { metarChanged && <Alert
+                variant="filled"
+                severity="error"
+                onClose={() => setMetarChanged(false)}
+                sx={{ position: 'fixed', bottom: 0, left: 0, padding: 2, zIndex: 9999, width: '100%', }}
+            >
+                {icao} METAR UPDATED
+            </Alert> }
             <Stack direction="row" spacing={2} alignItems="center">
                 <Typography variant={condensed ? 'h2' : 'h1'}>{icao}</Typography>
                 <Typography variant="h1" color="green" fontWeight={700} fontSize={condensed ? 100 : 150}>{vatsimATIS?.atis_code || '-'}</Typography>

@@ -9,7 +9,7 @@ async function TraconSplitPage({ params }: { params: { id: string, area: string,
     const { id, area } = params;
     const traconArea = await fetchTraconAreaWithDetail(id, area);
 
-    return (
+    return traconArea.parentTracon && (
         <Grid container columns={2} spacing={2}>
             <Grid item xs={2} md={1}>
                 <TraconSplitOverview tracon={traconArea.parentTracon} />
