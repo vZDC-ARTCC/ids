@@ -7,7 +7,6 @@ import LoginButton from "@/components/Login/LoginButton";
 import {fetchAirport} from "@/actions/airport";
 import IdsTab from "@/components/Tabs/IdsTab";
 import {Metadata} from "next";
-import AtctChangeAnnouncer from "@/components/ChangeAnnouncer/AtctChangeAnnouncer";
 
 export async function generateMetadata({ params }: { params: { id: string, }, }): Promise<Metadata> {
 

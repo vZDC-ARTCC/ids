@@ -9,8 +9,7 @@ import {fetchDepartureGateAssignments} from "@/actions/departureGate";
 import {fetchLocalRunwayAssignments} from "@/actions/runwayAssignment";
 import {fetchBroadcasts} from "@/actions/broadcast";
 import {fetchPireps} from "@/actions/pirep";
-import {AppBar, Box, Button, Container, Grid, Stack, Toolbar, Typography} from "@mui/material";
-import {useRouter} from "next/navigation";
+import {Button, Grid, Typography} from "@mui/material";
 
 function AtctChangeAnnouncer({ airport }: { airport: Airport }) {
 
