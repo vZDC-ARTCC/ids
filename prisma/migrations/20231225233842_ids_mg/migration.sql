@@ -62,6 +62,15 @@ CREATE TABLE "Tracon" (
 );
 
 -- CreateTable
+CREATE TABLE "TraconPositionPreset" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "traconId" TEXT,
+
+    CONSTRAINT "TraconPositionPreset_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "TraconArea" (
     "id" TEXT NOT NULL,
     "faaIdentifier" TEXT NOT NULL,
@@ -82,6 +91,18 @@ CREATE TABLE "TraconSector" (
     "parentTraconId" TEXT,
 
     CONSTRAINT "TraconSector_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "AirspaceData" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "imageUrl" TEXT NOT NULL,
+    "notes" TEXT[],
+    "traconSectorId" TEXT,
+    "traconAreaId" TEXT,
+
+    CONSTRAINT "AirspaceData_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -179,6 +200,12 @@ CREATE TABLE "Broadcast" (
     CONSTRAINT "Broadcast_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "_TraconPositionPresetToTraconSector" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
 
@@ -209,11 +236,20 @@ CREATE UNIQUE INDEX "AirportFlow_flowActiveAirportId_key" ON "AirportFlow"("flow
 -- CreateIndex
 CREATE UNIQUE INDEX "AirportFlow_airportId_name_key" ON "AirportFlow"("airportId", "name");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "_TraconPositionPresetToTraconSector_AB_unique" ON "_TraconPositionPresetToTraconSector"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_TraconPositionPresetToTraconSector_B_index" ON "_TraconPositionPresetToTraconSector"("B");
+
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "TraconPositionPreset" ADD CONSTRAINT "TraconPositionPreset_traconId_fkey" FOREIGN KEY ("traconId") REFERENCES "Tracon"("faaIdentifier") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "TraconArea" ADD CONSTRAINT "TraconArea_traconFaaIdentifier_fkey" FOREIGN KEY ("traconFaaIdentifier") REFERENCES "Tracon"("faaIdentifier") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -223,6 +259,12 @@ ALTER TABLE "TraconSector" ADD CONSTRAINT "TraconSector_childSectorAssignmentId_
 
 -- AddForeignKey
 ALTER TABLE "TraconSector" ADD CONSTRAINT "TraconSector_parentTraconId_fkey" FOREIGN KEY ("parentTraconId") REFERENCES "Tracon"("faaIdentifier") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "AirspaceData" ADD CONSTRAINT "AirspaceData_traconSectorId_fkey" FOREIGN KEY ("traconSectorId") REFERENCES "TraconSector"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "AirspaceData" ADD CONSTRAINT "AirspaceData_traconAreaId_fkey" FOREIGN KEY ("traconAreaId") REFERENCES "TraconArea"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "Airport" ADD CONSTRAINT "airport_major_fields_fkey" FOREIGN KEY ("parentTraconAreaMajorId") REFERENCES "TraconArea"("id") ON DELETE CASCADE ON UPDATE CASCADE;
@@ -262,3 +304,9 @@ ALTER TABLE "DepartureGatesAssignment" ADD CONSTRAINT "DepartureGatesAssignment_
 
 -- AddForeignKey
 ALTER TABLE "TowerRunwayAssignment" ADD CONSTRAINT "TowerRunwayAssignment_airportId_fkey" FOREIGN KEY ("airportId") REFERENCES "Airport"("icao") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_TraconPositionPresetToTraconSector" ADD CONSTRAINT "_TraconPositionPresetToTraconSector_A_fkey" FOREIGN KEY ("A") REFERENCES "TraconPositionPreset"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_TraconPositionPresetToTraconSector" ADD CONSTRAINT "_TraconPositionPresetToTraconSector_B_fkey" FOREIGN KEY ("B") REFERENCES "TraconSector"("id") ON DELETE CASCADE ON UPDATE CASCADE;

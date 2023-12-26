@@ -3,6 +3,9 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {VatsimATISConnection} from "@/types";
 import {Alert, Button, FormControlLabel, Stack, Switch, Typography} from "@mui/material";
 import {fetchMetar, fetchVatsimATIS} from '@/actions/atis';
+import ChangeSnackbar from "@/components/ChangeAnnouncer/ChangeSnackbar";
+import Link from "next/link";
+import {OpenInNew} from "@mui/icons-material";
 
 
 
@@ -51,24 +54,12 @@ function AirportLiveWeather({ icao, condensed, }: { icao: string, condensed: boo
 
     return (
         <Stack direction="column" spacing={condensed ? 1 : 2} sx={{ padding: 1, }}>
-            { atisChanged && <Alert
-                variant="filled"
-                severity="error"
-                action={<Button color="inherit" variant="outlined" size="large" onClick={() => setAtisChanged(false)}>Acknowledge</Button>}
-                sx={{ position: 'fixed', bottom: 0, left: 0, padding: 2, zIndex: 9999, width: '100%', }}
-            >
-                {icao} ATIS CHANGED
-            </Alert> }
-            { metarChanged && <Alert
-                variant="filled"
-                severity="error"
-                onClose={() => setMetarChanged(false)}
-                sx={{ position: 'fixed', bottom: 0, left: 0, padding: 2, zIndex: 9999, width: '100%', }}
-            >
-                {icao} METAR UPDATED
-            </Alert> }
+            <ChangeSnackbar open={atisChanged} change={{ message: `${icao} ${vatsimATIS?.atis_code}`, type: 'atis', }} onAcknowledge={setAtisChanged} />
+            <ChangeSnackbar open={metarChanged} change={{ message: `METAR CHANGED`, type: 'atis', }} onAcknowledge={setMetarChanged} />
             <Stack direction="row" spacing={2} alignItems="center">
-                <Typography variant={condensed ? 'h2' : 'h1'}>{icao}</Typography>
+                <Link href={`/atct/${icao}/`} target="_blank" style={{ textDecoration: 'none', color: 'inherit', }}>
+                    <Typography variant={condensed ? 'h2' : 'h1'}>{icao}<OpenInNew /></Typography>
+                </Link>
                 <Typography variant="h1" color="green" fontWeight={700} fontSize={condensed ? 100 : 150}>{vatsimATIS?.atis_code || '-'}</Typography>
             </Stack>
             <FormControlLabel control={

@@ -6,6 +6,7 @@ import {fetchBroadcasts} from "@/actions/broadcast";
 import {fetchPireps} from "@/actions/pirep";
 import BroadcastList from "@/components/Broadcast/BroadcastList";
 import PirepList from "@/components/Pirep/PirepList";
+import ChangeSnackbar from "@/components/ChangeAnnouncer/ChangeSnackbar";
 
 function BroadcastPirepGrid({ horizontal = false }: { horizontal?: boolean, }) {
 
@@ -54,22 +55,8 @@ function BroadcastPirepGrid({ horizontal = false }: { horizontal?: boolean, }) {
 
     return (
         <Grid container columns={2} sx={{ border: 1, }}>
-            { broadcastsChanged && <Alert
-                variant="filled"
-                severity="error"
-                action={<Button color="inherit" variant="outlined" size="large" onClick={() => setBroadcastsChanged(false)}>Acknowledge</Button>}
-                sx={{ position: 'fixed', bottom: 0, left: 0, padding: 2, zIndex: 9999, width: '100%', }}
-            >
-                BROADCASTS CHANGED
-            </Alert> }
-            { pirepsChanged && <Alert
-                variant="filled"
-                severity="error"
-                onClose={() => setPirepsChanged(false)}
-                sx={{ position: 'fixed', bottom: 0, left: 0, padding: 2, zIndex: 9999, width: '100%', }}
-            >
-                PIREPS CHANGED
-            </Alert> }
+            <ChangeSnackbar open={broadcastsChanged} change={{ message: 'CHANGES', type: "broadcast", }} onAcknowledge={setBroadcastsChanged} />
+            <ChangeSnackbar open={pirepsChanged} change={{ message: 'CHANGES', type: "pirep", }} onAcknowledge={setPirepsChanged} />
             <Grid item xs={horizontal ? 1 : 2} sx={{ minHeight: '20rem', padding: 1, borderRight: horizontal ? 1 : 0, }}>
                 <Typography variant="h6">BROADCAST</Typography>
                 <BroadcastList broadcasts={broadcasts} big={true} />

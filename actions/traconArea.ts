@@ -19,6 +19,7 @@ export async function fetchTraconAreaWithDetail(traconFaa: string, areaFaa: stri
             faaIdentifier: areaFaa,
         },
         include: {
+            areaMap: true,
             majorFields: {
                 include: {
                     flows: {
@@ -41,7 +42,11 @@ export async function fetchTraconAreaWithDetail(traconFaa: string, areaFaa: stri
             },
             parentTracon: {
                 include: {
-                    sectors: true,
+                    sectors: {
+                        include: {
+                            airspaceData: true,
+                        }
+                    },
                 }
             },
         }

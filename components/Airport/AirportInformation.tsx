@@ -5,12 +5,15 @@ import {Alert, Box, Button, CircularProgress, Grid, Stack, Typography} from "@mu
 import {CustomizableOption} from "@prisma/client";
 import OptionSelect from "@/components/Airport/Option/OptionSelect";
 import FlowDisplay from "@/components/Flow/FlowDisplay";
+import ChangeSnackbar from "@/components/ChangeAnnouncer/ChangeSnackbar";
+import {setOptionValue} from "@/actions/option";
 
 function AirportInformation({ icao, condensed }: { icao: string, condensed: boolean, }) {
 
     const [activeFlow, setActiveFlow] = useState<any>();
     const [loading, setLoading ] = useState(true);
     const [flowChanged, setFlowChanged] = useState(false);
+    const [optionsChanged, setOptionsChanged] = useState(false);
     const [first, setFirst] = useState(true);
     
     const updateFlow = useCallback(() => {
@@ -18,6 +21,11 @@ function AirportInformation({ icao, condensed }: { icao: string, condensed: bool
             setActiveFlow((prev: any) => {
                 if (!first && newFlow?.id !== prev?.id) {
                     setFlowChanged(true);
+                }
+                if (!first && (
+                    newFlow?.traconVisibleOptions.length !== prev?.traconVisibleOptions.length ||
+                    !newFlow?.traconVisibleOptions.every((val: CustomizableOption, i) => val.name === prev?.traconVisibleOptions[i].name && val.value === prev?.traconVisibleOptions[i].value))) {
+                    setOptionsChanged(true);
                 }
                 return newFlow;
             })
@@ -35,21 +43,19 @@ function AirportInformation({ icao, condensed }: { icao: string, condensed: bool
 
     return (
         <Grid container columns={10} sx={{ height: '100%', borderTop: { xs: 1, xl: 0, }, }}>
-            { flowChanged && <Alert
-                variant="filled"
-                severity="error"
-                action={<Button color="inherit" variant="outlined" size="large" onClick={() => setFlowChanged(false)}>Acknowledge</Button>}
-                sx={{ position: 'fixed', bottom: 0, left: 0, padding: 2, zIndex: 9999, width: '100%', }}
-            >
-                {icao} FLOW -- {activeFlow?.name}
-            </Alert> }
+            <ChangeSnackbar open={flowChanged} change={{ message: `${icao} > ${activeFlow?.name}`, type: 'flow'}} onAcknowledge={setFlowChanged} />
+            <ChangeSnackbar open={optionsChanged} change={{ message: `${icao} > TVO CHANGED`, type: 'flow'}} onAcknowledge={setOptionsChanged} />
             <Grid item xs={10} md={4} sx={{ borderRight: { md: 1, }, }}>
                 <Stack direction="column" spacing={4} sx={{ padding: '1rem', }}>
                     { loading && <CircularProgress /> }
                     {activeFlow && activeFlow.traconVisibleOptions.map((option: CustomizableOption) => (
                         <Stack key={option.id} direction="column" alignItems="center" spacing={1}>
                             <Typography variant={condensed ? 'h6' : 'h5'} color="gold" fontWeight={700}>{option.name}</Typography>
-                            <OptionSelect option={option} condensed={condensed} />
+                            <OptionSelect option={option} condensed={condensed} changeValue={(val) => {
+                                setOptionValue(option.id, val || '').then(() => {
+                                    fetchActiveFlow(icao).then(setActiveFlow);
+                                });
+                            }}/>
                         </Stack>
                     ))}
                 </Stack>

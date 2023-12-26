@@ -5,6 +5,7 @@ import {fetchLocalRunwayAssignments} from "@/actions/runwayAssignment";
 import {Alert, Button, CircularProgress, List, Typography} from "@mui/material";
 import LocalRunwayAssignmentItem from "@/components/Airport/RunwayAssignment/LocalRunwayAssignmentItem";
 import {fetchActiveFlow} from "@/actions/flow";
+import ChangeSnackbar from "@/components/ChangeAnnouncer/ChangeSnackbar";
 
 function LocalRunwayAssignmentList({ icao, localPositions }: { icao: string, localPositions: string[] }) {
 
@@ -17,7 +18,7 @@ function LocalRunwayAssignmentList({ icao, localPositions }: { icao: string, loc
     const updateAssignments = useCallback(() => {
         fetchLocalRunwayAssignments(icao).then((newAssignments) => {
             setAssignments((prev) => {
-                if (!first && (newAssignments.length !== newAssignments.length ||
+                if (!first && (newAssignments.length !== prev.length ||
                     !newAssignments.every((val, i) => val?.runwayIdentifiers.every((val) => prev[i]?.runwayIdentifiers?.includes(val))))) {
                     setAssignmentsChanged(true);
                 }
@@ -50,14 +51,7 @@ function LocalRunwayAssignmentList({ icao, localPositions }: { icao: string, loc
     }
     return runways.length > 0 && (
         <List>
-            { assignmentsChanged && <Alert
-                variant="filled"
-                severity="error"
-                action={<Button color="inherit" variant="outlined" size="large" onClick={() => setAssignmentsChanged(false)}>Acknowledge</Button>}
-                sx={{ position: 'fixed', bottom: 0, left: 0, padding: 2, zIndex: 9999, width: '100%', }}
-            >
-                {icao} LOCAL RUNWAY ASSIGNMENTS CHANGED
-            </Alert> }
+            <ChangeSnackbar open={assignmentsChanged} change={{ message: `${icao} CHANGES`, type: 'local_runway_assignment', }} onAcknowledge={setAssignmentsChanged} />
             { !assignments && <CircularProgress /> }
             {assignments && localPositions.map((local) => {
                 const assignment = assignments.find((a) => a.localIdentifier === local);

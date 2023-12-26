@@ -9,4 +9,11 @@ export const PCT_MTV: TraconAreaConfig = {
     majorFields: [dcaAirportConfig],
     minorFields: [],
     customizableOptions: [],
+    areaMaps: [
+        {
+            name: 'MTV',
+            imageUrl: '/airspace/pct/mtv.png',
+            notes: [],
+        },
+    ],
 }

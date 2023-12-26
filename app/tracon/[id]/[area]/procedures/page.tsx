@@ -1,39 +1,25 @@
-"use client";
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {fetchTraconAreaWithDetail} from "@/actions/traconArea";
-import {ListItemText, MenuItem, Select, Stack, Typography} from "@mui/material";
+import {Stack, Typography} from "@mui/material";
 import ChartsTab from "@/components/Tabs/ChartsTab";
+import TraconAirportSelect from "@/components/TraconSelect/TraconAirportSelect";
 
-function TraconProceduresPage({ params }: { params: { id: string, area: string, }, }) {
+async function TraconProceduresPage({ params, searchParams, }: { params: { id: string, area: string, }, searchParams: { icao?: string, }, }) {
     const { id, area } = params;
-    const [airports, setAirports] = useState<string[]>([]);
-    const [selectedAirportIcao, setSelectedAirportIcao] = useState<string>();
-
-    useEffect(() => {
-        fetchTraconAreaWithDetail(id, area).then((traconArea) => {
-            setAirports([
-                ...traconArea.majorFields.map((f) => (f.icao)),
-                ...traconArea.minorFields.map((f) => (f.icao)),
-            ]);
-        })
-    }, [id, area]);
+    const traconArea = await fetchTraconAreaWithDetail(id, area);
+    if (!traconArea) {
+        return <Typography>TRACON not found</Typography>
+    }
+    const icaos: string[] = [
+        ...traconArea.majorFields.map((f) => f.icao),
+        ...traconArea.minorFields.map((f) => f.icao),
+    ];
+    const selectedAirportIcao = searchParams.icao;
 
     return (
         <Stack direction="column" spacing={2} sx={{ width: '100%', }}>
             <Typography>Select an airport from the list.</Typography>
-            <Select
-                required
-                fullWidth
-                sx={{ minWidth: '10rem', }}
-                value={selectedAirportIcao}
-                onChange={(e) => setSelectedAirportIcao(e.target.value)}
-            >
-                {airports.map((airport) => (
-                    <MenuItem key={airport} value={airport}>
-                        <ListItemText primary={airport} />
-                    </MenuItem>
-                ))}
-            </Select>
+            <TraconAirportSelect initialSelectedIcao={selectedAirportIcao} airportIcaos={icaos} />
             { selectedAirportIcao && <ChartsTab icao={selectedAirportIcao} /> }
         </Stack>
     );

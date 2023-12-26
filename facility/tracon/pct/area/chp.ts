@@ -10,4 +10,11 @@ export const PCT_CHP: TraconAreaConfig = {
     majorFields: [bwiAirportConfig],
     minorFields: [],
     customizableOptions: [],
+    areaMaps: [
+        {
+            name: 'CHP',
+            imageUrl: '/airspace/pct/chp.png',
+            notes: [],
+        },
+    ],
 }

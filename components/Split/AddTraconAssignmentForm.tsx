@@ -1,28 +1,30 @@
 import React, {useState} from 'react';
 import {Button, Checkbox, ListItemText, MenuItem, Select, SelectChangeEvent, Stack} from "@mui/material";
 import {Add} from "@mui/icons-material";
-import {TraconSector} from "@prisma/client";
+import {TraconPositionPreset, TraconSector} from "@prisma/client";
 import {createTraconAssignment} from "@/actions/traconAssignment";
 
-function AddTraconAssignmentForm({ faaIdentifier, sectors, onSubmit }: { faaIdentifier: string, sectors: TraconSector[], onSubmit: () => void, }) {
+function AddTraconAssignmentForm({ faaIdentifier, sectors, presets, onSubmit }: { faaIdentifier: string, sectors: TraconSector[], presets: TraconPositionPreset[] | any[], onSubmit: () => void, }) {
     const [sectorId, setSectorId] = useState<string>('');
     const [childSectorIds, setChildSectorIds] = useState<string[]>([]);
 
 
     const changeSectors = (e: SelectChangeEvent<typeof childSectorIds>) => {
-        const { target: { value }} = e;
-        if ((typeof value === 'string' && value === 'everything') ||
-            value.includes('everything')) {
-            if (sectors.every(v => childSectorIds.includes(v.id))) {
+        let { target: { value }} = e;
+        value = value as string[];
+        if (value.includes('ALL')) {
+            if (value.length - 1 === sectors.length) {
                 setChildSectorIds([]);
                 return;
             }
-            setChildSectorIds([...sectors.map((s: TraconSector) => s.id)]);
+            setChildSectorIds(sectors.map((sector: TraconSector) => sector.id));
             return;
         }
-        setChildSectorIds(
-            typeof  value === 'string' ? value.split(',') : value,
-        );
+        const valuesToSave: string[] = [];
+        value.forEach((val) => {
+            valuesToSave.push(...val.split(','));
+        })
+        setChildSectorIds(valuesToSave.filter((val, i) => valuesToSave.indexOf(val) === i));
     }
 
     const submit = async () => {
@@ -62,10 +64,15 @@ function AddTraconAssignmentForm({ faaIdentifier, sectors, onSubmit }: { faaIden
                     onChange={changeSectors}
                     renderValue={(selected) => `${selected.length} selected`}
                 >
-                    <MenuItem value="everything">
+                    <MenuItem value="ALL">
                         <Checkbox checked={sectors.every(v => childSectorIds.includes(v.id))} />
                         <ListItemText primary="Select All" />
                     </MenuItem>
+                    {presets.map((preset) => (
+                        <MenuItem key={preset.id} value={preset.sectors.map((sector: TraconSector) => sector.id).join(',')}>
+                            <Button variant="contained" size="large" sx={{ width: '100%', }}>{preset.name}</Button>
+                        </MenuItem>
+                    ))}
                     {sectors.map((sector) => (
                         <MenuItem key={sector.id} value={sector.id}>
                             <Checkbox checked={childSectorIds.indexOf(sector.id) > -1} />

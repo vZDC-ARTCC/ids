@@ -4,7 +4,7 @@ import {CustomizableOption} from "@prisma/client";
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import {setOptionValue} from "@/actions/option";
 
-function OptionSelect({ option, condensed }: { option: CustomizableOption, condensed: boolean, }) {
+function OptionSelect({ option, condensed, changeValue }: { option: CustomizableOption, condensed: boolean, changeValue: (newValue?: string) => void }) {
 
     const [selectedValue, setSelectedValue] = useState(option.value || '');
 
@@ -13,7 +13,8 @@ function OptionSelect({ option, condensed }: { option: CustomizableOption, conde
     }, [option.value]);
 
     const handleChange = (e: { target: { value: string, }, }) => {
-        setOptionValue(option.id, e.target.value).then((option) => setSelectedValue(option.value || ''));
+        changeValue(e.target.value);
+        // setOptionValue(option.id, e.target.value).then((option) => setSelectedValue(option.value || ''));
     };
 
     return (

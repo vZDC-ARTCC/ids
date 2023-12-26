@@ -64,7 +64,7 @@ function TraconSectorAssignmentItem({ sectorAssignment, allSectors, onEdit, onDe
             </Box>
         }>
             <Stack direction="row" alignItems="center" spacing={2}>
-                <Typography variant="h5" color="red" fontWeight={600} textAlign="center" sx={{ padding: 1, border: 1, minWidth: '5rem', }}>{sectorAssignment.parentSector.name}</Typography>
+                <Typography variant="h5" color="gold" fontWeight={600} textAlign="center" sx={{ padding: 1, border: 1, minWidth: '6rem', }}>{sectorAssignment.parentSector.name}</Typography>
                 <ArrowForward fontSize="large" />
                 { !edit &&
                     <Stack direction="row" spacing={0} flexWrap="wrap">

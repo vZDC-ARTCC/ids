@@ -5,6 +5,7 @@ import DepartureAssignmentItem from "@/components/Airport/DepartureGates/Departu
 import {DepartureGatesAssignment, TraconSector} from "@prisma/client";
 import {fetchDepartureGateAssignments} from "@/actions/departureGate";
 import AddAssignmentForm from "@/components/Airport/DepartureGates/AddAssignmentForm";
+import ChangeSnackbar from "@/components/ChangeAnnouncer/ChangeSnackbar";
 
 function AssignedDepartureGateList({ icao, departureGates, sectors }: { icao: string, departureGates: string[], sectors: TraconSector[] }) {
 
@@ -38,14 +39,7 @@ function AssignedDepartureGateList({ icao, departureGates, sectors }: { icao: st
 
     return (
         <List>
-            { depGatesChanged && <Alert
-                variant="filled"
-                severity="error"
-                action={<Button color="inherit" variant="outlined" size="large" onClick={() => setDepGatesChanged(false)}>Acknowledge</Button>}
-                sx={{ position: 'fixed', bottom: 0, left: 0, padding: 2, zIndex: 9999, width: '100%', }}
-            >
-                {icao} DEPARTURE GATES CHANGED
-            </Alert> }
+            <ChangeSnackbar open={depGatesChanged} change={{ message: `${icao} CHANGES`, type: 'departure_gate_assignment', }} onAcknowledge={setDepGatesChanged} />
             { depGates && depGates.length === 0 && <Typography>None</Typography> }
             {depGates && depGates.map((gate) => (
                 <DepartureAssignmentItem key={gate.id} departureAssignment={gate} allDepartureGates={departureGates} onEdit={setEdit} onDelete={() => fetchDepartureGateAssignments(icao).then(setDepGates)}/>

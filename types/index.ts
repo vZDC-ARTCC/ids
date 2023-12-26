@@ -30,6 +30,12 @@ export type TraconConfig = {
     departureGates: string[],
     areas: TraconAreaConfig[],
     sectors: TraconSectorConfig[],
+    presets: TraconPreset[],
+}
+
+export type TraconPreset = {
+    name: string,
+    sectorNames: string[],
 }
 
 export type TraconAreaConfig = {
@@ -39,6 +45,7 @@ export type TraconAreaConfig = {
     majorFields: AirportConfig[],
     minorFields: AirportConfig[],
     sop: string,
+    areaMaps: AirspaceConfig[],
     customizableOptions: CustomizableOption[],
 }
 
@@ -46,6 +53,13 @@ export type TraconSectorConfig = {
     name: string,
     frequency: string,
     sectorLetter: string,
+    airspaceData: AirspaceConfig[],
+}
+
+export type AirspaceConfig = {
+    name: string,
+    notes: string[],
+    imageUrl: string,
 }
 
 export type CustomizableOption = {

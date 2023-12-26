@@ -8,5 +8,12 @@ export const PCT_SHD: TraconAreaConfig = {
     sop: '/sop/pct_shd_sop.pdf',
     majorFields: [iadAirportConfig],
     minorFields: [],
+    areaMaps: [
+        {
+            name: 'SHD',
+            imageUrl: '/airspace/pct/shd.png',
+            notes: [],
+        },
+    ],
     customizableOptions: [],
 }

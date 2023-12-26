@@ -62,20 +62,30 @@ model VerificationToken {
 }
 
 model Tracon {
-  faaIdentifier  String         @id
+  faaIdentifier  String                 @id
   name           String?
   departureGates String[]
   areas          TraconArea[]
   sectors        TraconSector[]
+  presets        TraconPositionPreset[]
+}
+
+model TraconPositionPreset {
+  id       String         @id @default(cuid())
+  name     String
+  tracon   Tracon?        @relation(fields: [traconId], references: [faaIdentifier], onDelete: Cascade, onUpdate: Cascade)
+  traconId String?
+  sectors  TraconSector[]
 }
 
 model TraconArea {
-  id            String    @id @default(cuid())
+  id            String         @id @default(cuid())
   faaIdentifier String
   name          String
   sopLink       String
-  majorFields   Airport[] @relation("Airport_majorField")
-  minorFields   Airport[] @relation("Airport_minorFields")
+  areaMap       AirspaceData[]
+  majorFields   Airport[]      @relation("Airport_majorField")
+  minorFields   Airport[]      @relation("Airport_minorFields")
 
   parentTracon        Tracon? @relation(fields: [traconFaaIdentifier], references: [faaIdentifier], onDelete: Cascade, onUpdate: Cascade)
   traconFaaIdentifier String?
@@ -92,11 +102,27 @@ model TraconSector {
   consolidatedAssignments TraconSectorAssignment[]   @relation("parent")
   childSectorFor          TraconSectorAssignment?    @relation("child", fields: [childSectorAssignmentId], references: [id])
   childSectorAssignmentId String?
+  airspaceData            AirspaceData[]
 
   parentTracon   Tracon? @relation(fields: [parentTraconId], references: [faaIdentifier], onDelete: Cascade, onUpdate: Cascade)
   parentTraconId String?
 
+  traconPositionPresets TraconPositionPreset[]
+
   @@unique([parentTraconId, name])
+}
+
+model AirspaceData {
+  id       String   @id @default(cuid())
+  name     String
+  imageUrl String
+  notes    String[]
+
+  traconSector   TraconSector? @relation(fields: [traconSectorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  traconSectorId String?
+
+  traconArea   TraconArea? @relation(fields: [traconAreaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  traconAreaId String?
 }
 
 model Airport {
