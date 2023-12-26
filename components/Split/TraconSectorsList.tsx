@@ -1,7 +1,7 @@
 "use client";
 import React, {useCallback, useEffect, useState} from 'react';
 import {fetchTraconAssignments} from "@/actions/traconAssignment";
-import {Prisma, Tracon, TraconSector, TraconSectorAssignment} from "@prisma/client";
+import {Tracon, TraconSector, TraconSectorAssignment} from "@prisma/client";
 import {CircularProgress, Grid, Stack, Typography} from "@mui/material";
 import ChangeSnackbar from "@/components/ChangeAnnouncer/ChangeSnackbar";
 
