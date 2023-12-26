@@ -1,3 +1,7 @@
+-- noinspection SqlDialectInspectionForFile
+
+-- noinspection SqlNoDataSourceInspectionForFile
+
 -- CreateEnum
 CREATE TYPE "PirepType" AS ENUM ('ROUTINE', 'URGENT');
 

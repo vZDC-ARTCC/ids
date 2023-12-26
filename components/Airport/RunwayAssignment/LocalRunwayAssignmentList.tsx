@@ -2,7 +2,7 @@
 import React, {useCallback, useEffect, useState} from 'react';
 import {TowerRunwayAssignment} from "@prisma/client";
 import {fetchLocalRunwayAssignments} from "@/actions/runwayAssignment";
-import {Alert, Button, CircularProgress, List, Typography} from "@mui/material";
+import {CircularProgress, List, Typography} from "@mui/material";
 import LocalRunwayAssignmentItem from "@/components/Airport/RunwayAssignment/LocalRunwayAssignmentItem";
 import {fetchActiveFlow} from "@/actions/flow";
 import ChangeSnackbar from "@/components/ChangeAnnouncer/ChangeSnackbar";
