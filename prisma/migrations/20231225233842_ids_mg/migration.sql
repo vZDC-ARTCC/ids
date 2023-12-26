@@ -6,6 +6,15 @@
 CREATE TYPE "PirepType" AS ENUM ('ROUTINE', 'URGENT');
 
 -- CreateTable
+CREATE TABLE "Log" (
+    "id" TEXT NOT NULL,
+    "message" TEXT NOT NULL,
+    "date" TIMESTAMP(3) NOT NULL,
+
+    CONSTRAINT "Log_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Account" (
     "id" TEXT NOT NULL,
     "userId" TEXT NOT NULL,

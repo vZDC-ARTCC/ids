@@ -13,6 +13,15 @@ function AddAssignmentForm({ icao, departureGates, sectors, onSubmit }: { icao: 
 
     const changeGates = (e: SelectChangeEvent<typeof gates>) => {
         const { target: { value }} = e;
+        if ((typeof value === 'string' && value === 'everything') ||
+            value.includes('everything')) {
+            if (departureGates.every(v => gates.includes(v))) {
+                setGates([]);
+                return;
+            }
+            setGates([...departureGates]);
+            return;
+        }
         setGates(
             typeof  value === 'string' ? value.split(',') : value,
         );
@@ -55,6 +64,10 @@ function AddAssignmentForm({ icao, departureGates, sectors, onSubmit }: { icao: 
                     onChange={changeGates}
                     renderValue={(selected) => `${selected.length} selected`}
                 >
+                    <MenuItem value="everything">
+                        <Checkbox checked={departureGates.every(v => gates.includes(v))} />
+                        <ListItemText primary="Select All" />
+                    </MenuItem>
                     {departureGates.map((gate) => (
                         <MenuItem key={gate} value={gate}>
                             <Checkbox checked={gates.indexOf(gate) > -1} />

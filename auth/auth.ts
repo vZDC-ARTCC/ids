@@ -15,16 +15,17 @@ export const authOptions: NextAuthOptions = {
             process.env['VATSIM_CLIENT_SECRET'],
         ),
     ],
+    theme: {
+        logo: '/img/logo.png',
+    },
     callbacks: {
         signIn: async ({user}) => {
             if (!DEV_MODE) {
-                if (user.division !== 'USA' || user.artcc !== VATUSA_FACILITY) {
-                    return false;
-                }
                 const res = await fetch(`https://api.vatusa.net/v2/facility/${VATUSA_FACILITY}/roster/both`);
                 const rosterData = await res.json();
-                const controllers = rosterData.data as any[];
-                return controllers.find((controller) => controller.cid === user.cid);
+                let controllers = rosterData.data as any[];
+                controllers = controllers.map((c) => c.cid) as number[];
+                return controllers.includes(Number(user.cid));
             }
             return true;
         },

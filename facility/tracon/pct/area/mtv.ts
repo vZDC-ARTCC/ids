@@ -1,5 +1,6 @@
 import {TraconAreaConfig} from "@/types";
 import {dcaAirportConfig} from "@/facility/atct/kdca";
+import {adwAirportConfig} from "@/facility/atct/kadw";
 
 export const PCT_MTV: TraconAreaConfig = {
     id: 'Mount Vernon',
@@ -7,7 +8,7 @@ export const PCT_MTV: TraconAreaConfig = {
     name: 'Mount Vernon ',
     sop: '/sop/pct_mtv_sop.pdf',
     majorFields: [dcaAirportConfig],
-    minorFields: [],
+    minorFields: [adwAirportConfig],
     customizableOptions: [],
     areaMaps: [
         {

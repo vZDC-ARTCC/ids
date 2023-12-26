@@ -42,6 +42,56 @@ export const bwiAirportConfig: AirportConfig = {
             name: 'WEST VMC',
             departureRunways: [
                 {
+                    id: '33R',
+                    availableDepartureTypes: ['RV', 'ROTG'],
+                },
+                {
+                    id: '33L',
+                    availableDepartureTypes: ['RV', 'ROTG'],
+                },
+
+            ],
+            arrivalRunways: [
+                {
+                    id: '33R',
+                    availableApproachTypes: ['VIS'],
+                },
+                {
+                    id: '33L',
+                    availableApproachTypes: ['VIS'],
+                },
+            ],
+            traconVisibleOptions: [],
+        },
+        {
+            name: 'WEST IMC',
+            departureRunways: [
+                {
+                    id: '33R',
+                    availableDepartureTypes: ['RV', 'ROTG'],
+                },
+                {
+                    id: '33L',
+                    availableDepartureTypes: ['RV', 'ROTG'],
+                },
+
+            ],
+            arrivalRunways: [
+                {
+                    id: '33R',
+                    availableApproachTypes: ['ILS', 'RNP-Z','GPS-Y'],
+                },
+                {
+                    id: '33L',
+                    availableApproachTypes: ['ILS', 'RNP-Z','GPS-Y'],
+                },
+            ],
+            traconVisibleOptions: [],
+        },
+        {
+            name: 'EAST VMC',
+            departureRunways: [
+                {
                     id: '15R',
                     availableDepartureTypes: ['RV', 'ROTG'],
                 },
@@ -53,18 +103,18 @@ export const bwiAirportConfig: AirportConfig = {
             ],
             arrivalRunways: [
                 {
-                    id: '10',
-                    availableApproachTypes: ['ILS', 'RNP-Z','GPS-Y', 'VIS'],
+                    id: '15L',
+                    availableApproachTypes: ['VIS'],
                 },
                 {
-                    id: '15L',
+                    id: '10',
                     availableApproachTypes: ['VIS'],
                 },
             ],
             traconVisibleOptions: [],
         },
         {
-            name: 'WEST IMC',
+            name: 'EAST IMC',
             departureRunways: [
                 {
                     id: '15R',
@@ -81,51 +131,9 @@ export const bwiAirportConfig: AirportConfig = {
                     id: '10',
                     availableApproachTypes: ['ILS', 'RNP-Z','GPS-Y'],
                 },
-            ],
-            traconVisibleOptions: [],
-        },
-        {
-            name: 'EAST VMC',
-            departureRunways: [
                 {
-                    id: '28',
-                    availableDepartureTypes: ['RV', 'ROTG'],
-                },
-                {
-                    id: '33R',
-                    availableDepartureTypes: ['RV', 'ROTG'],
-                },
-
-            ],
-            arrivalRunways: [
-                {
-                    id: '33L',
-                    availableApproachTypes: ['ILS', 'RNP-Z','GPS-Y', 'VIS'],
-                },
-                {
-                    id: '33R',
-                    availableApproachTypes: ['VIS'],
-                },
-            ],
-            traconVisibleOptions: [],
-        },
-        {
-            name: 'EAST IMC',
-            departureRunways: [
-                {
-                    id: '28',
-                    availableDepartureTypes: ['RV', 'ROTG'],
-                },
-                {
-                    id: '33R',
-                    availableDepartureTypes: ['RV', 'ROTG'],
-                },
-
-            ],
-            arrivalRunways: [
-                {
-                    id: '33L',
-                    availableApproachTypes: ['ILS', 'RNP-Z','GPS-Y', 'VIS'],
+                    id: '15L',
+                    availableApproachTypes: ['ILS','GPS'],
                 },
             ],
             traconVisibleOptions: [],

@@ -1,5 +1,6 @@
 import {TraconAreaConfig} from "@/types";
 import {iadAirportConfig} from "@/facility/atct/kiad";
+import {hefAirportConfig} from "@/facility/atct/khef";
 
 export const PCT_SHD: TraconAreaConfig = {
     id: 'Shenandoah',
@@ -7,7 +8,7 @@ export const PCT_SHD: TraconAreaConfig = {
     name: 'Shenandoah',
     sop: '/sop/pct_shd_sop.pdf',
     majorFields: [iadAirportConfig],
-    minorFields: [],
+    minorFields: [hefAirportConfig],
     areaMaps: [
         {
             name: 'SHD',

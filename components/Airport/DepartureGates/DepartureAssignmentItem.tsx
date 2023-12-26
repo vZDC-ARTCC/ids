@@ -35,6 +35,15 @@ function DepartureAssignmentItem({ departureAssignment, allDepartureGates, onEdi
 
     const changeDepartureGates = (e: SelectChangeEvent<typeof selectedDepartureGates>) => {
         const { target: { value }} = e;
+        if ((typeof value === 'string' && value === 'everything') ||
+        value.includes('everything')) {
+            if (allDepartureGates.every(v => selectedDepartureGates.includes(v))) {
+                setSelectedDepartureGates([]);
+                return;
+            }
+            setSelectedDepartureGates([...allDepartureGates]);
+            return;
+        }
         setSelectedDepartureGates(
             typeof  value === 'string' ? value.split(',') : value,
         );
@@ -66,7 +75,8 @@ function DepartureAssignmentItem({ departureAssignment, allDepartureGates, onEdi
                 <ArrowForward fontSize="large" />
                 { !edit &&
                     <Stack direction="row" spacing={0} flexWrap="wrap">
-                        {departureAssignment.gates.map((gate: string) => (
+                        { allDepartureGates.every(v => departureAssignment.gates.includes(v)) && <Typography variant="h3" fontWeight={600} color="limegreen">ALL</Typography> }
+                        { !allDepartureGates.every(v => departureAssignment.gates.includes(v)) && departureAssignment.gates.map((gate: string) => (
                             <Typography key={gate} color="limegreen" fontWeight={600} sx={{ padding: 0.5, }}>{gate}</Typography>
                         ))}
                     </Stack> }
@@ -79,6 +89,10 @@ function DepartureAssignmentItem({ departureAssignment, allDepartureGates, onEdi
                             onChange={changeDepartureGates}
                             renderValue={(selected) => `${selected.length} selected`}
                         >
+                            <MenuItem value="everything">
+                                <Checkbox checked={allDepartureGates.every(v => selectedDepartureGates.includes(v))} />
+                                <ListItemText primary="Select All" />
+                            </MenuItem>
                             {allDepartureGates.map((gate) => (
                                 <MenuItem key={gate} value={gate}>
                                     <Checkbox checked={selectedDepartureGates.indexOf(gate) > -1} />

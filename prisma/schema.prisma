@@ -10,6 +10,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Log {
+  id      String   @id @default(cuid())
+  message String
+  date    DateTime
+}
+
 model Account {
   id                String   @id @default(cuid())
   userId            String

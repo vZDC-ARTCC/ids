@@ -711,5 +711,5 @@ export const PCT_CONFIG: TraconConfig = {
                 },
             ],
         },
-    ],
+    ]
 }

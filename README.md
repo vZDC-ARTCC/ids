@@ -40,6 +40,10 @@ Migrate the database:
 ```bash
 npm run db:deploy
 ```
+Generate the Prisma Client:
+```bash
+npx prisma generate
+```
 #### Configuring
 
 Navigate to the `facilities` directory to see all the ATCTs and TRACONS.
