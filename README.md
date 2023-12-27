@@ -32,7 +32,8 @@ Build the docker image (if you change the tag name, make sure to update it in th
 ```bash
 docker build -t ids .
 ```
-Navigate to the `docker-compose` directory and set the environment variables accordingly.
+Navigate to the `docker-compose` directory and create a `.env.local` file.
+Configure the environment variables for the IDS docker image based on `.env.example`.
 > [!WARNING]
 > Do not modify the `DATABASE_URL` and the `NEXTAUTH_URL` variables!
 
@@ -43,6 +44,10 @@ Run the `docker-compose.yaml` file:
 ```bash
 docker-compose up
 ```
+
+Make sure to seed the database by accessing `http://localhost/api/seed`.
+>[!IMPORTANT]
+> You need to do this everytime a new docker-compose instance is created since all data is wiped on shutdown.
 ### Development Setup
 #### Prerequisites
 - Node v18 or later
