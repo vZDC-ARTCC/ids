@@ -1,7 +1,24 @@
 # vZDC IDS
 The Virtual Washington ARTCC Information Display System is intended to simplify controlling the local and terminal environment.
+### Docker Compose
+Build the docker image (if you change the tag name, make sure to update it in the `docker-compose/docker-compose.yaml` file):
+```bash
+docker build -t ids .
+```
+Navigate to the `docker-compose` directory and set the environment variables accordingly.
+> [!WARNING]
+> Do not modify the `DATABASE_URL` and the `NEXTAUTH_URL` variables!
 
-### Setup
+> [!IMPORTANT]
+> Make sure the redirect URI for VATSIM OAuth2 is set to `http://localhost/api/auth/callback/vatsim` unless you changed the port in the environment variables.
+
+Run the `docker-compose.yaml` file:
+```bash
+docker-compose up
+```
+
+
+### Manual Setup
 #### Prerequisites
 - Node v18 or later
 - NPM 9.6 or later
@@ -48,15 +65,16 @@ npx prisma generate
 
 Navigate to the `facilities` directory to see all the ATCTs and TRACONS.
 
-Facilities are built from the TRACON level, moving to TRACON AREA, and Fields.
+Facilities are seperated by TRACONs and ATCTs.  ATCTs are connected to TRACONs through major and minor fields.
 
 Reference the PCT TRACON and the IAD ATCT as examples on how to configure all of your fields and TRACONS.
 
 Once a TRACON has been configured correctly, add it to the `IDS_TRACON_FACILITIES` array in `facility/facilities.ts` file.
+Once an ATCT has been configured correctly, add it to the `IDS_ATCT_FACILITIES` array in `facility/facilities.ts` file.
 
 > [!WARNING]
 > You must re-seed the database if you make any changes to the configuration files.
-> Make sure you delete any data in the database or else the seed API will not work.
+> Unless you are in the development environment, make sure you delete any data in the database or else the seed API will not work.
 
 #### Development
 Run the development server:
@@ -68,7 +86,6 @@ Navigate to http://localhost:3000/api/seed
 Navigate to http://localhost:3000 and enjoy!
 
 #### Production
-Make sure you run the `npm run db:deploy` on your production database.
 
 Build the project:
 ```bash
@@ -86,16 +103,14 @@ Seed the database (`/api/seed`) on your production URL.
 
 ##### Docker
 
-After setting environment variables and configuring facilities correctly, run the `docker build` command:
-> [!WARNING]
-> Make sure `DATABASE_URL` is set in `.env` correctly.  The migration will not work during the build process if it is not set.
+After configuring facilities correctly, run the `docker build` command:
 ```bash
 docker build -t ids .
 ```
 
-Run the image:
+Run the image with the environment variables:
 ```bash
-docker run -p 80:80 ids
+docker run -p 80:80 --env-file <YOUR .env.local FILE> ids
 ```
 > [!IMPORTANT]
 > The container will run on port 80, unlike the development server.

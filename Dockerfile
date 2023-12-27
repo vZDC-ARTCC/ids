@@ -13,16 +13,19 @@ RUN \
   else echo "Lockfile not found." && exit 1; \
   fi
 
+COPY scripts/run.sh .
+COPY prisma/ .
 
 FROM base AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
+COPY --from=deps /app/run.sh .
+COPY --from=deps /app/ ./prisma/
 COPY . .
 
 ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN npx prisma generate
-RUN npx prisma migrate deploy
 
 RUN npm run build
 
@@ -43,6 +46,8 @@ RUN chown nextjs:nodejs .next
 
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+COPY --from=builder --chown=nextjs:nodejs /app/run.sh ./
+COPY --from=builder --chown=nextjs:nodejs /app/prisma/ ./prisma/
 
 USER nextjs
 
@@ -51,4 +56,5 @@ EXPOSE 80
 ENV PORT 80
 ENV HOSTNAME "0.0.0.0"
 
-CMD ["node", "server.js"]
+RUN chmod +x run.sh
+CMD ["./run.sh"]
