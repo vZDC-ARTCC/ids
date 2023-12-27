@@ -1,6 +1,6 @@
 import React from 'react';
 import {AirspaceData} from "@prisma/client";
-import {Grid, List, ListItem, ListItemText, Typography} from "@mui/material";
+import {Grid, List, ListItem, Typography} from "@mui/material";
 import Image from "next/image";
 
 function AirspaceGridItem({ data }: { data: AirspaceData }) {

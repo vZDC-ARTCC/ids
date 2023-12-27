@@ -1,5 +1,4 @@
 import React from 'react';
-import IdsTab from "@/components/Tabs/IdsTab";
 import AirportOverview from "@/components/Airport/AirportOverview";
 import BroadcastPirepGrid from "@/components/BroadcastPirep/BroadcastPirepGrid";
 import {Container, Grid} from "@mui/material";

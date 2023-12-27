@@ -84,6 +84,7 @@ export async function fetchParentArea(icao: string) {
         },
     }) || undefined;
     if (airport?.parentMajorTraconAreas && airport?.parentMajorTraconAreas.length > 0) {
+        // noinspection JSPotentiallyInvalidTargetOfIndexedPropertyAccess
         return airport?.parentMajorTraconAreas[0];
     } else {
         return airport?.parentMinorTraconAreas[0];
