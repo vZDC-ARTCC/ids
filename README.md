@@ -1,6 +1,33 @@
 # vZDC IDS
 The Virtual Washington ARTCC Information Display System is intended to simplify controlling the local and terminal environment.
-### Docker Compose
+### Environment Variables
+Use the `.env.example` file as a reference.
+
+Environment Variables (all are required):
+- `DEV_MODE`: If set to `true`, disables the VATUSA roster check and grants access to all pages regardless of rating.
+- `DATABASE_URL`: URL for the database. Example: `postgres://postgres:password@localhost:5432/ids-db`
+- `NEXTAUTH_URL`: URL to specify where VATSIM should redirect users after a successful login.  This should just be the url without anything after `.com` `.org` etc.  Example: `https://ids.vzdc.org`
+- `NEXTAUTH_SECRET`: Secret key to encrypt tokens, this can be anything (hopefully secure).  Example: `anything`
+- `VATSIM_CLIENT_ID`: Client ID for VATSIM Connect.
+- `VATSIM_CLIENT_SECRET`: Client Secret for VATSIM Connect.
+- `VATSIM_OAUTH_ENDPOINT`: When the VATSIM endpoint is located. (https://auth-dev.vatsim.net for development OR https://auth.vatsim.net for production)
+- `VATUSA_FACILITY`: Name of the facility the IDS should check logged-in users against. Example: `ZDC`
+- `WEATHER_BRIEFING_VIDEO_LINK`: Link to the FAA Pre-Duty Weather Briefing Video for your ARTCC.  Example: `https://www.weather.gov/media/zdc/PDWB/ZDC.mp4`
+### Configuring Facilities
+
+Navigate to the `facilities` directory to see all the ATCTs and TRACONS.
+
+Facilities are seperated by TRACONs and ATCTs.  ATCTs are connected to TRACONs through major and minor fields.
+
+Reference the PCT TRACON and the IAD ATCT as examples on how to configure all of your fields and TRACONS.
+
+Once a TRACON has been configured correctly, add it to the `IDS_TRACON_FACILITIES` array in `facility/facilities.ts` file.
+Once an ATCT has been configured correctly, add it to the `IDS_ATCT_FACILITIES` array in `facility/facilities.ts` file.
+
+> [!WARNING]
+> You must re-seed the database if you make any changes to the configuration files.
+> Unless you are in the development environment, make sure you delete any data in the database or else the seed API will not work.
+### Docker Compose (Development)
 Build the docker image (if you change the tag name, make sure to update it in the `docker-compose/docker-compose.yaml` file):
 ```bash
 docker build -t ids .
@@ -16,9 +43,7 @@ Run the `docker-compose.yaml` file:
 ```bash
 docker-compose up
 ```
-
-
-### Manual Setup
+### Development Setup
 #### Prerequisites
 - Node v18 or later
 - NPM 9.6 or later
@@ -40,19 +65,6 @@ npm i
 ```
 In the root of the project, create a file called `.env.local` and configure your environment variables.
 
-Use the `.env.example` file as a reference.
-
-Environment Variables (all are required):
-- `DEV_MODE`: If set to `true`, disables the VATUSA roster check and grants access to all pages regardless of rating.
-- `DATABASE_URL`: URL for the database. Example: `postgres://postgres:password@localhost:5432/ids-db`
-- `NEXTAUTH_URL`: URL to specify where VATSIM should redirect users after a successful login.  This should just be the url without anything after `.com` `.org` etc.  Example: `https://ids.vzdc.org`
-- `NEXTAUTH_SECRET`: Secret key to encrypt tokens, this can be anything (hopefully secure).  Example: `anything`
-- `VATSIM_CLIENT_ID`: Client ID for VATSIM Connect.
-- `VATSIM_CLIENT_SECRET`: Client Secret for VATSIM Connect.
-- `VATSIM_OAUTH_ENDPOINT`: When the VATSIM endpoint is located. (https://auth-dev.vatsim.net for development OR https://auth.vatsim.net for production)
-- `VATUSA_FACILITY`: Name of the facility the IDS should check logged-in users against. Example: `ZDC`
-- `WEATHER_BRIEFING_VIDEO_LINK`: Link to the FAA Pre-Duty Weather Briefing Video for your ARTCC.  Example: `https://www.weather.gov/media/zdc/PDWB/ZDC.mp4`
-
 Migrate the database:
 ```bash
 npm run db:deploy
@@ -61,22 +73,8 @@ Generate the Prisma Client:
 ```bash
 npx prisma generate
 ```
-#### Configuring
 
-Navigate to the `facilities` directory to see all the ATCTs and TRACONS.
-
-Facilities are seperated by TRACONs and ATCTs.  ATCTs are connected to TRACONs through major and minor fields.
-
-Reference the PCT TRACON and the IAD ATCT as examples on how to configure all of your fields and TRACONS.
-
-Once a TRACON has been configured correctly, add it to the `IDS_TRACON_FACILITIES` array in `facility/facilities.ts` file.
-Once an ATCT has been configured correctly, add it to the `IDS_ATCT_FACILITIES` array in `facility/facilities.ts` file.
-
-> [!WARNING]
-> You must re-seed the database if you make any changes to the configuration files.
-> Unless you are in the development environment, make sure you delete any data in the database or else the seed API will not work.
-
-#### Development
+#### Development Server
 Run the development server:
 ```bash
 npm run dev
