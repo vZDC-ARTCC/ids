@@ -27,6 +27,7 @@ function IdsAtctSidebar({ airport }: { airport: Airport }) {
                 <SidebarListItem name="SOP" link={`/atct/${id}/sop`} />
                 <SidebarListItem name="FLOW" link={`/atct/${id}/flow`} />
                 <SidebarListItem name="PROC" link={`/atct/${id}/procedures`} />
+                <SidebarListItem name="ASPC" link={`/atct/${id}/airspace`} />
                 <SidebarListItem name="WX" link={`/atct/${id}/wx`} />
                 <SidebarListItem name="PIREP" link={`/atct/${id}/pirep`} />
                 <SidebarListItem name="ACFT" link={`/atct/${id}/aircraft`} />

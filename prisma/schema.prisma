@@ -91,7 +91,7 @@ model TraconArea {
   sopLink       String
   areaMap       AirspaceData[]
   majorFields   Airport[]      @relation("Airport_majorField")
-  minorFields   Airport[]      @relation("Airport_minorFields")
+  minorFields   Airport[]      @relation("Airport_minorField")
 
   parentTracon        Tracon? @relation(fields: [traconFaaIdentifier], references: [faaIdentifier], onDelete: Cascade, onUpdate: Cascade)
   traconFaaIdentifier String?
@@ -129,12 +129,16 @@ model AirspaceData {
 
   traconArea   TraconArea? @relation(fields: [traconAreaId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   traconAreaId String?
+
+  airport   Airport? @relation(fields: [airportId], references: [icao], onDelete: Cascade, onUpdate: Cascade)
+  airportId String?
 }
 
 model Airport {
   icao                     String                     @id
   faaIdentifier            String                     @unique
   sopLink                  String
+  airspaceData             AirspaceData[]
   localControlPositions    String[]
   customizableOptions      CustomizableOption[]       @relation("Airport_customizableOptions")
   activeFlow               AirportFlow?               @relation("Airport_activeFlow")
@@ -144,11 +148,8 @@ model Airport {
 
   runways Runway[] @relation("Airport_runways")
 
-  parentMajorTraconArea TraconArea? @relation("Airport_majorField", fields: [parentTraconAreaMajorId], references: [id], map: "airport_major_fields_fkey", onDelete: Cascade, onUpdate: Cascade)
-  parentMinorTraconArea TraconArea? @relation("Airport_minorFields", fields: [parentTraconAreaMinorId], references: [id], map: "airport_minor_fields_fkey", onDelete: Cascade, onUpdate: Cascade)
-
-  parentTraconAreaMajorId String?
-  parentTraconAreaMinorId String?
+  parentMajorTraconAreas TraconArea[] @relation(name: "Airport_majorField")
+  parentMinorTraconAreas TraconArea[] @relation(name: "Airport_minorField")
 }
 
 model AirportFlow {

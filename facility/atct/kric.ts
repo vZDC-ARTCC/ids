@@ -3,8 +3,18 @@ import {AirportConfig} from "@/types";
 export const ricAirportConfig: AirportConfig = {
     faaIdentifier: 'RIC',
     icao: 'KRIC',
-    parentTracon: 'PCT',
-    parentTraconArea: 'JRV',
+    towerAirspace: [
+        {
+            name: 'NORTH',
+            imageUrl: '/airspace/local/kric/kric_n.png',
+            notes: [],
+        },
+        {
+            name: 'SOUTH',
+            imageUrl: '/airspace/local/kric/kric_s.png',
+            notes: [],
+        },
+    ],
     availableRunways: [
         {
             id: '16',
@@ -78,7 +88,5 @@ export const ricAirportConfig: AirportConfig = {
         },
     ],
     localControlPositions: ['LC'],
-    customizableOptions: [],
     sop: '/sop/ric_sop.pdf',
-    sidebarOptions: [],
 }

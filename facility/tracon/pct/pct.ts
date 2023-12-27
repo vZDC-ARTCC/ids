@@ -3,6 +3,7 @@ import {PCT_SHD} from "@/facility/tracon/pct/area/shd";
 import {PCT_MTV} from "@/facility/tracon/pct/area/mtv";
 import {PCT_CHP} from "@/facility/tracon/pct/area/chp";
 import {PCT_JRV} from "@/facility/tracon/pct/area/jrv";
+import {PCT_PCT} from "@/facility/tracon/pct/area/pct";
 
 export const PCT_CONFIG: TraconConfig = {
     faaIdentifier: 'PCT',
@@ -37,6 +38,7 @@ export const PCT_CONFIG: TraconConfig = {
         'POOCH'
     ],
     areas: [
+        PCT_PCT,
         PCT_SHD,
         PCT_MTV,
         PCT_CHP,
@@ -138,22 +140,22 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/asper/asper_n.png',
+                    imageUrl: '/airspace/tracon/pct/asper/asper_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/asper/asper_s_30.png',
+                    imageUrl: '/airspace/tracon/pct/asper/asper_s_30.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH/30',
-                    imageUrl: '/airspace/pct/asper/asper_s_30.png',
+                    imageUrl: '/airspace/tracon/pct/asper/asper_s_30.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH/12',
-                    imageUrl: '/airspace/pct/asper/asper_s_12.png',
+                    imageUrl: '/airspace/tracon/pct/asper/asper_s_12.png',
                     notes: [],
                 },
             ],
@@ -165,22 +167,22 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/tilly/tilly_n.png',
+                    imageUrl: '/airspace/tracon/pct/tilly/tilly_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/tilly/tilly_s_30.png',
+                    imageUrl: '/airspace/tracon/pct/tilly/tilly_s_30.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH/30',
-                    imageUrl: '/airspace/pct/tilly/tilly_s_30.png',
+                    imageUrl: '/airspace/tracon/pct/tilly/tilly_s_30.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH/12',
-                    imageUrl: '/airspace/pct/tilly/tilly_s_12.png',
+                    imageUrl: '/airspace/tracon/pct/tilly/tilly_s_12.png',
                     notes: [],
                 },
             ],
@@ -192,12 +194,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/barin/barin_n.png',
+                    imageUrl: '/airspace/tracon/pct/barin/barin_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/barin/barin_s.png',
+                    imageUrl: '/airspace/tracon/pct/barin/barin_s.png',
                     notes: [],
                 },
             ],
@@ -209,7 +211,7 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'ALL',
-                    imageUrl: '/airspace/pct/binns/binns.png',
+                    imageUrl: '/airspace/tracon/pct/binns/binns.png',
                     notes: [],
                 },
             ],
@@ -221,12 +223,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/brsto/brsto_n.png',
+                    imageUrl: '/airspace/tracon/pct/brsto/brsto_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/brsto/brsto_s.png',
+                    imageUrl: '/airspace/tracon/pct/brsto/brsto_s.png',
                     notes: [],
                 },
             ],
@@ -238,12 +240,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/iadfe/iadfe_n.png',
+                    imageUrl: '/airspace/tracon/pct/iadfe/iadfe_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/iadfe/iadfe_s.png',
+                    imageUrl: '/airspace/tracon/pct/iadfe/iadfe_s.png',
                     notes: [],
                 },
             ],
@@ -255,7 +257,7 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'ALL',
-                    imageUrl: '/airspace/pct/iadfc/iadfc.png',
+                    imageUrl: '/airspace/tracon/pct/iadfc/iadfc.png',
                     notes: [],
                 },
             ],
@@ -267,17 +269,17 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/iadfw/iadfw_n.png',
+                    imageUrl: '/airspace/tracon/pct/iadfw/iadfw_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/iadfw/iadfw_s.png',
+                    imageUrl: '/airspace/tracon/pct/iadfw/iadfw_s.png',
                     notes: [],
                 },
                 {
                     name: '19/30',
-                    imageUrl: '/airspace/pct/iadfw/iadfw_19_30.png',
+                    imageUrl: '/airspace/tracon/pct/iadfw/iadfw_19_30.png',
                     notes: [],
                 },
             ],
@@ -289,12 +291,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/lucke/lucke_n.png',
+                    imageUrl: '/airspace/tracon/pct/lucke/lucke_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/lucke/lucke_s.png',
+                    imageUrl: '/airspace/tracon/pct/lucke/lucke_s.png',
                     notes: [],
                 },
             ],
@@ -306,17 +308,17 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/manne/manne_n.png',
+                    imageUrl: '/airspace/tracon/pct/manne/manne_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH/12',
-                    imageUrl: '/airspace/pct/manne/manne_s_12.png',
+                    imageUrl: '/airspace/tracon/pct/manne/manne_s_12.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH/19/30',
-                    imageUrl: '/airspace/pct/manne/manne_s_19_30.png',
+                    imageUrl: '/airspace/tracon/pct/manne/manne_s_19_30.png',
                     notes: [],
                 },
             ],
@@ -328,12 +330,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/mulrr/mulrr_n.png',
+                    imageUrl: '/airspace/tracon/pct/mulrr/mulrr_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/mulrr/mulrr_s.png',
+                    imageUrl: '/airspace/tracon/pct/mulrr/mulrr_s.png',
                     notes: [],
                 },
             ],
@@ -345,7 +347,7 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'ALL',
-                    imageUrl: '/airspace/pct/rcola/rcola.png',
+                    imageUrl: '/airspace/tracon/pct/rcola/rcola.png',
                     notes: [],
                 },
             ],
@@ -357,12 +359,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/ojaay/ojaay_n.png',
+                    imageUrl: '/airspace/tracon/pct/ojaay/ojaay_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/ojaay/ojaay_s.png',
+                    imageUrl: '/airspace/tracon/pct/ojaay/ojaay_s.png',
                     notes: [],
                 },
             ],
@@ -374,12 +376,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/ensue/ensue_n.png',
+                    imageUrl: '/airspace/tracon/pct/ensue/ensue_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/ensue/ensue_s.png',
+                    imageUrl: '/airspace/tracon/pct/ensue/ensue_s.png',
                     notes: [],
                 },
             ],
@@ -391,12 +393,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/deale/deale_n.png',
+                    imageUrl: '/airspace/tracon/pct/deale/deale_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/deale/deale_s.png',
+                    imageUrl: '/airspace/tracon/pct/deale/deale_s.png',
                     notes: [],
                 },
             ],
@@ -408,7 +410,7 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'ALL',
-                    imageUrl: '/airspace/pct/luray/luray.png',
+                    imageUrl: '/airspace/tracon/pct/luray/luray.png',
                     notes: [],
                 },
             ],
@@ -420,12 +422,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/dcafr/dcafr_n.png',
+                    imageUrl: '/airspace/tracon/pct/dcafr/dcafr_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/dcafr/dcafr_s.png',
+                    imageUrl: '/airspace/tracon/pct/dcafr/dcafr_s.png',
                     notes: [],
                 },
             ],
@@ -437,12 +439,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/fluky/fluky_n.png',
+                    imageUrl: '/airspace/tracon/pct/fluky/fluky_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/fluky/fluky_s.png',
+                    imageUrl: '/airspace/tracon/pct/fluky/fluky_s.png',
                     notes: [],
                 },
             ],
@@ -454,12 +456,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/tyson/tyson_n.png',
+                    imageUrl: '/airspace/tracon/pct/tyson/tyson_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/tyson/tyson_s.png',
+                    imageUrl: '/airspace/tracon/pct/tyson/tyson_s.png',
                     notes: [],
                 },
             ],
@@ -471,12 +473,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/krant/krant_n.png',
+                    imageUrl: '/airspace/tracon/pct/krant/krant_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/krant/krant_s.png',
+                    imageUrl: '/airspace/tracon/pct/krant/krant_s.png',
                     notes: [],
                 },
             ],
@@ -488,12 +490,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/adwar/adwar_n.png',
+                    imageUrl: '/airspace/tracon/pct/adwar/adwar_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/adwar/adwar_s.png',
+                    imageUrl: '/airspace/tracon/pct/adwar/adwar_s.png',
                     notes: [],
                 },
             ],
@@ -505,12 +507,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'WEST',
-                    imageUrl: '/airspace/pct/graco/graco_w.png',
+                    imageUrl: '/airspace/tracon/pct/graco/graco_w.png',
                     notes: [],
                 },
                 {
                     name: 'EAST',
-                    imageUrl: '/airspace/pct/graco/graco_e.png',
+                    imageUrl: '/airspace/tracon/pct/graco/graco_e.png',
                     notes: [],
                 },
             ],
@@ -522,12 +524,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'WEST',
-                    imageUrl: '/airspace/pct/wooly/wooly_w.png',
+                    imageUrl: '/airspace/tracon/pct/wooly/wooly_w.png',
                     notes: [],
                 },
                 {
                     name: 'EAST',
-                    imageUrl: '/airspace/pct/wooly/wooly_e.png',
+                    imageUrl: '/airspace/tracon/pct/wooly/wooly_e.png',
                     notes: [],
                 },
             ],
@@ -539,12 +541,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'WEST',
-                    imageUrl: '/airspace/pct/belay/belay_w.png',
+                    imageUrl: '/airspace/tracon/pct/belay/belay_w.png',
                     notes: [],
                 },
                 {
                     name: 'EAST',
-                    imageUrl: '/airspace/pct/belay/belay_e.png',
+                    imageUrl: '/airspace/tracon/pct/belay/belay_e.png',
                     notes: [],
                 },
             ],
@@ -556,7 +558,7 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'ALL',
-                    imageUrl: '/airspace/pct/buffr/buffr.png',
+                    imageUrl: '/airspace/tracon/pct/buffr/buffr.png',
                     notes: [],
                 },
             ],
@@ -568,12 +570,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'WEST',
-                    imageUrl: '/airspace/pct/paleo/paleo_w.png',
+                    imageUrl: '/airspace/tracon/pct/paleo/paleo_w.png',
                     notes: [],
                 },
                 {
                     name: 'EAST',
-                    imageUrl: '/airspace/pct/paleo/paleo_e.png',
+                    imageUrl: '/airspace/tracon/pct/paleo/paleo_e.png',
                     notes: [],
                 },
             ],
@@ -585,12 +587,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'WEST',
-                    imageUrl: '/airspace/pct/bwifs/bwifs_w.png',
+                    imageUrl: '/airspace/tracon/pct/bwifs/bwifs_w.png',
                     notes: [],
                 },
                 {
                     name: 'EAST',
-                    imageUrl: '/airspace/pct/bwifs/bwifs_e.png',
+                    imageUrl: '/airspace/tracon/pct/bwifs/bwifs_e.png',
                     notes: [],
                 },
             ],
@@ -602,12 +604,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'WEST',
-                    imageUrl: '/airspace/pct/bwifn/bwifn_w.png',
+                    imageUrl: '/airspace/tracon/pct/bwifn/bwifn_w.png',
                     notes: [],
                 },
                 {
                     name: 'EAST',
-                    imageUrl: '/airspace/pct/bwifn/bwifn_e.png',
+                    imageUrl: '/airspace/tracon/pct/bwifn/bwifn_e.png',
                     notes: [],
                 },
             ],
@@ -619,7 +621,7 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'ALL',
-                    imageUrl: '/airspace/pct/chowe/chowe.png',
+                    imageUrl: '/airspace/tracon/pct/chowe/chowe.png',
                     notes: [],
                 },
             ],
@@ -631,7 +633,7 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'ALL',
-                    imageUrl: '/airspace/pct/choea/choea.png',
+                    imageUrl: '/airspace/tracon/pct/choea/choea.png',
                     notes: [],
                 },
             ],
@@ -643,12 +645,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/fltrk/fltrk_n.png',
+                    imageUrl: '/airspace/tracon/pct/fltrk/fltrk_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/fltrk/fltrk_s.png',
+                    imageUrl: '/airspace/tracon/pct/fltrk/fltrk_s.png',
                     notes: [],
                 },
             ],
@@ -660,12 +662,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/ricfr/ricfr_n.png',
+                    imageUrl: '/airspace/tracon/pct/ricfr/ricfr_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/ricfr/ricfr_s.png',
+                    imageUrl: '/airspace/tracon/pct/ricfr/ricfr_s.png',
                     notes: [],
                 },
             ],
@@ -677,12 +679,12 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'NORTH',
-                    imageUrl: '/airspace/pct/tappa/tappa_n.png',
+                    imageUrl: '/airspace/tracon/pct/tappa/tappa_n.png',
                     notes: [],
                 },
                 {
                     name: 'SOUTH',
-                    imageUrl: '/airspace/pct/tappa/tappa_s.png',
+                    imageUrl: '/airspace/tracon/pct/tappa/tappa_s.png',
                     notes: [],
                 },
             ],
@@ -694,7 +696,7 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'ALL',
-                    imageUrl: '/airspace/pct/cside/cside.png',
+                    imageUrl: '/airspace/tracon/pct/cside/cside.png',
                     notes: [],
                 },
             ],
@@ -706,7 +708,7 @@ export const PCT_CONFIG: TraconConfig = {
             airspaceData: [
                 {
                     name: 'ALL',
-                    imageUrl: '/airspace/pct/csidw/csidw.png',
+                    imageUrl: '/airspace/tracon/pct/csidw/csidw.png',
                     notes: [],
                 },
             ],

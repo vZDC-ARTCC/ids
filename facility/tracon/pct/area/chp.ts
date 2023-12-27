@@ -4,7 +4,6 @@ import {bwiAirportConfig} from "@/facility/atct/kbwi";
 import {mtnAirportConfig} from "@/facility/atct/kmtn";
 
 export const PCT_CHP: TraconAreaConfig = {
-    id: 'Chesapeake',
     faaIdentifier: 'CHP',
     name: 'Chesapeake',
     sop: '/sop/pct_chp_sop.pdf',
@@ -14,7 +13,7 @@ export const PCT_CHP: TraconAreaConfig = {
     areaMaps: [
         {
             name: 'CHP',
-            imageUrl: '/airspace/pct/chp.png',
+            imageUrl: '/airspace/tracon/pct/chp.png',
             notes: [],
         },
     ],

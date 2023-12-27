@@ -6,7 +6,7 @@ import {usePathname, useRouter, useSearchParams} from "next/navigation";
 
 function TraconAirspaceSelect({ initialSelectedSector, sectors, }: { initialSelectedSector?: TraconSector, sectors: TraconSector[], }) {
 
-    const [selectedSector, setSelectedSector] = useState<TraconSector | undefined>(initialSelectedSector);
+    const [selectedSector, setSelectedSector] = useState<TraconSector | any>(initialSelectedSector || {});
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const router = useRouter();

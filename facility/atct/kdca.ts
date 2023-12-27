@@ -3,8 +3,15 @@ import {AirportConfig} from "@/types";
 export const dcaAirportConfig: AirportConfig = {
     faaIdentifier: 'DCA',
     icao: 'KDCA',
-    parentTracon: 'PCT',
-    parentTraconArea: 'MTV',
+    towerAirspace: [
+        {
+            name: 'LC',
+            imageUrl: '/airspace/local/kdca/kdca.png',
+            notes: [
+                'When DAA Tower is closed, HC shall assume control of the portion of the Davidson Class D inside of HC airspace.',
+            ],
+        },
+    ],
     availableRunways: [
         {
             id: '01',
@@ -150,7 +157,5 @@ export const dcaAirportConfig: AirportConfig = {
     ],
 
     localControlPositions: ['LC'],
-    customizableOptions: [],
     sop: '/sop/dca_sop.pdf',
-    sidebarOptions: [],
 }

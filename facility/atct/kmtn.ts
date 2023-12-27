@@ -3,8 +3,15 @@ import {AirportConfig} from "@/types";
 export const mtnAirportConfig: AirportConfig = {
     faaIdentifier: 'MTN',
     icao: 'KMTN',
-    parentTracon: 'PCT',
-    parentTraconArea: 'CHP',
+    towerAirspace: [
+        {
+          name: 'LC',
+            imageUrl: '/airspace/local/kmtn/kmtn.png',
+          notes: [
+              'At or below 2,500',
+          ],
+        },
+    ],
     availableRunways: [
         {
             id: '15',
@@ -62,7 +69,5 @@ export const mtnAirportConfig: AirportConfig = {
         },
     ],
     localControlPositions: ['LC'],
-    customizableOptions: [],
     sop: '/sop/pct_chp_sop.pdf',
-    sidebarOptions: [],
 }

@@ -1,7 +1,3 @@
--- noinspection SqlDialectInspectionForFile
-
--- noinspection SqlNoDataSourceInspectionForFile
-
 -- CreateEnum
 CREATE TYPE "PirepType" AS ENUM ('ROUTINE', 'URGENT');
 
@@ -114,6 +110,7 @@ CREATE TABLE "AirspaceData" (
     "notes" TEXT[],
     "traconSectorId" TEXT,
     "traconAreaId" TEXT,
+    "airportId" TEXT,
 
     CONSTRAINT "AirspaceData_pkey" PRIMARY KEY ("id")
 );
@@ -124,8 +121,6 @@ CREATE TABLE "Airport" (
     "faaIdentifier" TEXT NOT NULL,
     "sopLink" TEXT NOT NULL,
     "localControlPositions" TEXT[],
-    "parentTraconAreaMajorId" TEXT,
-    "parentTraconAreaMinorId" TEXT,
 
     CONSTRAINT "Airport_pkey" PRIMARY KEY ("icao")
 );
@@ -219,6 +214,18 @@ CREATE TABLE "_TraconPositionPresetToTraconSector" (
     "B" TEXT NOT NULL
 );
 
+-- CreateTable
+CREATE TABLE "_Airport_majorField" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
+);
+
+-- CreateTable
+CREATE TABLE "_Airport_minorField" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Account_provider_providerAccountId_key" ON "Account"("provider", "providerAccountId");
 
@@ -255,6 +262,18 @@ CREATE UNIQUE INDEX "_TraconPositionPresetToTraconSector_AB_unique" ON "_TraconP
 -- CreateIndex
 CREATE INDEX "_TraconPositionPresetToTraconSector_B_index" ON "_TraconPositionPresetToTraconSector"("B");
 
+-- CreateIndex
+CREATE UNIQUE INDEX "_Airport_majorField_AB_unique" ON "_Airport_majorField"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_Airport_majorField_B_index" ON "_Airport_majorField"("B");
+
+-- CreateIndex
+CREATE UNIQUE INDEX "_Airport_minorField_AB_unique" ON "_Airport_minorField"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_Airport_minorField_B_index" ON "_Airport_minorField"("B");
+
 -- AddForeignKey
 ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -280,10 +299,7 @@ ALTER TABLE "AirspaceData" ADD CONSTRAINT "AirspaceData_traconSectorId_fkey" FOR
 ALTER TABLE "AirspaceData" ADD CONSTRAINT "AirspaceData_traconAreaId_fkey" FOREIGN KEY ("traconAreaId") REFERENCES "TraconArea"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "Airport" ADD CONSTRAINT "airport_major_fields_fkey" FOREIGN KEY ("parentTraconAreaMajorId") REFERENCES "TraconArea"("id") ON DELETE CASCADE ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE "Airport" ADD CONSTRAINT "airport_minor_fields_fkey" FOREIGN KEY ("parentTraconAreaMinorId") REFERENCES "TraconArea"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE "AirspaceData" ADD CONSTRAINT "AirspaceData_airportId_fkey" FOREIGN KEY ("airportId") REFERENCES "Airport"("icao") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "AirportFlow" ADD CONSTRAINT "AirportFlow_flowActiveAirportId_fkey" FOREIGN KEY ("flowActiveAirportId") REFERENCES "Airport"("icao") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -323,3 +339,15 @@ ALTER TABLE "_TraconPositionPresetToTraconSector" ADD CONSTRAINT "_TraconPositio
 
 -- AddForeignKey
 ALTER TABLE "_TraconPositionPresetToTraconSector" ADD CONSTRAINT "_TraconPositionPresetToTraconSector_B_fkey" FOREIGN KEY ("B") REFERENCES "TraconSector"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_Airport_majorField" ADD CONSTRAINT "_Airport_majorField_A_fkey" FOREIGN KEY ("A") REFERENCES "Airport"("icao") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_Airport_majorField" ADD CONSTRAINT "_Airport_majorField_B_fkey" FOREIGN KEY ("B") REFERENCES "TraconArea"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_Airport_minorField" ADD CONSTRAINT "_Airport_minorField_A_fkey" FOREIGN KEY ("A") REFERENCES "Airport"("icao") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_Airport_minorField" ADD CONSTRAINT "_Airport_minorField_B_fkey" FOREIGN KEY ("B") REFERENCES "TraconArea"("id") ON DELETE CASCADE ON UPDATE CASCADE;

@@ -39,6 +39,9 @@ export async function fetchTraconAreaWithDetail(traconFaa: string, areaFaa: stri
                         },
                     },
                 },
+                orderBy: {
+                    icao: 'asc',
+                },
             },
             parentTracon: {
                 include: {
@@ -60,25 +63,29 @@ export async function fetchParentArea(icao: string) {
             icao,
         },
         include: {
-            parentMajorTraconArea: {
+            parentMajorTraconAreas: {
                 include: {
                     parentTracon: {
                         include: {
                             sectors: true,
                         },
                     },
-                }
+                },
             },
-            parentMinorTraconArea: {
+            parentMinorTraconAreas: {
                 include: {
                     parentTracon: {
                         include: {
                             sectors: true,
                         },
                     },
-                }
+                },
             },
         },
-    });
-    return airport?.parentMajorTraconArea || airport?.parentMinorTraconArea;
+    }) || undefined;
+    if (airport?.parentMajorTraconAreas && airport?.parentMajorTraconAreas.length > 0) {
+        return airport?.parentMajorTraconAreas[0];
+    } else {
+        return airport?.parentMinorTraconAreas[0];
+    }
 }

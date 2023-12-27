@@ -3,8 +3,15 @@ import {AirportConfig} from "@/types";
 export const orfAirportConfig: AirportConfig = {
     faaIdentifier: 'ORF',
     icao: 'KORF',
-    parentTracon: 'ORF',
-    parentTraconArea: 'ORF',
+    towerAirspace: [
+        {
+            name: 'LC',
+            imageUrl: '/airspace/local/korf/korf.png',
+            notes: [
+                'Norfolk ATCT is delegated the airspace within 5nm of the airport and up to but not including 3000’',
+            ],
+        },
+    ],
     availableRunways: [
         {
             id: '05',
@@ -114,7 +121,5 @@ export const orfAirportConfig: AirportConfig = {
         },
     ],
     localControlPositions: ['LC'],
-    customizableOptions: [],
     sop: '/sop/orf_sop.pdf',
-    sidebarOptions: [],
 }

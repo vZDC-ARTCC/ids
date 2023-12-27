@@ -9,6 +9,7 @@ export async function fetchAirport(icao: string) {
         },
         include: {
             runways: true,
+            airspaceData: true,
         }
     });
 }

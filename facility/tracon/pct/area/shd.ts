@@ -3,7 +3,6 @@ import {iadAirportConfig} from "@/facility/atct/kiad";
 import {hefAirportConfig} from "@/facility/atct/khef";
 
 export const PCT_SHD: TraconAreaConfig = {
-    id: 'Shenandoah',
     faaIdentifier: 'SHD',
     name: 'Shenandoah',
     sop: '/sop/pct_shd_sop.pdf',
@@ -12,7 +11,7 @@ export const PCT_SHD: TraconAreaConfig = {
     areaMaps: [
         {
             name: 'SHD',
-            imageUrl: '/airspace/pct/shd.png',
+            imageUrl: '/airspace/tracon/pct/shd.png',
             notes: [],
         },
     ],

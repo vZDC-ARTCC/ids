@@ -3,8 +3,7 @@ import {AirportConfig} from "@/types";
 export const adwAirportConfig: AirportConfig = {
     faaIdentifier: 'ADW',
     icao: 'KADW',
-    parentTracon: 'PCT',
-    parentTraconArea: 'MTV',
+    towerAirspace: [],
     availableRunways: [
         {
             id: '1L',
@@ -162,9 +161,7 @@ export const adwAirportConfig: AirportConfig = {
         },
     ],
     localControlPositions: ['LC'],
-    customizableOptions: [],
     sop: '/sop/pct_mtv_sop.pdf',
-    sidebarOptions: [],
 }
 
 
