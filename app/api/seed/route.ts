@@ -1,6 +1,6 @@
 import {IDS_ATCT_FACILITIES, IDS_TRACON_FACILITIES} from "@/facility/facilities";
 import prisma from "@/lib/db";
-import {AirportConfig, TraconAreaConfig, TraconConfig, TraconPreset, TraconSectorConfig} from "@/types";
+import {AirportConfig, LoaConfig, TraconAreaConfig, TraconConfig, TraconPreset, TraconSectorConfig} from "@/types";
 import {TraconSector} from "@prisma/client";
 
 export const dynamic = "force-dynamic";
@@ -128,11 +128,15 @@ async function createTracons(tracons: TraconConfig[]) {
         const savedAreas = await createAreas(tracon.areas);
         const savedSectors = await createSectors(tracon.sectors);
         const savedPresets = await createPresets(tracon.presets, savedSectors);
+        const savedLoas = await createLoas(tracon.loas);
         await prisma.tracon.create({
             data: {
                 faaIdentifier: tracon.faaIdentifier,
                 name: tracon.name,
                 departureGates: tracon.departureGates,
+                loas: {
+                    connect: savedLoas,
+                },
                 areas: {
                     connect: savedAreas,
                 },
@@ -203,4 +207,18 @@ async function createPresets(presets: TraconPreset[], savedSectors: TraconSector
         savedPresets.push(savedPreset);
     }
     return savedPresets;
+}
+
+async function createLoas(loas: LoaConfig[]) {
+    const savedLoas = [];
+    for (const loa of loas) {
+        const savedLoa = await prisma.loaData.create({
+            data: {
+                targetFacility: loa.targetFacility,
+                link: loa.link,
+            },
+        });
+        savedLoas.push(savedLoa);
+    }
+    return savedLoas;
 }

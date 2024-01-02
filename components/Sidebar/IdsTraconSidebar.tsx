@@ -31,6 +31,7 @@ function IdsTraconSidebar({ traconArea }: { traconArea: TraconArea, }) {
                 <SidebarListItem name="FLOW" link={`/tracon/${traconId}/${areaId}/flow`} />
                 <SidebarListItem name="PROC" link={`/tracon/${traconId}/${areaId}/procedures`} />
                 <SidebarListItem name="ASPC" link={`/tracon/${traconId}/${areaId}/airspace`} />
+                <SidebarListItem name="LOA" link={`/tracon/${traconId}/${areaId}/loa`} />
                 <SidebarListItem name="WX" link={`/tracon/${traconId}/${areaId}/wx`} />
                 <SidebarListItem name="PIREP" link={`/tracon/${traconId}/${areaId}/pirep`} />
                 <SidebarListItem name="ACFT" link={`/tracon/${traconId}/${areaId}/aircraft`} />

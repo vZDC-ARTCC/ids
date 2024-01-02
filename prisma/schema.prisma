@@ -2,7 +2,7 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider      = "prisma-client-js"
   binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
 }
 
@@ -75,6 +75,7 @@ model Tracon {
   areas          TraconArea[]
   sectors        TraconSector[]
   presets        TraconPositionPreset[]
+  loas           LoaData[]
 }
 
 model TraconPositionPreset {
@@ -133,6 +134,15 @@ model AirspaceData {
 
   airport   Airport? @relation(fields: [airportId], references: [icao], onDelete: Cascade, onUpdate: Cascade)
   airportId String?
+}
+
+model LoaData {
+  id             String @id @default(cuid())
+  link           String
+  targetFacility String
+
+  tracon   Tracon? @relation(fields: [traconId], references: [faaIdentifier], onDelete: Cascade, onUpdate: Cascade)
+  traconId String?
 }
 
 model Airport {

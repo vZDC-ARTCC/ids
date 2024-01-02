@@ -8,6 +8,7 @@ export const RDU_CONFIG: TraconConfig = {
         RDU_RDU,
     ],
     presets: [],
+    loas: [],
     sectors: [
         {
             name: 'North Departure',

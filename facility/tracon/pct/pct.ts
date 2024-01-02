@@ -44,6 +44,16 @@ export const PCT_CONFIG: TraconConfig = {
         PCT_CHP,
         PCT_JRV,
     ],
+    loas: [
+        {
+            targetFacility: 'ZNY',
+            link: '/loa/pct/zny.pdf'
+        },
+        {
+            targetFacility: 'PHL',
+            link: '/loa/pct/phl.pdf'
+        },
+    ],
     presets: [
         {
             name: 'Shenandoah',

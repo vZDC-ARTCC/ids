@@ -1,7 +1,3 @@
--- noinspection SqlDialectInspectionForFile
-
--- noinspection SqlNoDataSourceInspectionForFile
-
 -- CreateEnum
 CREATE TYPE "PirepType" AS ENUM ('ROUTINE', 'URGENT');
 
@@ -117,6 +113,16 @@ CREATE TABLE "AirspaceData" (
     "airportId" TEXT,
 
     CONSTRAINT "AirspaceData_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "LoaData" (
+    "id" TEXT NOT NULL,
+    "link" TEXT NOT NULL,
+    "targetFacility" TEXT NOT NULL,
+    "traconId" TEXT,
+
+    CONSTRAINT "LoaData_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -304,6 +310,9 @@ ALTER TABLE "AirspaceData" ADD CONSTRAINT "AirspaceData_traconAreaId_fkey" FOREI
 
 -- AddForeignKey
 ALTER TABLE "AirspaceData" ADD CONSTRAINT "AirspaceData_airportId_fkey" FOREIGN KEY ("airportId") REFERENCES "Airport"("icao") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "LoaData" ADD CONSTRAINT "LoaData_traconId_fkey" FOREIGN KEY ("traconId") REFERENCES "Tracon"("faaIdentifier") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "AirportFlow" ADD CONSTRAINT "AirportFlow_flowActiveAirportId_fkey" FOREIGN KEY ("flowActiveAirportId") REFERENCES "Airport"("icao") ON DELETE SET NULL ON UPDATE CASCADE;

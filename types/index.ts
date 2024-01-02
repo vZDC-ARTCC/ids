@@ -28,6 +28,7 @@ export type TraconConfig = {
     areas: TraconAreaConfig[],
     sectors: TraconSectorConfig[],
     presets: TraconPreset[],
+    loas: LoaConfig[],
 }
 
 export type TraconPreset = {
@@ -52,6 +53,10 @@ export type TraconSectorConfig = {
     airspaceData: AirspaceConfig[],
 }
 
+export type LoaConfig = {
+    targetFacility: string,
+    link: string,
+}
 export type AirspaceConfig = {
     name: string,
     notes: string[],

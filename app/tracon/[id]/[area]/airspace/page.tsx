@@ -16,11 +16,6 @@ async function AirspacePage({ params, searchParams }: { params: { id: string, ar
 
     return (
         <Stack direction="column" spacing={2} sx={{ width: '100%', }}>
-            <Grid container columns={1}>
-                { traconArea && traconArea.areaMap.map((data: AirspaceData, i) => (
-                    <AirspaceGridItem key={traconArea.faaIdentifier+i} data={data} />
-                ))}
-            </Grid>
             <Typography variant="h5">Select a sector from the list.</Typography>
             <TraconAirspaceSelect initialSelectedSector={selectedSector} sectors={sectors} />
             <Grid container spacing={2} columns={2}>
@@ -28,7 +23,11 @@ async function AirspacePage({ params, searchParams }: { params: { id: string, ar
                     <AirspaceGridItem key={data.id} data={data} />
                 ))}
             </Grid>
-
+            <Grid container columns={1}>
+                { traconArea && traconArea.areaMap.map((data: AirspaceData, i) => (
+                    <AirspaceGridItem key={traconArea.faaIdentifier+i} data={data} />
+                ))}
+            </Grid>
         </Stack>
     );
 }

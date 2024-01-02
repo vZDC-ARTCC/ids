@@ -22,6 +22,12 @@ export const ACY_CONFIG: TraconConfig = {
         ACY_ACY,
     ],
     presets: [],
+    loas: [
+        {
+            targetFacility: 'ZNY',
+            link: '/loa/acy/zny.pdf'
+        },
+    ],
     sectors: [
         {
             // Not sure what the sector letter for this is

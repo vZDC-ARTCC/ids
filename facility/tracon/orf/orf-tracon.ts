@@ -15,6 +15,7 @@ export const ORF_CONFIG: TraconConfig = {
         'SBY',
     ],
     presets: [],
+    loas: [],
     sectors: [
         {
             name: 'DEPARTURE',
