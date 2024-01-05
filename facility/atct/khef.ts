@@ -3,8 +3,15 @@ import {AirportConfig} from "@/types";
 export const hefAirportConfig: AirportConfig = {
     faaIdentifier: 'HEF',
     icao: 'KHEF',
-    parentTracon: 'PCT',
-    parentTraconArea: 'SHD',
+    towerAirspace: [
+        {
+            name: 'LC',
+            imageUrl: '/airspace/local/khef/khef.png',
+            notes: [
+                'Standard 5NM radius',
+            ],
+        },
+    ],
     availableRunways: [
         {
             id: '16L',
@@ -150,7 +157,5 @@ export const hefAirportConfig: AirportConfig = {
         },
     ],
     localControlPositions: ['LC'],
-    customizableOptions: [],
     sop: '/sop/pct_shd_sop.pdf',
-    sidebarOptions: [],
 }

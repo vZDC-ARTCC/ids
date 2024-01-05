@@ -1,29 +1,45 @@
 "use client";
-import React, {useEffect, useState} from 'react';
-import {CircularProgress, List, Typography} from "@mui/material";
+import React, {useCallback, useEffect, useState} from 'react';
+import {List, Typography} from "@mui/material";
 import DepartureAssignmentItem from "@/components/Airport/DepartureGates/DepartureAssignmentItem";
 import {DepartureGatesAssignment, TraconSector} from "@prisma/client";
 import {fetchDepartureGateAssignments} from "@/actions/departureGate";
 import AddAssignmentForm from "@/components/Airport/DepartureGates/AddAssignmentForm";
+import ChangeSnackbar from "@/components/ChangeAnnouncer/ChangeSnackbar";
 
 function AssignedDepartureGateList({ icao, departureGates, sectors }: { icao: string, departureGates: string[], sectors: TraconSector[] }) {
 
-    const [depGates, setDepGates] = useState<DepartureGatesAssignment[] | any[]>();
+    const [depGates, setDepGates] = useState<DepartureGatesAssignment[] | any[]>([]);
     const [edit, setEdit] = useState<boolean>(false);
+    const [depGatesChanged, setDepGatesChanged] = useState(false);
+    const [first, setFirst] = useState(true);
+
+    const updateGates = useCallback(() => {
+        fetchDepartureGateAssignments(icao).then((newDepGates) => {
+            setDepGates((prev) => {
+                if (!first && (newDepGates?.length !== prev?.length ||
+                    !newDepGates.every((val, i) => val?.gates.every((val) => prev[i]?.gates.includes(val))))) {
+                    setDepGatesChanged(true);
+                }
+                return newDepGates as any;
+            })
+        });
+    }, [first, icao]);
 
     useEffect(() => {
         if (!edit) {
-            fetchDepartureGateAssignments(icao).then(setDepGates);
+            updateGates();
+            setFirst(false);
             const depGatesInterval = setInterval(() => {
-                fetchDepartureGateAssignments(icao).then(setDepGates);
+                updateGates();
             }, 15000);
             return () => clearInterval(depGatesInterval);
         }
-    }, [icao, edit]);
+    }, [updateGates, edit]);
 
     return (
         <List>
-            { !depGates && <CircularProgress /> }
+            <ChangeSnackbar open={depGatesChanged} change={{ message: `${icao} CHANGES`, type: 'departure_gate_assignment', }} onAcknowledge={setDepGatesChanged} />
             { depGates && depGates.length === 0 && <Typography>None</Typography> }
             {depGates && depGates.map((gate) => (
                 <DepartureAssignmentItem key={gate.id} departureAssignment={gate} allDepartureGates={departureGates} onEdit={setEdit} onDelete={() => fetchDepartureGateAssignments(icao).then(setDepGates)}/>

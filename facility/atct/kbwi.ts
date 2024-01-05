@@ -3,8 +3,18 @@ import {AirportConfig} from "@/types";
 export const bwiAirportConfig: AirportConfig = {
     faaIdentifier: 'BWI',
     icao: 'KBWI',
-    parentTracon: 'PCT',
-    parentTraconArea: 'CHP',
+    towerAirspace: [
+        {
+            name: 'WEST',
+            imageUrl: '/airspace/local/kbwi/kbwi_w',
+            notes: [],
+        },
+        {
+            name: 'EAST',
+            imageUrl: '/airspace/local/kbwi/kbwi_e',
+            notes: [],
+        },
+    ],
     availableRunways: [
         {
             id: '33L',
@@ -142,7 +152,5 @@ export const bwiAirportConfig: AirportConfig = {
 
 
     localControlPositions: ['LCE', 'LCW'],
-    customizableOptions: [],
     sop: '/sop/bwi_sop.pdf',
-    sidebarOptions: [],
 }

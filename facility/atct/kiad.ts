@@ -3,8 +3,15 @@ import {AirportConfig} from "@/types";
 export const iadAirportConfig: AirportConfig = {
     faaIdentifier: 'IAD',
     icao: 'KIAD',
-    parentTracon: 'PCT',
-    parentTraconArea: 'SHD',
+    towerAirspace: [
+        {
+            name: 'LC',
+            imageUrl: '/airspace/local/kiad/kiad.png',
+            notes: [
+                'Dulles Tower is delegated 2,000 MSL and below within the AML 7 nm Class B surface area plus the area encompassed by eastward extensions from the northern and southern most points terminating at points A & B as depicted.',
+            ],
+        },
+    ],
     availableRunways: [
         {
             id: '01L',
@@ -503,7 +510,5 @@ export const iadAirportConfig: AirportConfig = {
         },
     ],
     localControlPositions: ['LCE', 'LCW', 'LCN'],
-    customizableOptions: [],
     sop: '/sop/iad_sop.pdf',
-    sidebarOptions: [],
 }

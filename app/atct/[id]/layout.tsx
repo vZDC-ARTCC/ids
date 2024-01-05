@@ -39,6 +39,7 @@ async function AtctLayout({ children, params }: { children: React.ReactNode, par
         <>
             <IdsAtctSidebar airport={airport} />
             <IdsTab>
+                {/*<AtctChangeAnnouncer airport={airport} />*/}
                 {children}
             </IdsTab>
         </>

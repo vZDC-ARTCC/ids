@@ -3,8 +3,13 @@ import {AirportConfig} from "@/types";
 export const rduAirportConfig: AirportConfig = {
     faaIdentifier: 'RDU',
     icao: 'KRDU',
-    parentTracon: 'RDU',
-    parentTraconArea: 'RDU',
+    towerAirspace: [
+        {
+            name: 'LC',
+            imageUrl: '/airspace/local/krdu/krdu.png',
+            notes: [],
+        },
+    ],
     availableRunways: [
         {
             id: '05L',
@@ -88,10 +93,6 @@ export const rduAirportConfig: AirportConfig = {
             traconVisibleOptions: [],
         },
     ],
-
     localControlPositions: ['LCE', 'LCW'],
     sop: '/sop/rdu_sop.pdf',
-    // Not Used as of 11-23-23
-    customizableOptions: [],
-    sidebarOptions: [],
 }

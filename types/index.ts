@@ -1,14 +1,11 @@
 export type AirportConfig = {
     faaIdentifier: string,
     icao: string,
-    parentTracon: string,
-    parentTraconArea: string,
     availableRunways: AvailableRunway[],
-    customizableOptions: CustomizableOption[],
     flows: AirportFlowConfig[],
     localControlPositions: string[],
+    towerAirspace: AirspaceConfig[],
     sop: string,
-    sidebarOptions: SidebarOption[],
 }
 
 export type AirportFlowConfig = {
@@ -30,15 +27,22 @@ export type TraconConfig = {
     departureGates: string[],
     areas: TraconAreaConfig[],
     sectors: TraconSectorConfig[],
+    presets: TraconPreset[],
+    loas: LoaConfig[],
+}
+
+export type TraconPreset = {
+    name: string,
+    sectorNames: string[],
 }
 
 export type TraconAreaConfig = {
-    id: string,
     faaIdentifier: string,
     name: string,
     majorFields: AirportConfig[],
     minorFields: AirportConfig[],
     sop: string,
+    areaMaps: AirspaceConfig[],
     customizableOptions: CustomizableOption[],
 }
 
@@ -46,16 +50,22 @@ export type TraconSectorConfig = {
     name: string,
     frequency: string,
     sectorLetter: string,
+    airspaceData: AirspaceConfig[],
+}
+
+export type LoaConfig = {
+    targetFacility: string,
+    link: string,
+}
+export type AirspaceConfig = {
+    name: string,
+    notes: string[],
+    imageUrl: string,
 }
 
 export type CustomizableOption = {
     name: string,
     choices: string[],
-}
-
-export type SidebarOption = {
-    name: string,
-    resourceLink: string,
 }
 
 export type Chart = {

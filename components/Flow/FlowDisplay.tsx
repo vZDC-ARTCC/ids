@@ -6,7 +6,7 @@ import ActiveRunway from "@/components/Flow/ActiveRunway";
 function FlowDisplay({ flow, condensed }: { flow: any, condensed: boolean, }) {
     return (
         <Stack direction="column" alignItems="center" spacing={condensed ? 1 : 4}>
-            <Typography variant={condensed ? 'h5' : 'h4'} color="indianred">{flow.name}</Typography>
+            <Typography variant={condensed ? 'h5' : 'h4'} fontWeight={700} color="mediumvioletred">{flow.name}</Typography>
             <Stack direction="column" alignItems="center" spacing={condensed ? 1 : 2}>
                 <Typography variant="subtitle2">DEP</Typography>
                 <Stack direction="row" spacing={2}>

@@ -12,14 +12,20 @@ export async function fetchAllFacilities() {
                     name: true,
                 }
             }
-        }
+        },
+        orderBy: {
+            faaIdentifier: 'asc',
+        },
     });
 
     const atcts: any = await prisma.airport.findMany({
         select: {
             icao: true,
             faaIdentifier: true,
-        }
+        },
+        orderBy: {
+            icao: 'asc',
+        },
     });
 
     return { tracons, atcts, };

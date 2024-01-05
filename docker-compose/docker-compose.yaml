@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:latest
+    container_name: ids_db
+    environment:
+      POSTGRES_DB: ids
+      POSTGRES_USER: ids
+      POSTGRES_PASSWORD: admin
+    ports:
+      - "5432:5432"
+  ids:
+    image: ids:latest
+    container_name: ids
+    env_file:
+      - .env.local
+    ports:
+      - "80:80"

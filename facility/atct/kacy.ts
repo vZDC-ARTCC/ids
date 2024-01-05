@@ -3,8 +3,15 @@ import {AirportConfig} from "@/types";
 export const acyAirportConfig: AirportConfig = {
     faaIdentifier: 'ACY',
     icao: 'KACY',
-    parentTracon: 'ACY',
-    parentTraconArea: 'ACY',
+    towerAirspace: [
+        {
+            name: 'LC',
+            imageUrl: '/airspace/local/kacy/kacy.png',
+            notes: [
+                'Atlantic City Local Control owns five (5) nm from the airport and up to 2100’',
+            ],
+        },
+    ],
     availableRunways: [
         {
             id: '13',
@@ -90,8 +97,6 @@ export const acyAirportConfig: AirportConfig = {
         },
     ],
     localControlPositions: ['LC'],
-    customizableOptions: [],
     sop: '/sop/acy_sop.pdf',
-    sidebarOptions: [],
 }
 

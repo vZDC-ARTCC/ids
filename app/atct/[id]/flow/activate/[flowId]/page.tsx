@@ -1,21 +1,27 @@
 "use client";
 import React, {useEffect} from 'react';
 import {setActiveFlow} from "@/actions/flow";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
+import {CircularProgress} from "@mui/material";
 
 function ActivateFlowPage({ params }: { params: { id: string, flowId: string, }}) {
     
     const { id, flowId } = params;
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirectUri = searchParams.get('redirect');
     
     useEffect(() => {
         setActiveFlow(id, flowId).then(() => {
-            router.push(`/atct/${id}/`);
+            router.replace(`/atct/${id}/`);
+            if (redirectUri) {
+                router.replace(redirectUri);
+            }
         });
-    }, [id, flowId, router])
+    }, [id, flowId, router, redirectUri])
     
     return (
-        <div></div>
+        <CircularProgress />
     );
 }
 

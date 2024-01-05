@@ -16,10 +16,11 @@ import {Delete} from "@mui/icons-material";
 import AddOptionForm from "@/components/Flow/AddOptionForm";
 import {CustomizableOption} from "@/types";
 import {createFlow, updateFlow} from "@/actions/flow";
-import {useRouter} from "next/navigation";
+import {useRouter, useSearchParams} from "next/navigation";
 import {AirportFlow, Runway} from "@prisma/client";
 
 function FlowAttributesForm({ icao, runways, presetFlowConfig }: { icao: string, runways: any[], presetFlowConfig?: AirportFlow | any, }) {
+
 
     const [flowConfig, setFlowConfig] = useState<AirportFlowConfig | any>(presetFlowConfig && {
         name: presetFlowConfig.name,
@@ -39,6 +40,8 @@ function FlowAttributesForm({ icao, runways, presetFlowConfig }: { icao: string,
     });
 
     const router = useRouter();
+    const searchParams = useSearchParams();
+    const redirectUri = searchParams.get('redirect');
 
     const submit = async () => {
         if (!flowConfig.name || flowConfig.name.trim() === '') alert("Name is required");
@@ -51,7 +54,10 @@ function FlowAttributesForm({ icao, runways, presetFlowConfig }: { icao: string,
             } else {
                 flow = await updateFlow(icao, presetFlowConfig.id, flowConfig);
             }
-            router.replace(`/atct/${icao}/flow/activate/${flow.id}`);
+            router.push(`../activate/${flow.id}`);
+            if (redirectUri) {
+                router.replace(redirectUri);
+            }
         }
     }
 

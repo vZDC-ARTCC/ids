@@ -8,7 +8,7 @@ async function LocalRunwayAssignment({ icao }: { icao: string, }) {
     const airport = await fetchAirport(icao);
 
     return (
-        <Box sx={{ border: 1, padding: 1, minHeight: '20rem', }}>
+        <Box sx={{ border: 1, padding: 1, }}>
             <Typography variant="h6">LOCAL RUNWAY ASSIGNMENT</Typography>
             <LocalRunwayAssignmentList icao={icao} localPositions={airport?.localControlPositions || []} />
         </Box>
