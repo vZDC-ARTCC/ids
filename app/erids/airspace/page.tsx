@@ -1,5 +1,4 @@
 import React from 'react';
-import {fetchTraconAreaWithDetail} from "@/actions/traconArea";
 import {Divider, Grid, Stack, Typography} from "@mui/material";
 import {AirspaceData} from "@prisma/client";
 import AirspaceSelect from "@/components/TraconSelect/AirspaceSelect";

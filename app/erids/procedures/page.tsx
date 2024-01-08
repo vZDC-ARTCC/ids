@@ -1,13 +1,11 @@
 import React from 'react';
-import {fetchTraconAreaWithDetail} from "@/actions/traconArea";
 import {Stack, Typography} from "@mui/material";
 import ChartsTab from "@/components/Tabs/ChartsTab";
 import AirportSelect from "@/components/TraconSelect/AirportSelect";
 import {fetchEnroute} from "@/actions/enroute";
 import {fetchAllAirports} from "@/actions/airport";
-import {AirportFlow} from "@prisma/client";
 
-async function TraconProceduresPage({ params, searchParams, }: { params: { id: string, area: string, }, searchParams: { icao?: string, }, }) {
+async function TraconProceduresPage({ searchParams, }: { searchParams: { icao?: string, }, }) {
 
     const enroute = await fetchEnroute(false, false, false, true);
     if (!enroute) {
