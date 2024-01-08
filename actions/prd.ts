@@ -3,8 +3,8 @@ import {PreferredRoute} from "@/types";
 import log from "@/lib/log";
 import {getServerSession} from "next-auth";
 import {authOptions} from "@/auth/auth";
-export async function getRoutes(origin: string, dest: string) {
-    if (!origin || !dest) {
+export async function getRoutes(origin: string, dest?: string) {
+    if (!origin) {
         return [];
     }
 

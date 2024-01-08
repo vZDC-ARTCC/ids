@@ -2,7 +2,7 @@
 import React, {useState} from 'react';
 import {Button, Stack, TextField} from "@mui/material";
 
-function PrdForm({ onSubmit, defaultOriginAirport }: { onSubmit: (origin: string, dest: string) => Promise<void>, defaultOriginAirport?: string, }) {
+function PrdForm({ onSubmit, defaultOriginAirport }: { onSubmit: (origin: string, dest?: string) => Promise<void>, defaultOriginAirport?: string, }) {
 
     const [origin, setOrigin] = useState<string>(defaultOriginAirport || '');
     const [dest, setDest] = useState('');
@@ -26,7 +26,6 @@ function PrdForm({ onSubmit, defaultOriginAirport }: { onSubmit: (origin: string
                     label="Destination"
                     value={dest}
                     onChange={(e) => setDest(e.target.value)}
-                    required
                 />
             </Stack>
 

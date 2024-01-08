@@ -2,7 +2,7 @@ import React from 'react';
 import {fetchLoas} from "@/actions/loa";
 import {fetchTraconAreaWithDetail} from "@/actions/traconArea";
 import {Stack, Typography} from "@mui/material";
-import TraconLoaSelect from "@/components/TraconSelect/TraconLoaSelect";
+import LoaSelect from "@/components/TraconSelect/LoaSelect";
 
 async function LoaPage({ params, searchParams }: { params: { id: string, area: string, }, searchParams: { selectedLoa?: string, }}) {
 
@@ -17,7 +17,7 @@ async function LoaPage({ params, searchParams }: { params: { id: string, area: s
     return (
         <Stack direction="column" spacing={2} sx={{ width: '100%', }}>
             <Typography variant="h5">Select an LOA from the list.</Typography>
-            <TraconLoaSelect loas={loas} initialLoa={selectedLoa} />
+            <LoaSelect loas={loas} initialLoa={selectedLoa} />
             { selectedLoa &&
                 <embed src={selectedLoa.link} style={{ width: '100%', minHeight: '700px', }}/>
             }

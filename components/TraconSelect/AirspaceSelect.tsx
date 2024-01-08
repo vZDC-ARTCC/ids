@@ -1,12 +1,12 @@
 "use client";
 import React, {useCallback, useEffect, useState} from 'react';
-import {TraconSector} from "@prisma/client";
+import {EnrouteSector, TraconSector} from "@prisma/client";
 import {ListItemText, MenuItem, Select} from "@mui/material";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 
-function TraconAirspaceSelect({ initialSelectedSector, sectors, }: { initialSelectedSector?: TraconSector, sectors: TraconSector[], }) {
+function AirspaceSelect({ initialSelectedSector, sectors, }: { initialSelectedSector?: TraconSector | EnrouteSector, sectors: TraconSector[] | EnrouteSector[], }) {
 
-    const [selectedSector, setSelectedSector] = useState<TraconSector | any>(initialSelectedSector || {});
+    const [selectedSector, setSelectedSector] = useState<TraconSector | EnrouteSector | any>(initialSelectedSector || {});
     const pathname = usePathname();
     const searchParams = useSearchParams();
     const router = useRouter();
@@ -47,4 +47,4 @@ function TraconAirspaceSelect({ initialSelectedSector, sectors, }: { initialSele
     );
 }
 
-export default TraconAirspaceSelect;
+export default AirspaceSelect;

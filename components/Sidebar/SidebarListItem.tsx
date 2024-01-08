@@ -9,7 +9,7 @@ function SidebarListItem({ name, link, color }: { name: string, link: string, co
 
     return (
         <ListItem disablePadding>
-            <ListItemButton onClick={() => router.replace(link)} sx={{ textAlign: 'center', }}>
+            <ListItemButton onClick={() => router.push(link)} sx={{ textAlign: 'center', }}>
                 <ListItemText primary={name} style={{ color, }} />
             </ListItemButton>
         </ListItem>

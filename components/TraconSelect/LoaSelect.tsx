@@ -4,7 +4,7 @@ import {LoaData} from "@prisma/client";
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {ListItemText, MenuItem, Select} from "@mui/material";
 
-function TraconLoaSelect({initialLoa, loas, }: { initialLoa?: LoaData, loas: LoaData[], },) {
+function LoaSelect({initialLoa, loas, }: { initialLoa?: LoaData, loas: LoaData[], },) {
     const [selectedLoaId, setSelectedLoaId] = useState<string | undefined>(initialLoa?.id);
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -46,4 +46,4 @@ function TraconLoaSelect({initialLoa, loas, }: { initialLoa?: LoaData, loas: Loa
 }
 
 
-export default TraconLoaSelect;
+export default LoaSelect;

@@ -3,7 +3,7 @@ import React, {useCallback, useEffect, useState} from 'react';
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
 import {ListItemText, MenuItem, Select} from "@mui/material";
 
-function TraconAirportSelect({ initialSelectedIcao, airportIcaos, }: { initialSelectedIcao?: string, airportIcaos: string[], }) {
+function AirportSelect({ initialSelectedIcao, airportIcaos, }: { initialSelectedIcao?: string, airportIcaos: string[], }) {
     const [selectedIcao, setSelectedIcao] = useState<string | undefined>(initialSelectedIcao);
     const pathname = usePathname();
     const searchParams = useSearchParams();
@@ -44,4 +44,4 @@ function TraconAirportSelect({ initialSelectedIcao, airportIcaos, }: { initialSe
     );
 }
 
-export default TraconAirportSelect;
+export default AirportSelect;

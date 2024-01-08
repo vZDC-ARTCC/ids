@@ -62,6 +62,36 @@ CREATE TABLE "VerificationToken" (
 );
 
 -- CreateTable
+CREATE TABLE "Enroute" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "sopLink" TEXT NOT NULL,
+
+    CONSTRAINT "Enroute_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "EnrouteSector" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "frequency" TEXT NOT NULL,
+    "external" BOOLEAN NOT NULL,
+    "childSectorAssignmentId" TEXT,
+    "enrouteId" TEXT,
+
+    CONSTRAINT "EnrouteSector_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "EnroutePositionPreset" (
+    "id" TEXT NOT NULL,
+    "name" TEXT NOT NULL,
+    "enrouteId" TEXT,
+
+    CONSTRAINT "EnroutePositionPreset_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "Tracon" (
     "faaIdentifier" TEXT NOT NULL,
     "name" TEXT,
@@ -111,6 +141,8 @@ CREATE TABLE "AirspaceData" (
     "traconSectorId" TEXT,
     "traconAreaId" TEXT,
     "airportId" TEXT,
+    "enrouteId" TEXT,
+    "enrouteSectorId" TEXT,
 
     CONSTRAINT "AirspaceData_pkey" PRIMARY KEY ("id")
 );
@@ -121,6 +153,7 @@ CREATE TABLE "LoaData" (
     "link" TEXT NOT NULL,
     "targetFacility" TEXT NOT NULL,
     "traconId" TEXT,
+    "enrouteId" TEXT,
 
     CONSTRAINT "LoaData_pkey" PRIMARY KEY ("id")
 );
@@ -131,6 +164,7 @@ CREATE TABLE "Airport" (
     "faaIdentifier" TEXT NOT NULL,
     "sopLink" TEXT NOT NULL,
     "localControlPositions" TEXT[],
+    "priorityEnrouteId" TEXT,
 
     CONSTRAINT "Airport_pkey" PRIMARY KEY ("icao")
 );
@@ -178,6 +212,14 @@ CREATE TABLE "TraconSectorAssignment" (
 );
 
 -- CreateTable
+CREATE TABLE "EnrouteSectorAssignment" (
+    "id" TEXT NOT NULL,
+    "parentSectorId" TEXT NOT NULL,
+
+    CONSTRAINT "EnrouteSectorAssignment_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
 CREATE TABLE "DepartureGatesAssignment" (
     "id" TEXT NOT NULL,
     "airportId" TEXT NOT NULL,
@@ -216,6 +258,12 @@ CREATE TABLE "Broadcast" (
     "message" TEXT NOT NULL,
 
     CONSTRAINT "Broadcast_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "_EnroutePositionPresetToEnrouteSector" (
+    "A" TEXT NOT NULL,
+    "B" TEXT NOT NULL
 );
 
 -- CreateTable
@@ -267,6 +315,12 @@ CREATE UNIQUE INDEX "AirportFlow_flowActiveAirportId_key" ON "AirportFlow"("flow
 CREATE UNIQUE INDEX "AirportFlow_airportId_name_key" ON "AirportFlow"("airportId", "name");
 
 -- CreateIndex
+CREATE UNIQUE INDEX "_EnroutePositionPresetToEnrouteSector_AB_unique" ON "_EnroutePositionPresetToEnrouteSector"("A", "B");
+
+-- CreateIndex
+CREATE INDEX "_EnroutePositionPresetToEnrouteSector_B_index" ON "_EnroutePositionPresetToEnrouteSector"("B");
+
+-- CreateIndex
 CREATE UNIQUE INDEX "_TraconPositionPresetToTraconSector_AB_unique" ON "_TraconPositionPresetToTraconSector"("A", "B");
 
 -- CreateIndex
@@ -291,6 +345,15 @@ ALTER TABLE "Account" ADD CONSTRAINT "Account_userId_fkey" FOREIGN KEY ("userId"
 ALTER TABLE "Session" ADD CONSTRAINT "Session_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "EnrouteSector" ADD CONSTRAINT "EnrouteSector_childSectorAssignmentId_fkey" FOREIGN KEY ("childSectorAssignmentId") REFERENCES "EnrouteSectorAssignment"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "EnrouteSector" ADD CONSTRAINT "EnrouteSector_enrouteId_fkey" FOREIGN KEY ("enrouteId") REFERENCES "Enroute"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "EnroutePositionPreset" ADD CONSTRAINT "EnroutePositionPreset_enrouteId_fkey" FOREIGN KEY ("enrouteId") REFERENCES "Enroute"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "TraconPositionPreset" ADD CONSTRAINT "TraconPositionPreset_traconId_fkey" FOREIGN KEY ("traconId") REFERENCES "Tracon"("faaIdentifier") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -312,7 +375,19 @@ ALTER TABLE "AirspaceData" ADD CONSTRAINT "AirspaceData_traconAreaId_fkey" FOREI
 ALTER TABLE "AirspaceData" ADD CONSTRAINT "AirspaceData_airportId_fkey" FOREIGN KEY ("airportId") REFERENCES "Airport"("icao") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "AirspaceData" ADD CONSTRAINT "AirspaceData_enrouteId_fkey" FOREIGN KEY ("enrouteId") REFERENCES "Enroute"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "AirspaceData" ADD CONSTRAINT "AirspaceData_enrouteSectorId_fkey" FOREIGN KEY ("enrouteSectorId") REFERENCES "EnrouteSector"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "LoaData" ADD CONSTRAINT "LoaData_traconId_fkey" FOREIGN KEY ("traconId") REFERENCES "Tracon"("faaIdentifier") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "LoaData" ADD CONSTRAINT "LoaData_enrouteId_fkey" FOREIGN KEY ("enrouteId") REFERENCES "Enroute"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Airport" ADD CONSTRAINT "Airport_priorityEnrouteId_fkey" FOREIGN KEY ("priorityEnrouteId") REFERENCES "Enroute"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "AirportFlow" ADD CONSTRAINT "AirportFlow_flowActiveAirportId_fkey" FOREIGN KEY ("flowActiveAirportId") REFERENCES "Airport"("icao") ON DELETE SET NULL ON UPDATE CASCADE;
@@ -339,6 +414,9 @@ ALTER TABLE "CustomizableOption" ADD CONSTRAINT "CustomizableOption_airportId_fk
 ALTER TABLE "TraconSectorAssignment" ADD CONSTRAINT "TraconSectorAssignment_parentSectorId_fkey" FOREIGN KEY ("parentSectorId") REFERENCES "TraconSector"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
+ALTER TABLE "EnrouteSectorAssignment" ADD CONSTRAINT "EnrouteSectorAssignment_parentSectorId_fkey" FOREIGN KEY ("parentSectorId") REFERENCES "EnrouteSector"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
 ALTER TABLE "DepartureGatesAssignment" ADD CONSTRAINT "DepartureGatesAssignment_airportId_fkey" FOREIGN KEY ("airportId") REFERENCES "Airport"("icao") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
@@ -346,6 +424,12 @@ ALTER TABLE "DepartureGatesAssignment" ADD CONSTRAINT "DepartureGatesAssignment_
 
 -- AddForeignKey
 ALTER TABLE "TowerRunwayAssignment" ADD CONSTRAINT "TowerRunwayAssignment_airportId_fkey" FOREIGN KEY ("airportId") REFERENCES "Airport"("icao") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_EnroutePositionPresetToEnrouteSector" ADD CONSTRAINT "_EnroutePositionPresetToEnrouteSector_A_fkey" FOREIGN KEY ("A") REFERENCES "EnroutePositionPreset"("id") ON DELETE CASCADE ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "_EnroutePositionPresetToEnrouteSector" ADD CONSTRAINT "_EnroutePositionPresetToEnrouteSector_B_fkey" FOREIGN KEY ("B") REFERENCES "EnrouteSector"("id") ON DELETE CASCADE ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "_TraconPositionPresetToTraconSector" ADD CONSTRAINT "_TraconPositionPresetToTraconSector_A_fkey" FOREIGN KEY ("A") REFERENCES "TraconPositionPreset"("id") ON DELETE CASCADE ON UPDATE CASCADE;

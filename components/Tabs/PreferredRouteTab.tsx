@@ -9,7 +9,7 @@ function PreferredRouteTab({ defaultOriginAirport }: { defaultOriginAirport?: st
 
     const [routes, setRoutes] = useState<PreferredRoute[]>();
 
-    const submit = async (origin: string, dest: string) => {
+    const submit = async (origin: string, dest?: string) => {
         const data = await getRoutes(origin, dest);
         setRoutes(data);
     }
