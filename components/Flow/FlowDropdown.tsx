@@ -1,7 +1,7 @@
 "use client";
 import React from 'react';
 import {AirportFlow} from "@prisma/client";
-import {CircularProgress, MenuItem, Select} from "@mui/material";
+import {MenuItem, Select} from "@mui/material";
 
 function FlowDropdown({ small = false, selectedFlowId, flows, onChange, }: { small?: boolean, selectedFlowId: string, flows?: AirportFlow[], onChange: (newFlowId: string) => void, }) {
     return (

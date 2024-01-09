@@ -6,12 +6,9 @@ import {
     FormControl,
     Grid,
     InputLabel,
-    MenuItem,
-    Select,
     Stack,
     Typography
 } from "@mui/material";
-import {AirportFlow} from "@prisma/client";
 import {Add, Delete, Edit} from "@mui/icons-material";
 import FlowDisplay from "@/components/Flow/FlowDisplay";
 import {deleteFlow, fetchFlows} from "@/actions/flow";
