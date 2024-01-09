@@ -1,7 +1,7 @@
 import React from 'react';
 import {Divider, Grid, Stack, Typography} from "@mui/material";
 import {AirspaceData} from "@prisma/client";
-import AirspaceSelect from "@/components/TraconSelect/AirspaceSelect";
+import AirspaceSelect from "@/components/Select/AirspaceSelect";
 import AirspaceGridItem from "@/components/Airspace/AirspaceGridItem";
 import {fetchEnroute} from "@/actions/enroute";
 
@@ -11,7 +11,7 @@ async function AirspacePage({ searchParams }: { searchParams: { sectorId?: strin
         return <Typography>Enroute not found</Typography>
     }
     const sectors = enroute.sectors || [];
-    const selectedSector = sectors.find((s) => s.id === searchParams.sectorId);
+    const selectedSector: any = sectors.find((s) => s.id === searchParams.sectorId);
 
     return (
         <Stack direction="column" spacing={2} sx={{ width: '100%', }}>

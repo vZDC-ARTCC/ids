@@ -4,7 +4,7 @@ import {Box, Grid, Typography} from "@mui/material";
 import AirportOverview from "@/components/Airport/AirportOverview";
 import BroadcastPirepGrid from "@/components/BroadcastPirep/BroadcastPirepGrid";
 import LocalRunwayAssignment from "@/components/Airport/RunwayAssignment/LocalRunwayAssignment";
-import TraconSectorsList from "@/components/Split/TraconSectorsList";
+import TraconSectorsList from "@/components/Tracon/TraconSectorsList";
 import AirportTable from "@/components/Table/AirportTable";
 
 async function TraconHome({ params }: { params: { id: string, area: string, }}) {

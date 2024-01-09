@@ -1,8 +1,8 @@
 import React from 'react';
 import {Grid} from "@mui/material";
-import TraconSplitOverview from "@/components/Split/TraconSplitOverview";
+import TraconSplitOverview from "@/components/Tracon/TraconSplitOverview";
 import {fetchTraconAreaWithDetail} from "@/actions/traconArea";
-import TraconSectorsList from "@/components/Split/TraconSectorsList";
+import TraconSectorsList from "@/components/Tracon/TraconSectorsList";
 
 async function TraconSplitPage({ params }: { params: { id: string, area: string, }, }) {
 

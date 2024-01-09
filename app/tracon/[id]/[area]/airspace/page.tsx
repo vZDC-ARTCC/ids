@@ -2,7 +2,7 @@ import React from 'react';
 import {fetchTraconAreaWithDetail} from "@/actions/traconArea";
 import {Divider, Grid, Stack, Typography} from "@mui/material";
 import {AirspaceData} from "@prisma/client";
-import AirspaceSelect from "@/components/TraconSelect/AirspaceSelect";
+import AirspaceSelect from "@/components/Select/AirspaceSelect";
 import AirspaceGridItem from "@/components/Airspace/AirspaceGridItem";
 
 async function AirspacePage({ params, searchParams }: { params: { id: string, area: string, }, searchParams: { sectorId?: string, }, }) {

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Stack, Typography} from "@mui/material";
 import ChartsTab from "@/components/Tabs/ChartsTab";
-import AirportSelect from "@/components/TraconSelect/AirportSelect";
+import AirportSelect from "@/components/Select/AirportSelect";
 import {fetchEnroute} from "@/actions/enroute";
 import {fetchAllAirports} from "@/actions/airport";
 

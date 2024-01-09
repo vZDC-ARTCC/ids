@@ -2,7 +2,7 @@ import React from 'react';
 import {fetchLoas} from "@/actions/loa";
 import {fetchTraconAreaWithDetail} from "@/actions/traconArea";
 import {Stack, Typography} from "@mui/material";
-import LoaSelect from "@/components/TraconSelect/LoaSelect";
+import LoaSelect from "@/components/Select/LoaSelect";
 
 async function LoaPage({ params, searchParams }: { params: { id: string, area: string, }, searchParams: { selectedLoa?: string, }}) {
 

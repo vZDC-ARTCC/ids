@@ -211,7 +211,6 @@ async function createEnroute(enroute: EnrouteConfig) {
 async function createEnrouteSectors(sectors: EnrouteSectorConfig[]) {
     const savedEnrouteSectors = [];
     for (const sector of sectors) {
-        console.log(sector.id);
         const savedEnrouteSector = await prisma.enrouteSector.create({
             data: {
                 id: sector.id,

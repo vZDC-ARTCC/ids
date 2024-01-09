@@ -1,7 +1,7 @@
 import React from 'react';
 import {Tracon, TraconSector} from "@prisma/client";
 import {Box, Typography} from "@mui/material";
-import TraconSectorAssignmentList from "@/components/Split/TraconSectorAssignmentList";
+import TraconSectorAssignmentList from "@/components/Tracon/TraconSectorAssignmentList";
 
 function TraconSplitOverview({ tracon }: { tracon: Tracon | any, }) {
 

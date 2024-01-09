@@ -1,6 +1,6 @@
 import React from 'react';
 import {Stack, Typography} from "@mui/material";
-import LoaSelect from "@/components/TraconSelect/LoaSelect";
+import LoaSelect from "@/components/Select/LoaSelect";
 import {fetchEnroute} from "@/actions/enroute";
 
 async function LoaPage({ searchParams }: { searchParams: { selectedLoa?: string, }}) {

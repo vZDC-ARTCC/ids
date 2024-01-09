@@ -3,8 +3,8 @@ import React, {useEffect, useState} from 'react';
 import {TraconPositionPreset, TraconSector, TraconSectorAssignment} from "@prisma/client";
 import {CircularProgress, List, Typography} from "@mui/material";
 import {fetchTraconAssignments} from "@/actions/traconAssignment";
-import TraconSectorAssignmentItem from "@/components/Split/TraconSectorAssignmentItem";
-import AddTraconAssignmentForm from "@/components/Split/AddTraconAssignmentForm";
+import TraconSectorAssignmentItem from "@/components/Tracon/TraconSectorAssignmentItem";
+import AddTraconAssignmentForm from "@/components/Tracon/AddTraconAssignmentForm";
 import {fetchPresets} from "@/actions/traconPreset";
 
 function TraconSectorAssignmentList({ faaIdentifier, sectors, }: { faaIdentifier: string, sectors: TraconSector[], }) {

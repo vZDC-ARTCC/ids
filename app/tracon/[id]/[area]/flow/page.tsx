@@ -3,7 +3,7 @@ import FlowSelectForm from "@/components/Flow/FlowSelectForm";
 import {fetchTraconAreaWithDetail} from "@/actions/traconArea";
 import {AirportFlow} from "@prisma/client";
 import {Stack, Typography} from "@mui/material";
-import AirportSelect from "@/components/TraconSelect/AirportSelect";
+import AirportSelect from "@/components/Select/AirportSelect";
 
 async function FlowPage({ params, searchParams, }: { params: { id: string, area: string, }, searchParams: { icao?: string, }, }) {
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {fetchTraconAreaWithDetail} from "@/actions/traconArea";
 import {Stack, Typography} from "@mui/material";
 import ChartsTab from "@/components/Tabs/ChartsTab";
-import AirportSelect from "@/components/TraconSelect/AirportSelect";
+import AirportSelect from "@/components/Select/AirportSelect";
 
 async function TraconProceduresPage({ params, searchParams, }: { params: { id: string, area: string, }, searchParams: { icao?: string, }, }) {
     const { id, area } = params;

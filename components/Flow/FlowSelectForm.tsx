@@ -16,6 +16,7 @@ import {Add, Delete, Edit} from "@mui/icons-material";
 import FlowDisplay from "@/components/Flow/FlowDisplay";
 import {deleteFlow, fetchFlows} from "@/actions/flow";
 import {useRouter} from "next/navigation";
+import FlowDropdown from "@/components/Flow/FlowDropdown";
 
 function FlowSelectForm({ icao, flows, redirectUri, }: { icao: string, flows: any[], redirectUri?: string, }) {
 
@@ -47,19 +48,7 @@ function FlowSelectForm({ icao, flows, redirectUri, }: { icao: string, flows: an
                         }}>
                             <FormControl fullWidth required>
                                 <InputLabel id="flow-select-label">Flow</InputLabel>
-                                <Select
-                                    labelId="flow-select-label"
-                                    id="flow-select"
-                                    value={selectedFlowId}
-                                    label="Flow"
-                                    onChange={(e) => setSelectedFlowId(e.target.value)}
-                                >
-                                    {flows.map((flow: AirportFlow) => (
-                                        <MenuItem key={flow.id} value={flow.id}>
-                                            {flow.name}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
+                                <FlowDropdown selectedFlowId={selectedFlowId} flows={flows} onChange={setSelectedFlowId} />
                             </FormControl>
                             <Stack direction="row" spacing={2} sx={{ marginTop: '1rem', }}>
                                 <Button variant="contained" size="large" type="submit">Activate Flow</Button>
