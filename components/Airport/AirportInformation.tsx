@@ -1,24 +1,18 @@
 "use client";
 import React, {useCallback, useEffect, useState} from 'react';
-import {fetchActiveFlow, fetchFlows, setActiveFlow} from "@/actions/flow";
+import {fetchActiveFlow} from "@/actions/flow";
 import {
     Box,
     CircularProgress,
-    FormControl,
-    Grid, IconButton,
-    InputLabel,
+    Grid,
     Stack,
-    TableCell,
-    Tooltip,
     Typography
 } from "@mui/material";
-import {CustomizableOption, Runway} from "@prisma/client";
+import {CustomizableOption} from "@prisma/client";
 import OptionSelect from "@/components/Airport/Option/OptionSelect";
 import FlowDisplay from "@/components/Flow/FlowDisplay";
 import ChangeSnackbar from "@/components/ChangeAnnouncer/ChangeSnackbar";
 import {setOptionValue} from "@/actions/option";
-import FlowDropdown from "@/components/Flow/FlowDropdown";
-import {Check, Edit} from "@mui/icons-material";
 
 function AirportInformation({ icao, condensed }: { icao: string, condensed: boolean, }) {
 

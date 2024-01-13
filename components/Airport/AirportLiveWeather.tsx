@@ -1,7 +1,7 @@
 "use client";
 import React, {useCallback, useEffect, useState} from 'react';
 import {VatsimATISConnection} from "@/types";
-import {FormControlLabel, Stack, Switch, TableCell, Tooltip, Typography} from "@mui/material";
+import {FormControlLabel, Stack, Switch, Typography} from "@mui/material";
 import {fetchMetar, fetchVatsimATIS} from '@/actions/atis';
 import ChangeSnackbar from "@/components/ChangeAnnouncer/ChangeSnackbar";
 import Link from "next/link";
