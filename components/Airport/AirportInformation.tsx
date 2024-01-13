@@ -20,20 +20,16 @@ import {setOptionValue} from "@/actions/option";
 import FlowDropdown from "@/components/Flow/FlowDropdown";
 import {Check, Edit} from "@mui/icons-material";
 
-function AirportInformation({ icao, condensed, tableCell }: { icao: string, condensed: boolean, tableCell?: boolean, }) {
+function AirportInformation({ icao, condensed }: { icao: string, condensed: boolean, }) {
 
     const [flow, setFlow] = useState<any>();
-    const [flows, setFlows] = useState<any[]>();
     const [loading, setLoading ] = useState(true);
     const [flowChanged, setFlowChanged] = useState(false);
     const [optionsChanged, setOptionsChanged] = useState(false);
     const [first, setFirst] = useState(true);
-    const [edit, setEdit] = useState(false);
-    const [tempFlowId, setTempFlowId] = useState('');
 
     const updateFlow = useCallback(() => {
         fetchActiveFlow(icao).then((newFlow) => {
-            setTempFlowId(newFlow?.id || '');
             setFlow((prev: any) => {
                 if (!first && newFlow?.id !== prev?.id) {
                     setFlowChanged(true);
@@ -56,41 +52,6 @@ function AirportInformation({ icao, condensed, tableCell }: { icao: string, cond
         }, 15000);
         return () => clearInterval(activeFlowInterval);
     }, [icao, updateFlow]);
-
-    if (tableCell) {
-        const depRunways = flow?.departureRunways.filter((runway: Runway) => runway.departureTypes.length > 0).map((runway: Runway) => runway.runwayNumber);
-        const appRunways = flow?.arrivalRunways.filter((runway: Runway) => runway.approachTypes.length > 0).map((runway: Runway) => runway.runwayNumber);
-        if (loading) return <TableCell><CircularProgress /></TableCell>
-        return (
-                <TableCell sx={{ width: '100%', }}>
-                    { !edit &&
-                        <Tooltip title={`DEP: ${depRunways?.join('/') || 'N/A'} ARR: ${appRunways?.join('/') || 'N/A'}`}>
-                            <Typography sx={{ display: 'inline-block', }}>
-                                {flow?.name}
-                            </Typography>
-                        </Tooltip> }
-                    { edit && <FormControl fullWidth required variant="standard" size="small">
-                        <InputLabel id="flow-select-label" size="small">Flow</InputLabel>
-                            <FlowDropdown selectedFlowId={tempFlowId} flows={flows} onChange={setTempFlowId}
-                            />
-                    </FormControl> }
-                    <IconButton sx={{ margin: 1, }} onClick={() => {
-                        if (edit) {
-                            setActiveFlow(icao, tempFlowId).then(() => {
-                                fetchActiveFlow(icao).then(setFlow);
-                                setEdit(false)
-                            });
-                        } else {
-                            fetchFlows(icao).then(setFlows);
-                            setEdit(!edit)
-                        }
-                    }}>
-                        {edit ? <Check /> : <Edit />}
-                    </IconButton>
-                </TableCell>
-        )
-        // return <Tooltip title={`DEP: ${depRunways?.join('/') || 'N/A'} ARR: ${appRunways?.join('/') || 'N/A'}`}><TableCell>{activeFlow?.name || '-'}</TableCell></Tooltip>
-    }
 
     return (
         <Grid container columns={10} sx={{ height: '100%', borderTop: { xs: 1, xl: 0, }, }}>
