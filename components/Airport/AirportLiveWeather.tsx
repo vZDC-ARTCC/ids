@@ -1,7 +1,7 @@
 "use client";
 import React, {useCallback, useEffect, useState} from 'react';
 import {VatsimATISConnection} from "@/types";
-import {FormControlLabel, Stack, Switch, TableCell, Tooltip, Typography} from "@mui/material";
+import {FormControlLabel, Stack, Switch, Typography} from "@mui/material";
 import {fetchMetar, fetchVatsimATIS} from '@/actions/atis';
 import ChangeSnackbar from "@/components/ChangeAnnouncer/ChangeSnackbar";
 import Link from "next/link";
@@ -9,7 +9,7 @@ import {OpenInNew} from "@mui/icons-material";
 
 
 
-function AirportLiveWeather({ icao, condensed, tableCell }: { icao: string, condensed: boolean, tableCell?: boolean, }) {
+function AirportLiveWeather({ icao, condensed }: { icao: string, condensed: boolean, }) {
 
     const [vatsimATIS, setVatsimATIS] = useState<VatsimATISConnection>();
     const [metar, setMetar] = useState<string>();
@@ -51,10 +51,6 @@ function AirportLiveWeather({ icao, condensed, tableCell }: { icao: string, cond
         }, 15000);
         return () => clearInterval(weatherInterval);
     }, [updateAtis, updateMetar])
-
-    if (tableCell) {
-        return <Tooltip title={metar || 'No metar found'}><TableCell>{vatsimATIS?.atis_code || '-'}</TableCell></Tooltip>
-    }
 
     return (
         <Stack direction="column" spacing={condensed ? 1 : 2} sx={{ padding: 1, }}>

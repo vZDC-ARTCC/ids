@@ -1,5 +1,5 @@
 import {PCT_CONFIG} from "@/facility/tracon/pct/pct";
-import {AirportConfig, TraconConfig} from "@/types";
+import {AirportConfig, EnrouteConfig, TraconConfig} from "@/types";
 import {RDU_CONFIG} from "@/facility/tracon/rdu/rdu-tracon";
 import {ORF_CONFIG} from "@/facility/tracon/orf/orf-tracon";
 import {ACY_CONFIG} from "@/facility/tracon/acy/acy-tracon";
@@ -13,6 +13,9 @@ import {mtnAirportConfig} from "@/facility/atct/kmtn";
 import {orfAirportConfig} from "@/facility/atct/korf";
 import {rduAirportConfig} from "@/facility/atct/krdu";
 import {ricAirportConfig} from "@/facility/atct/kric";
+import {zdc_config} from "@/facility/zdc";
+
+export const ENROUTE_FACILITY: EnrouteConfig = zdc_config
 
 export const IDS_TRACON_FACILITIES: TraconConfig[] = [
     PCT_CONFIG,

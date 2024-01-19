@@ -1,7 +1,16 @@
-import {IDS_ATCT_FACILITIES, IDS_TRACON_FACILITIES} from "@/facility/facilities";
+import {ENROUTE_FACILITY, IDS_ATCT_FACILITIES, IDS_TRACON_FACILITIES} from "@/facility/facilities";
 import prisma from "@/lib/db";
-import {AirportConfig, LoaConfig, TraconAreaConfig, TraconConfig, TraconPreset, TraconSectorConfig} from "@/types";
-import {TraconSector} from "@prisma/client";
+import {
+    AirportConfig,
+    EnrouteConfig, EnroutePreset,
+    EnrouteSectorConfig,
+    LoaConfig,
+    TraconAreaConfig,
+    TraconConfig,
+    TraconPreset,
+    TraconSectorConfig
+} from "@/types";
+import {EnrouteSector, TraconSector} from "@prisma/client";
 
 export const dynamic = "force-dynamic";
 const DEV_MODE = process.env['DEV_MODE'] === 'true';
@@ -11,66 +20,14 @@ export async function GET() {
         return Response.json("Database has already been seeded.  If you have changed the configuration, make sure all the previous data is deleted.");
     }
 
+    await prisma.enroute.deleteMany();
     await prisma.tracon.deleteMany();
     await prisma.airport.deleteMany();
+    await prisma.enrouteSector.deleteMany();
 
     await createAirports(IDS_ATCT_FACILITIES);
     await createTracons(IDS_TRACON_FACILITIES);
-
-    // for (const tracon of IDS_TRACON_FACILITIES) {
-    //     const savedTracon = await prisma.tracon.create({
-    //         data: {
-    //             faaIdentifier: tracon.faaIdentifier,
-    //             name: tracon.name,
-    //             departureGates: tracon.departureGates,
-    //             sectors: {
-    //                 create: tracon.sectors.map((sector) => {
-    //                     return {
-    //                         name: sector.name,
-    //                         sectorLetter: sector.sectorLetter,
-    //                         frequency: sector.frequency,
-    //                         airspaceData: {
-    //                             create: sector.airspaceData,
-    //                         },
-    //                     };
-    //                 }),
-    //             },
-    //             areas: {
-    //                 create: tracon.areas.map((area) => {
-    //                     return {
-    //                         faaIdentifier: area.faaIdentifier,
-    //                         name: area.name,
-    //                         sopLink: area.sop,
-    //                         areaMap: {
-    //                             create: area.areaMaps,
-    //                         },
-    //                         majorFields: {
-    //                             connect: area.majorFields.map((ac) => ({ icao: ac.icao, })),
-    //                         },
-    //                         minorFields: {
-    //                             connect: area.minorFields.map((ac) => ({ icao: ac.icao, })),
-    //                         },
-    //                     };
-    //                 }),
-    //             },
-    //         },
-    //         include: {
-    //             sectors: true,
-    //         },
-    //     });
-    //     for (const preset of tracon.presets) {
-    //         await prisma.traconPositionPreset.create({
-    //             data: {
-    //                 name: preset.name,
-    //                 sectors: {
-    //                     connect: savedTracon.sectors.filter((s) => preset.sectorNames.includes(s.name)).map((s) => ({ id: s.id })),
-    //                 },
-    //                 traconId: tracon.faaIdentifier,
-    //             },
-    //         });
-    //     }
-    //
-    // }
+    await createEnroute(ENROUTE_FACILITY);
 
     return Response.json("Database seeded successfully!");
 }
@@ -221,4 +178,67 @@ async function createLoas(loas: LoaConfig[]) {
         savedLoas.push(savedLoa);
     }
     return savedLoas;
+}
+
+async function createEnroute(enroute: EnrouteConfig) {
+    const loas = await createLoas(enroute.loas);
+    const sectors = await createEnrouteSectors(enroute.sectors);
+    const presets = await createEnroutePresets(enroute.presets, sectors);
+    return prisma.enroute.create({
+        data: {
+            id: enroute.id,
+            name: enroute.name,
+            sopLink: enroute.sopLink,
+            airspace: {
+                create: enroute.airspace,
+            },
+            loas: {
+                connect: loas.map((l) => ({id: l.id,})),
+            },
+            presets: {
+                connect: presets.map((p) => ({id: p.id})),
+            },
+            sectors: {
+                connect: sectors.map((s) => ({ id: s.id, })),
+            },
+            priorityAirports: {
+                connect: enroute.airportListPriority.map((a) => ({ icao: a.icao, })),
+            },
+        },
+    });
+}
+
+async function createEnrouteSectors(sectors: EnrouteSectorConfig[]) {
+    const savedEnrouteSectors = [];
+    for (const sector of sectors) {
+        const savedEnrouteSector = await prisma.enrouteSector.create({
+            data: {
+                id: sector.id,
+                name: sector.name,
+                frequency: sector.frequency,
+                external: sector.externalArtcc || false,
+                airspace: {
+                    create: sector.airspace,
+                },
+            },
+        });
+        savedEnrouteSectors.push(savedEnrouteSector);
+    }
+    return savedEnrouteSectors;
+}
+
+async function createEnroutePresets(presets: EnroutePreset[], savedSectors: EnrouteSector[]) {
+    const savedPresets= [];
+    for (const preset of presets) {
+        const savedPreset = await prisma.enroutePositionPreset.create({
+            data: {
+                name: preset.name,
+                sectors: {
+                    connect: savedSectors.filter((s) => preset.sectorIds.includes(s.id)).map((s) => ({ id: s.id })),
+                },
+            },
+        });
+        savedPresets.push(savedPreset);
+    }
+    return savedPresets;
 }

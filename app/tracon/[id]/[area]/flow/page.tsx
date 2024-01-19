@@ -3,7 +3,7 @@ import FlowSelectForm from "@/components/Flow/FlowSelectForm";
 import {fetchTraconAreaWithDetail} from "@/actions/traconArea";
 import {AirportFlow} from "@prisma/client";
 import {Stack, Typography} from "@mui/material";
-import TraconAirportSelect from "@/components/TraconSelect/TraconAirportSelect";
+import AirportSelect from "@/components/Select/AirportSelect";
 
 async function FlowPage({ params, searchParams, }: { params: { id: string, area: string, }, searchParams: { icao?: string, }, }) {
 
@@ -24,7 +24,7 @@ async function FlowPage({ params, searchParams, }: { params: { id: string, area:
     return (
         <Stack direction="column" spacing={2} sx={{ width: '100%', }}>
             <Typography>Select an airport from the list.</Typography>
-            <TraconAirportSelect initialSelectedIcao={selectedAirportIcao} airportIcaos={flows.map((f) => f.icao)} />
+            <AirportSelect initialSelectedIcao={selectedAirportIcao} airportIcaos={flows.map((f) => f.icao)} />
             { selectedAirportIcao && <FlowSelectForm icao={selectedAirportIcao} redirectUri={`/tracon/${id}/${area}/`} flows={flows.find((f) => f.icao === selectedAirportIcao)?.flows} /> }
         </Stack>
     );

@@ -6,9 +6,7 @@ const VATSIM_DATA_URL = "https://data.vatsim.net/v3/vatsim-data.json";
 const VATSIM_METAR_URL = "https://metar.vatsim.net/metar.php";
 export const fetchVatsimATIS = async (icao: string) => {
     const res = await fetch(VATSIM_DATA_URL, {
-        next: {
-            revalidate: 15,
-        }
+        cache: "no-store",
     });
     const { atis }: { atis: VatsimATISConnection[] } = await res.json();
     const filteredAtisConnections = atis.filter((atisConnection) => atisConnection.callsign.startsWith(icao));
@@ -22,9 +20,7 @@ export const fetchVatsimATIS = async (icao: string) => {
 
 export const fetchMetar = async (icao: string) => {
     const res = await fetch(`${VATSIM_METAR_URL}?id=${icao}`, {
-        next: {
-            revalidate: 15,
-        }
+        cache: "no-store",
     });
     return await res.text();
 }

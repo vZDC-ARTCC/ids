@@ -2,7 +2,7 @@ import React from 'react';
 import {fetchTraconAreaWithDetail} from "@/actions/traconArea";
 import {Stack, Typography} from "@mui/material";
 import ChartsTab from "@/components/Tabs/ChartsTab";
-import TraconAirportSelect from "@/components/TraconSelect/TraconAirportSelect";
+import AirportSelect from "@/components/Select/AirportSelect";
 
 async function TraconProceduresPage({ params, searchParams, }: { params: { id: string, area: string, }, searchParams: { icao?: string, }, }) {
     const { id, area } = params;
@@ -19,7 +19,7 @@ async function TraconProceduresPage({ params, searchParams, }: { params: { id: s
     return (
         <Stack direction="column" spacing={2} sx={{ width: '100%', }}>
             <Typography>Select an airport from the list.</Typography>
-            <TraconAirportSelect initialSelectedIcao={selectedAirportIcao} airportIcaos={icaos} />
+            <AirportSelect initialSelectedIcao={selectedAirportIcao} airportIcaos={icaos} />
             { selectedAirportIcao && <ChartsTab icao={selectedAirportIcao} /> }
         </Stack>
     );
