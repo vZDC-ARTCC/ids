@@ -5,7 +5,7 @@ import Link from "next/link";
 import {OpenInNew} from "@mui/icons-material";
 import {Airport, AirportFlow} from "@prisma/client";
 import {fetchMetar, fetchVatsimATIS} from "@/actions/atis";
-import {fetchActiveFlow, fetchFlows} from "@/actions/flow";
+import {fetchActiveFlow} from "@/actions/flow";
 import {AirportChange} from "@/types";
 
 type AirportOverviewData = {

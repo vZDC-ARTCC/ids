@@ -1,9 +1,7 @@
 import React from 'react';
 import {fetchTraconAreaWithDetail} from "@/actions/traconArea";
 import {Box, Grid, Typography} from "@mui/material";
-import AirportOverview from "@/components/Airport/AirportOverview";
 import BroadcastPirepGrid from "@/components/BroadcastPirep/BroadcastPirepGrid";
-import LocalRunwayAssignment from "@/components/Airport/RunwayAssignment/LocalRunwayAssignment";
 import TraconSectorsList from "@/components/Tracon/TraconSectorsList";
 import AirportTable from "@/components/Table/AirportTable";
 import TraconAirportView from "@/components/Airport/TraconAirportView";

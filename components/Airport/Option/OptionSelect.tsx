@@ -2,7 +2,6 @@
 import React, {useEffect, useState} from 'react';
 import {CustomizableOption} from "@prisma/client";
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import {setOptionValue} from "@/actions/option";
 
 function OptionSelect({ option, condensed, changeValue }: { option: CustomizableOption, condensed: boolean, changeValue: (newValue?: string) => void }) {
 
