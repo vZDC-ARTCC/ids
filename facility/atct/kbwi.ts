@@ -6,12 +6,12 @@ export const bwiAirportConfig: AirportConfig = {
     towerAirspace: [
         {
             name: 'WEST',
-            imageUrl: '/airspace/local/kbwi/kbwi_w',
+            imageUrl: '/airspace/local/kbwi/kbwi_w.png',
             notes: [],
         },
         {
             name: 'EAST',
-            imageUrl: '/airspace/local/kbwi/kbwi_e',
+            imageUrl: '/airspace/local/kbwi/kbwi_e.png',
             notes: [],
         },
     ],

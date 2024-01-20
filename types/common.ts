@@ -12,3 +12,8 @@ export type LoaConfig = {
     targetFacility: string,
     link: string,
 }
+
+export type AirportChange = {
+    icao: string,
+    type: "atis" | "flow" | "metar",
+}

@@ -12,8 +12,11 @@ function OptionSelect({ option, condensed, changeValue }: { option: Customizable
     }, [option.value]);
 
     const handleChange = (e: { target: { value: string, }, }) => {
+        setSelectedValue(e.target.value || '')
+        // setOptionValue(option.id, e.target.value).then((option) => {
+        //     changeValue(e.target.value);
+        // });
         changeValue(e.target.value);
-        // setOptionValue(option.id, e.target.value).then((option) => setSelectedValue(option.value || ''));
     };
 
     return (
