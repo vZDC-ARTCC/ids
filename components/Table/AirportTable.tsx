@@ -6,27 +6,24 @@ import {OpenInNew} from "@mui/icons-material";
 import {Airport, AirportFlow} from "@prisma/client";
 import {fetchMetar, fetchVatsimATIS} from "@/actions/atis";
 import {fetchActiveFlow, fetchFlows} from "@/actions/flow";
+import {AirportChange} from "@/types";
 
 type AirportOverviewData = {
     icao: string,
     metar?: string,
     atisCode: string,
     activeFlow?: AirportFlow | any | undefined,
-    flows: AirportFlow[],
 };
 
-type AirportTableChange = {
-    icao: string,
-    type: "atis" | "flow" | "metar",
-}
+
 
 function AirportTable({ airports }: { airports: Airport[], }) {
 
     const [data, setData] = useState<AirportOverviewData[]>();
-    const [changes, setChanges] = useState<AirportTableChange[]>([]);
+    const [changes, setChanges] = useState<AirportChange[]>([]);
     
     const getChanges = useCallback((newData: AirportOverviewData, oldData?: AirportOverviewData, ) => {
-        const newChanges: AirportTableChange[] = [];
+        const newChanges: AirportChange[] = [];
         if (newData?.metar !== oldData?.metar) {
             newChanges.push({ icao: newData.icao, type: "metar"});
         }
@@ -40,44 +37,45 @@ function AirportTable({ airports }: { airports: Airport[], }) {
         return newChanges;
     }, []);
 
-    const fetchData = useCallback(async (prev?: AirportOverviewData[]) => {
+    const fetchData = useCallback(async () => {
         const newData: typeof data = [];
-        const newChanges: AirportTableChange[] = [];
         for (const airport of airports) {
-            const oldData = prev?.find((d) => d.icao === airport.icao);
             const metar = await fetchMetar(airport.icao);
             const atis = await fetchVatsimATIS(airport.icao);
             const atisCode = atis?.atis_code || '-';
             const activeFlow = await fetchActiveFlow(airport.icao);
-            const flows = prev ? await fetchFlows(airport.icao) : oldData?.flows || [];
             const airportData: AirportOverviewData = {
                 icao: airport.icao,
                 metar,
                 atisCode,
                 activeFlow,
-                flows,
             };
-            if (prev) {
-                newChanges.push(...getChanges(airportData, oldData));
-            }
             newData.push(airportData);
         }
-        setChanges((prev) => [...prev, ...newChanges]);
-        return newData;
+        setData((prev) => {
+            const newChanges: AirportChange[] = [];
+            for (const i of newData) {
+                if (prev) {
+                    newChanges.push(...getChanges(i, prev.find((a) => a.icao === i.icao)));
+                }
+            }
+            setChanges((prev) => [...prev, ...newChanges]);
+            return newData;
+        });
     }, [airports, getChanges]);
     
     useEffect(() => {
-        fetchData(data).then(setData);
+        fetchData().then();
         const updateInterval = setInterval(() => {
-            fetchData(data).then(setData);
-        }, 5000);
+            fetchData().then();
+        }, 15000);
         return () => clearInterval(updateInterval);
-    }, [data, fetchData]);
+    }, [fetchData]);
 
     return (
         <>
             <Typography sx={{ padding: 1, }}>Hover over ATIS code (does not have to be online) for METAR and FLOW for runways in use.</Typography>
-            <Button disabled={changes.length <= 0} variant="contained" size="large" onClick={() => setChanges([])}>Acknowledge Changes</Button>
+            <Button disabled={changes.length <= 0} variant="contained" size="large" sx={{ width: '100%', }} onClick={() => setChanges([])}>Acknowledge Changes</Button>
             <Table>
                 <TableHead>
                     <TableRow>
@@ -112,17 +110,6 @@ function AirportTable({ airports }: { airports: Airport[], }) {
                         )
                     }
                     )}
-                    {/*{airports.map((field) => (*/}
-                    {/*    <TableRow key={field.icao}>*/}
-                    {/*        <TableCell>*/}
-                    {/*            <Link href={`/atct/${field.icao}`} target="_blank" style={{ color: 'inherit', }}>*/}
-                    {/*                <Button color="inherit" endIcon={<OpenInNew />}>{field.icao}</Button>*/}
-                    {/*            </Link>*/}
-                    {/*        </TableCell>*/}
-                    {/*        <AirportLiveWeather icao={field.icao} condensed={true} tableCell={true} />*/}
-                    {/*        <AirportInformation icao={field.icao} condensed={true} tableCell={true} />*/}
-                    {/*    </TableRow>*/}
-                    {/*))}*/}
                 </TableBody>
             </Table>
         </>
