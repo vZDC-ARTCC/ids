@@ -1,7 +1,6 @@
 "use server";
 
 import prisma from "@/lib/db";
-import {AirportData} from "@/app/atct/[id]/page";
 import {TraconAreaData} from "@/app/tracon/[id]/[area]/page";
 import {fetchTraconAssignments} from "@/actions/traconAssignment";
 

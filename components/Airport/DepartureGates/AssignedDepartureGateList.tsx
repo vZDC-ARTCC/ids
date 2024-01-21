@@ -1,5 +1,5 @@
 "use client";
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {List, Typography} from "@mui/material";
 import DepartureAssignmentItem from "@/components/Airport/DepartureGates/DepartureAssignmentItem";
 import {Prisma, TraconSector} from "@prisma/client";

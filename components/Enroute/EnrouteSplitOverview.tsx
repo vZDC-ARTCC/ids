@@ -2,7 +2,6 @@ import React from 'react';
 import {EnrouteSector} from "@prisma/client";
 import {Box, Typography} from "@mui/material";
 import EnrouteSectorAssignmentList from './EnrouteSectorAssignmentList';
-import {fetchEnroute} from "@/actions/enroute";
 import {EnrouteData} from "@/app/erids/page";
 
 async function EnrouteSplitOverview({ enrouteData, }: { enrouteData: EnrouteData, }) {

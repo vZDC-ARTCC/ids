@@ -8,7 +8,6 @@ import {AirportData} from "@/app/atct/[id]/page";
 import {fetchAirportsData} from "@/actions/airport";
 import {InformationChange} from "@/components/ChangeAnnouncer/information_change";
 import {getAtctChanges} from "@/lib/atct";
-import ChangeSnackbar from "@/components/ChangeAnnouncer/ChangeSnackbar";
 
 function AirportTable({ airports }: { airports: Airport[], }) {
 

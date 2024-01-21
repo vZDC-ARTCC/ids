@@ -1,11 +1,9 @@
 "use client";
-import React, {useEffect, useState} from 'react';
-import {Prisma, TraconPositionPreset, TraconSector, TraconSectorAssignment} from "@prisma/client";
+import React from 'react';
+import {Prisma, TraconSector} from "@prisma/client";
 import {CircularProgress, List, Typography} from "@mui/material";
-import {fetchTraconAssignments} from "@/actions/traconAssignment";
 import TraconSectorAssignmentItem from "@/components/Tracon/TraconSectorAssignmentItem";
 import AddTraconAssignmentForm from "@/components/Tracon/AddTraconAssignmentForm";
-import {fetchPresets} from "@/actions/traconPreset";
 
 const sectorAssignmentWithRelations = Prisma.validator<Prisma.TraconSectorAssignmentDefaultArgs>()({
     include: {

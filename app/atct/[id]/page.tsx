@@ -11,7 +11,6 @@ import {useAutoRefresh} from "@/hooks/useAutoRefresh";
 import {fetchAirportData} from "@/actions/airport";
 import {Prisma} from "@prisma/client";
 import {VatsimATISConnection} from "@/types";
-import {InformationChange} from "@/components/ChangeAnnouncer/information_change";
 import ChangeSnackbar from "@/components/ChangeAnnouncer/ChangeSnackbar";
 import {getAtctChanges} from "@/lib/atct";
 

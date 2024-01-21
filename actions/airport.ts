@@ -1,7 +1,6 @@
 "use server";
 import prisma from "@/lib/db";
 import {fetchMetar, fetchVatsimATIS} from "@/actions/atis";
-import {fetchActiveFlow} from "@/actions/flow";
 import {AirportData, DetailedAirport} from "@/app/atct/[id]/page";
 
 export async function fetchAllAirports(includeFlows?: boolean,) {

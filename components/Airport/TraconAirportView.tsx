@@ -1,8 +1,7 @@
 "use client";
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Airport} from "@prisma/client";
 import {CircularProgress, Grid} from "@mui/material";
-import {AirportChange} from "@/types";
 import {fetchAirportsData} from "@/actions/airport";
 import AirportOverview from "@/components/Airport/AirportOverview";
 import {AirportData} from "@/app/atct/[id]/page";

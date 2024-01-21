@@ -1,6 +1,6 @@
 "use client";
 import React from 'react';
-import {fetchTraconAreaWithDetail, fetchTraconData} from "@/actions/traconArea";
+import {fetchTraconData} from "@/actions/traconArea";
 import {Box, Grid, Typography} from "@mui/material";
 import BroadcastPirepGrid from "@/components/BroadcastPirep/BroadcastPirepGrid";
 import TraconSectorsList from "@/components/Tracon/TraconSectorsList";

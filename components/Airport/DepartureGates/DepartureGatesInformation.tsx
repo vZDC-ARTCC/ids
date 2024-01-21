@@ -1,9 +1,8 @@
 import React from 'react';
 import {Box, Typography} from "@mui/material";
 import AssignedDepartureGateList from "@/components/Airport/DepartureGates/AssignedDepartureGateList";
-import {fetchParentArea} from "@/actions/traconArea";
 import {Prisma, TraconSector} from "@prisma/client";
-import {AirportData, DetailedAirport} from "@/app/atct/[id]/page";
+import {AirportData} from "@/app/atct/[id]/page";
 
 const traconAreaWithRelations = Prisma.validator<Prisma.TraconAreaDefaultArgs>()({
     include: {
