@@ -14,14 +14,10 @@ import {
 import {ArrowForward, Edit} from "@mui/icons-material";
 import {createAssignment, updateAssignment} from "@/actions/runwayAssignment";
 
-function LocalRunwayAssignmentItem({ icao, position, runways, availableRunways, id, changeEdit }: { icao: string, position: string, runways: string[], availableRunways: string[], id?: string, changeEdit: (value: boolean) => void, }) {
+function LocalRunwayAssignmentItem({ icao, position, runways, availableRunways, id, }: { icao: string, position: string, runways: string[], availableRunways: string[], id?: string, }) {
 
     const [edit, setEdit] = useState(false);
     const [selectedRunways, setSelectedRunways] = useState<string[]>(runways);
-    const updateEdit = (value: boolean) => {
-        setEdit(value);
-        changeEdit(value);
-    }
 
     const changeSelectedRunways = (e: SelectChangeEvent<typeof selectedRunways>) => {
         const { target: { value }} = e;
@@ -40,12 +36,13 @@ function LocalRunwayAssignmentItem({ icao, position, runways, availableRunways, 
         } else {
             await updateAssignment(id, icao, position, selectedRunways);
         }
-        updateEdit(false);
+        setEdit(false);
+        window.location.reload();
     }
 
     return (
         <ListItem secondaryAction={
-            <IconButton onClick={() => updateEdit(!edit)}>
+            <IconButton onClick={() => setEdit(!edit)}>
                 <Edit />
             </IconButton>
         }>
@@ -77,7 +74,7 @@ function LocalRunwayAssignmentItem({ icao, position, runways, availableRunways, 
                     </Select>
                     <Button variant="contained" onClick={() => saveLocalAssignment()}>Save</Button>
                     <Button variant="contained" onClick={() => {
-                        updateEdit(false);
+                        setEdit(false);
                         setSelectedRunways(runways);
                     }}>Cancel</Button>
                 </Stack>

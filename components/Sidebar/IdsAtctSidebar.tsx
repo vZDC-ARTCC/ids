@@ -19,7 +19,7 @@ function IdsAtctSidebar({ airport }: { airport: Airport }) {
             <SidebarListItem name="ACFT" link={`/atct/${id}/aircraft`} />
             <SidebarListItem name="EQMT" link={`/atct/${id}/equipment`} />
             <SidebarListItem name="PRD" link={`/atct/${id}/prd`} />
-            <SidebarListItem name="CIC" link={`/atct/${id}/cic`} />
+            <SidebarListItem name="CIC" link={`/atct/${id}/cic`} color="gold" />
             <SidebarListItem name="EMRG" link={`/atct/${id}/emergency`} color="red"/>
         </IdsSidebar>
     );

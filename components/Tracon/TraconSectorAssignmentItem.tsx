@@ -16,15 +16,10 @@ import {
 import {ArrowForward, Delete, Edit} from "@mui/icons-material";
 import {deleteTraconAssignment, updateTraconAssignment} from "@/actions/traconAssignment";
 
-function TraconSectorAssignmentItem({ sectorAssignment, allSectors, onEdit, onDelete }: { sectorAssignment: TraconSectorAssignment | any, allSectors: TraconSector[], onEdit: (value: boolean) => void, onDelete: () => void, }) {
+function TraconSectorAssignmentItem({ sectorAssignment, allSectors, onDelete }: { sectorAssignment: TraconSectorAssignment | any, allSectors: TraconSector[], onDelete: () => void, }) {
     const [edit, setEdit] = useState(false);
     const [selectedSectorIds, setSelectedSectorIds] = useState(sectorAssignment.childSectors.map((s: TraconSector) => s.id));
     const router = useRouter();
-
-    const changeEdit = (value: boolean) => {
-        onEdit(value);
-        setEdit(value);
-    }
 
     const onDeleteAssignment = async () => {
         await deleteTraconAssignment(sectorAssignment.id);
@@ -49,13 +44,14 @@ function TraconSectorAssignmentItem({ sectorAssignment, allSectors, onEdit, onDe
 
     const saveTraconAssignment = async () => {
         await updateTraconAssignment(sectorAssignment.id, selectedSectorIds);
-        changeEdit(false);
+        setEdit(false);
+        window.location.reload();
     }
 
     return (
         <ListItem disableGutters secondaryAction={
             <Box>
-                <IconButton onClick={() => changeEdit(!edit)}>
+                <IconButton onClick={() => setEdit(!edit)}>
                     <Edit />
                 </IconButton>
                 <IconButton onClick={() => onDeleteAssignment()}>
@@ -100,7 +96,7 @@ function TraconSectorAssignmentItem({ sectorAssignment, allSectors, onEdit, onDe
                         </Select>
                         <Button variant="contained" onClick={() => saveTraconAssignment().then(() => router.refresh())}>Save</Button>
                         <Button variant="contained" onClick={() => {
-                            changeEdit(false);
+                            setEdit(false);
                             setSelectedSectorIds(sectorAssignment.childSectors.map((s: TraconSector) => s.id));
                         }}>Cancel</Button>
                     </Stack>
