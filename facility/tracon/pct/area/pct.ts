@@ -14,7 +14,7 @@ export const PCT_PCT: TraconAreaConfig = {
     name: 'Potomac Consolidated',
     sop: '/sop/pct_mtv_sop.pdf',
     majorFields: [dcaAirportConfig, iadAirportConfig, bwiAirportConfig],
-    minorFields: [ricAirportConfig, adwAirportConfig, hefAirportConfig, mtnAirportConfig,apgAirportConfig, jyoAirportConfig],
+    minorFields: [ricAirportConfig, adwAirportConfig, hefAirportConfig, mtnAirportConfig, apgAirportConfig, jyoAirportConfig],
     customizableOptions: [],
     areaMaps: [
         {
