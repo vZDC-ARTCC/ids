@@ -1,7 +1,7 @@
 import {AirportConfig} from "@/types";
 export const lfiAirportConfig: AirportConfig = {
-    faaIdentifier: 'NGU',
-    icao: 'KNGU',
+    faaIdentifier: 'LFI',
+    icao: 'KLFI',
     towerAirspace: [
         {
             name: 'LC',
