@@ -1,12 +1,14 @@
 import {TraconAreaConfig} from "@/types";
 import {orfAirportConfig} from "@/facility/atct/korf";
+import {ntuAirportConfig} from "@/facility/atct/kntu";
+
 
 export const ORF_ORF: TraconAreaConfig = {
     faaIdentifier: 'ORF',
     name: 'Norfolk',
     sop: '/sop/orf_sop.pdf',
     majorFields: [orfAirportConfig],
-    minorFields: [],
+    minorFields: [ntuAirportConfig ],
     areaMaps: [
         {
             name: 'ORF',
