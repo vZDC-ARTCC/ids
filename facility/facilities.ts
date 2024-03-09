@@ -32,24 +32,23 @@ export const IDS_TRACON_FACILITIES: TraconConfig[] = [
 ];
 
 export const IDS_ATCT_FACILITIES: AirportConfig[] = [
-    dcaAirportConfig,
-    iadAirportConfig,
-    bwiAirportConfig,
-    adwAirportConfig,
     acyAirportConfig,
+    adwAirportConfig,
+    apgAirportConfig,
+    bwiAirportConfig,
+    dcaAirportConfig,
+    esnAirportConfig,
     hefAirportConfig,
+    iadAirportConfig,
+    jyoAirportConfig,
+    lfiAirportConfig,
     mtnAirportConfig,
+    nguAirportConfig,
+    ntuAirportConfig,
     orfAirportConfig,
+    phfAirportConfig,
     rduAirportConfig,
     ricAirportConfig,
-    lfiAirportConfig,
-    ntuAirportConfig,
-    jyoAirportConfig,
-    phfAirportConfig,
-    nguAirportConfig,
-    esnAirportConfig,
-    apgAirportConfig,
-
 ];
 
 
