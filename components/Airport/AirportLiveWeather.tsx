@@ -6,6 +6,7 @@ import {fetchMetar, fetchVatsimATIS} from '@/actions/atis';
 import ChangeSnackbar from "@/components/ChangeAnnouncer/ChangeSnackbar";
 import Link from "next/link";
 import {OpenInNew} from "@mui/icons-material";
+import {getMetarColor} from "@/lib/metar";
 
 
 
@@ -66,7 +67,7 @@ function AirportLiveWeather({ icao, condensed }: { icao: string, condensed: bool
                 <Switch disabled={!vatsimATIS} value={atisOpen} onChange={(e) => setAtisOpen(e.target.checked)} />
             } label="Show VATSIM ATIS" />
             { atisOpen && vatsimATIS && <Typography variant={condensed ? 'h5' : 'h4'} letterSpacing={3}>{vatsimATIS?.text_atis?.join(' ') || 'No VATSIM ATIS online'}</Typography> }
-            <Typography variant={condensed ? 'h5' : 'h4'} color="darkviolet" fontWeight={700}>{metar || 'No METAR found.'}</Typography>
+            <Typography variant={condensed ? 'h5' : 'h4'} color={metar ? getMetarColor(metar) : 'purple'} fontWeight={700}>{metar || 'No METAR found.'}</Typography>
         </Stack>
     );
 }

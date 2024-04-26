@@ -65,7 +65,12 @@ export async function setActiveFlow(icao: string, flowId: string) {
             icao,
         },
         include: {
-            activeFlow: true,
+            activeFlow: {
+                include: {
+                    departureRunways: true,
+                    arrivalRunways: true,
+                }
+            },
         }
     });
     await log(`${(await getServerSession(authOptions))?.user.cid} activated flow '${airport.activeFlow?.name}' at ${icao}`);
@@ -74,6 +79,23 @@ export async function setActiveFlow(icao: string, flowId: string) {
             airportId: icao,
         }
     });
+    const res = await fetch(`https://api.simtraffic.net/v1/facility/config/${icao}`, {
+        method: 'POST',
+        headers: {
+            "Authorization": "10705c89a58f3598cd41ca616eafe575"
+        },
+        body: JSON.stringify({
+            id: icao,
+            metering: true,
+            arrival_rwys:
+                airport.activeFlow?.arrivalRunways.filter((r) => r.approachTypes.length > 0).map((r) => r.runwayNumber),
+            departure_rwys:
+                airport.activeFlow?.departureRunways.filter((r) => r.departureTypes.length > 0).map((r) => r.runwayNumber),
+        }),
+    });
+    if (res.status >= 400) {
+        console.log(await res.json());
+    }
     return airport;
 }
 
