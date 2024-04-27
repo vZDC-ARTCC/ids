@@ -17,16 +17,11 @@ import {ArrowForward, Delete, Edit} from "@mui/icons-material";
 import {deleteAssignment, updateAssignment} from "@/actions/departureGate";
 import {useRouter} from "next/navigation";
 
-function DepartureAssignmentItem({ departureAssignment, allDepartureGates, onEdit, onDelete }: { departureAssignment: DepartureGatesAssignment | any, allDepartureGates: string[], onEdit: (value: boolean) => void, onDelete: () => void, }) {
+function DepartureAssignmentItem({ departureAssignment, allDepartureGates, onDelete }: { departureAssignment: DepartureGatesAssignment | any, allDepartureGates: string[], onDelete: () => void, }) {
 
     const [edit, setEdit] = useState(false);
     const [selectedDepartureGates, setSelectedDepartureGates] = useState(departureAssignment.gates);
     const router = useRouter();
-
-    const changeEdit = (value: boolean) => {
-        onEdit(value);
-        setEdit(value);
-    }
 
     const onDeleteAssignment = async () => {
         await deleteAssignment(departureAssignment.id);
@@ -47,6 +42,7 @@ function DepartureAssignmentItem({ departureAssignment, allDepartureGates, onEdi
         setSelectedDepartureGates(
             typeof  value === 'string' ? value.split(',') : value,
         );
+
     }
 
     const saveDepartureAssignment = async () => {
@@ -56,13 +52,14 @@ function DepartureAssignmentItem({ departureAssignment, allDepartureGates, onEdi
         }
 
         await updateAssignment(departureAssignment.id, selectedDepartureGates);
-        changeEdit(false);
+        setEdit(false);
+        window.location.reload();
     }
     
     return (
         <ListItem disableGutters secondaryAction={
             <Box>
-                <IconButton onClick={() => changeEdit(!edit)}>
+                <IconButton onClick={() => setEdit(!edit)}>
                     <Edit />
                 </IconButton>
                 <IconButton onClick={() => onDeleteAssignment()}>
@@ -102,7 +99,7 @@ function DepartureAssignmentItem({ departureAssignment, allDepartureGates, onEdi
                         </Select>
                         <Button variant="contained" onClick={() => saveDepartureAssignment().then(() => router.refresh())}>Save</Button>
                         <Button variant="contained" onClick={() => {
-                            changeEdit(false);
+                            setEdit(false);
                             setSelectedDepartureGates(departureAssignment.gates);
                         }}>Cancel</Button>
                     </Stack>

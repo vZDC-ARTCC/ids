@@ -2,19 +2,19 @@ import React from 'react';
 import {Grid} from "@mui/material";
 import EnrouteSplitOverview from "@/components/Enroute/EnrouteSplitOverview";
 import EnrouteSectorsList from "@/components/Enroute/EnrouteSectorsList";
-import {fetchEnroute} from "@/actions/enroute";
+import {fetchEnrouteData} from "@/actions/enroute";
 
 async function TraconSplitPage() {
 
-    const enroute = await fetchEnroute(false, true);
+    const enrouteData = await fetchEnrouteData();
 
-    return enroute && (
+    return enrouteData && (
         <Grid container columns={2} spacing={2}>
             <Grid item xs={2} md={1}>
-                <EnrouteSplitOverview />
+                <EnrouteSplitOverview enrouteData={enrouteData} />
             </Grid>
             <Grid item xs={2} md={1}>
-                <EnrouteSectorsList allSectors={enroute.sectors} />
+                <EnrouteSectorsList enrouteData={enrouteData} />
             </Grid>
         </Grid>
     );

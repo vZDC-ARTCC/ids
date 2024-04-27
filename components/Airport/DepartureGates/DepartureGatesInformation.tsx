@@ -1,21 +1,31 @@
 import React from 'react';
 import {Box, Typography} from "@mui/material";
 import AssignedDepartureGateList from "@/components/Airport/DepartureGates/AssignedDepartureGateList";
-import {fetchParentArea} from "@/actions/traconArea";
-import {TraconSector} from "@prisma/client";
+import {Prisma, TraconSector} from "@prisma/client";
+import {AirportData} from "@/app/atct/[id]/page";
 
-async function DepartureGatesInformation({ icao }: { icao: string, }) {
+const traconAreaWithRelations = Prisma.validator<Prisma.TraconAreaDefaultArgs>()({
+    include: {
+        parentTracon: {
+            include: {
+                sectors: true,
+            },
+        },
+    },
+});
 
-    const parentArea = await fetchParentArea(icao);
+export type DetailedTraconArea = Prisma.TraconAreaGetPayload<typeof traconAreaWithRelations>;
 
-    if (!parentArea || !parentArea.parentTracon) {
+function DepartureGatesInformation({ airportData, parentTraconArea, }: { airportData: AirportData, parentTraconArea: DetailedTraconArea, }) {
+
+    if (!parentTraconArea || !parentTraconArea.parentTracon) {
         return <Typography>TRACON not found.</Typography>
     }
 
     return (
         <Box sx={{ border: 1, padding: 1, minHeight: '20rem', }}>
             <Typography variant="h6">DEPARTURE GATE ASSIGNMENT</Typography>
-            <AssignedDepartureGateList icao={icao} departureGates={parentArea.parentTracon.departureGates.sort()} sectors={parentArea.parentTracon.sectors
+            <AssignedDepartureGateList icao={airportData.icao} assignments={airportData.airport.departureGateAssignments} departureGates={parentTraconArea.parentTracon.departureGates.sort()} sectors={parentTraconArea.parentTracon.sectors
                 .sort((a: TraconSector, b: TraconSector) => a.name.localeCompare(b.name))} />
         </Box>
     );

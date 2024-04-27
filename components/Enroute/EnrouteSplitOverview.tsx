@@ -2,16 +2,14 @@ import React from 'react';
 import {EnrouteSector} from "@prisma/client";
 import {Box, Typography} from "@mui/material";
 import EnrouteSectorAssignmentList from './EnrouteSectorAssignmentList';
-import {fetchEnroute} from "@/actions/enroute";
+import {EnrouteData} from "@/app/erids/page";
 
-async function EnrouteSplitOverview() {
+async function EnrouteSplitOverview({ enrouteData, }: { enrouteData: EnrouteData, }) {
 
-    const enroute = await fetchEnroute(false, true);
-
-    return enroute?.sectors && (
+    return enrouteData.enroute?.sectors && (
         <Box sx={{ padding: 1, border: 1, }}>
             <Typography variant="h6">ENROUTE SECTOR ASSIGNMENTS</Typography>
-            <EnrouteSectorAssignmentList sectors={enroute.sectors
+            <EnrouteSectorAssignmentList sectorAssignments={enrouteData.splits} presets={enrouteData.enroute.presets} sectors={enrouteData.enroute.sectors
                 .sort((a: EnrouteSector, b: EnrouteSector) => a.name.localeCompare(b.name))} />
         </Box>
     );

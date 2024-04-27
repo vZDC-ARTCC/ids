@@ -1,50 +1,27 @@
 "use client";
-import React, {useCallback, useEffect, useState} from 'react';
+import React from 'react';
 import {List, Typography} from "@mui/material";
 import DepartureAssignmentItem from "@/components/Airport/DepartureGates/DepartureAssignmentItem";
-import {DepartureGatesAssignment, TraconSector} from "@prisma/client";
-import {fetchDepartureGateAssignments} from "@/actions/departureGate";
+import {Prisma, TraconSector} from "@prisma/client";
 import AddAssignmentForm from "@/components/Airport/DepartureGates/AddAssignmentForm";
-import ChangeSnackbar from "@/components/ChangeAnnouncer/ChangeSnackbar";
 
-function AssignedDepartureGateList({ icao, departureGates, sectors }: { icao: string, departureGates: string[], sectors: TraconSector[] }) {
+const departureGateAssignmentWithRelations = Prisma.validator<Prisma.DepartureGatesAssignmentDefaultArgs>()({
+    include: {
+        sector: true,
+    },
+});
 
-    const [depGates, setDepGates] = useState<DepartureGatesAssignment[] | any[]>([]);
-    const [edit, setEdit] = useState<boolean>(false);
-    const [depGatesChanged, setDepGatesChanged] = useState(false);
-    const [first, setFirst] = useState(true);
+export type DetailedDepartureGatesAssignment = Prisma.DepartureGatesAssignmentGetPayload<typeof departureGateAssignmentWithRelations>;
 
-    const updateGates = useCallback(() => {
-        fetchDepartureGateAssignments(icao).then((newDepGates) => {
-            setDepGates((prev) => {
-                if (!first && (newDepGates?.length !== prev?.length ||
-                    !newDepGates.every((val, i) => val?.gates.every((val) => prev[i]?.gates.includes(val))))) {
-                    setDepGatesChanged(true);
-                }
-                return newDepGates as any;
-            })
-        });
-    }, [first, icao]);
-
-    useEffect(() => {
-        if (!edit) {
-            updateGates();
-            setFirst(false);
-            const depGatesInterval = setInterval(() => {
-                updateGates();
-            }, 15000);
-            return () => clearInterval(depGatesInterval);
-        }
-    }, [updateGates, edit]);
+function AssignedDepartureGateList({ icao, assignments, departureGates, sectors }: { icao: string, assignments: DetailedDepartureGatesAssignment[], departureGates: string[], sectors: TraconSector[] }) {
 
     return (
         <List>
-            <ChangeSnackbar open={depGatesChanged} change={{ message: `${icao} CHANGES`, type: 'departure_gate_assignment', }} onAcknowledge={setDepGatesChanged} />
-            { depGates && depGates.length === 0 && <Typography>None</Typography> }
-            {depGates && depGates.map((gate) => (
-                <DepartureAssignmentItem key={gate.id} departureAssignment={gate} allDepartureGates={departureGates} onEdit={setEdit} onDelete={() => fetchDepartureGateAssignments(icao).then(setDepGates)}/>
+            { assignments.length === 0 && <Typography>None</Typography> }
+            { assignments.map((gate) => (
+                <DepartureAssignmentItem key={gate.id} departureAssignment={gate} allDepartureGates={departureGates} onDelete={() => window.location.reload()}/>
             ))}
-            <AddAssignmentForm icao={icao} departureGates={departureGates} sectors={sectors} onSubmit={() => fetchDepartureGateAssignments(icao).then(setDepGates)} />
+            <AddAssignmentForm icao={icao} departureGates={departureGates} sectors={sectors} onSubmit={() => window.location.reload()} />
         </List>
     );
 

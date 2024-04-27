@@ -23,12 +23,14 @@ function ChangeSnackbar({ open, change, onAcknowledge }: { open: boolean, change
     const getPrefixText = (meta: InformationChange): string => {
         switch (meta.type) {
             case "atis": return 'ATIS';
+            case "metar": return 'METAR';
             case "flow": return 'FLOW';
             case "departure_gate_assignment": return 'DEP-GA';
             case "local_runway_assignment": return 'LC-RA';
             case "broadcast": return 'CIC';
             case "pirep": return 'PIREP';
-            case "tracon_sectors": return 'SPLIT';
+            case "tracon_sectors": return 'TRACON';
+            case "enroute_sectors": return 'ENROUTE';
             default: return '';
         }
     }
