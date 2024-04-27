@@ -19,24 +19,22 @@ export async function createPirep(pirep: Pirep) {
         data: pirep,
     });
     await log(`${(await getServerSession(authOptions))?.user.cid} filed a PIREP: ${JSON.stringify(pirep)}`);
-    console.log(process.env.SIMTRAFFIC_KEY)
-    const res = await fetch(`https://api.simtraffic.net/v1/pirep`, {
-        method: 'POST',
-        headers: {
-            "Authorization": process.env.SIMTRAFFIC_KEY || '',
-        },
-        body: JSON.stringify({
-            position: pirep.location,
-            data: {
-                observation_time: pirep.time.toString(),
-                raw_text: pirep.remarks,
-                aircraft_ref: pirep.aircraftType,
-                altitude_ft_msl: Number(pirep.flightLevel.substring(2))*100,
-                pirep_type: pirep.urgency === "URGENT" ? "UUA" : "UA",
-            },
-        }),
-    });
-    console.log(await res.json());
+    // const res = await fetch(`https://api.simtraffic.net/v1/pirep`, {
+    //     method: 'POST',
+    //     headers: {
+    //         "Authorization": process.env.SIMTRAFFIC_KEY || '',
+    //     },
+    //     body: JSON.stringify({
+    //         position: pirep.location,
+    //         data: {
+    //             observation_time: pirep.time.toString(),
+    //             raw_text: pirep.remarks,
+    //             aircraft_ref: pirep.aircraftType,
+    //             altitude_ft_msl: Number(pirep.flightLevel.substring(2))*100,
+    //             pirep_type: pirep.urgency === "URGENT" ? "UUA" : "UA",
+    //         },
+    //     }),
+    // });
     return savedPirep;
 }
 
