@@ -4,6 +4,7 @@ import {VatsimATISConnection} from "@/types";
 import {FormControlLabel, Stack, Switch, Typography} from "@mui/material";
 import Link from "next/link";
 import {OpenInNew} from "@mui/icons-material";
+import {getMetarColor} from "@/lib/metar";
 
 
 
@@ -22,8 +23,8 @@ function AirportLiveWeather({ icao, metar, atis, condensed }: { icao: string, me
             <FormControlLabel control={
                 <Switch disabled={!atis} value={atisOpen} onChange={(e) => setAtisOpen(e.target.checked)} />
             } label="Show VATSIM ATIS" />
-            { atisOpen && atis && <Typography variant={condensed ? 'h5' : 'h4'} letterSpacing={3}>{atis?.text_atis?.join(' ') || 'No VATSIM ATIS online'}</Typography> }
-            <Typography variant={condensed ? 'h5' : 'h4'} color="darkviolet" fontWeight={700}>{metar || 'No METAR found.'}</Typography>
+            { atisOpen && vatsimATIS && <Typography variant={condensed ? 'h5' : 'h4'} letterSpacing={3}>{vatsimATIS?.text_atis?.join(' ') || 'No VATSIM ATIS online'}</Typography> }
+            <Typography variant={condensed ? 'h5' : 'h4'} color={metar ? getMetarColor(metar) : 'purple'} fontWeight={700}>{metar || 'No METAR found.'}</Typography>
         </Stack>
     );
 }

@@ -6,13 +6,15 @@ import {bwiAirportConfig} from "@/facility/atct/kbwi";
 import {hefAirportConfig} from "@/facility/atct/khef";
 import {ricAirportConfig} from "@/facility/atct/kric";
 import {mtnAirportConfig} from "@/facility/atct/kmtn";
+import {apgAirportConfig} from "@/facility/atct/kapg";
+import {jyoAirportConfig} from "@/facility/atct/kjyo";
 
 export const PCT_PCT: TraconAreaConfig = {
     faaIdentifier: 'PCT',
     name: 'Potomac Consolidated',
     sop: '/sop/pct_mtv_sop.pdf',
     majorFields: [dcaAirportConfig, iadAirportConfig, bwiAirportConfig],
-    minorFields: [ricAirportConfig, adwAirportConfig, hefAirportConfig, mtnAirportConfig],
+    minorFields: [ricAirportConfig, adwAirportConfig, hefAirportConfig, mtnAirportConfig, apgAirportConfig, jyoAirportConfig],
     customizableOptions: [],
     areaMaps: [
         {

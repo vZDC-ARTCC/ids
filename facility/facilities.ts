@@ -14,6 +14,13 @@ import {orfAirportConfig} from "@/facility/atct/korf";
 import {rduAirportConfig} from "@/facility/atct/krdu";
 import {ricAirportConfig} from "@/facility/atct/kric";
 import {zdc_config} from "@/facility/zdc";
+import {lfiAirportConfig} from "@/facility/atct/klfi";
+import {ntuAirportConfig} from "@/facility/atct/kntu";
+import {jyoAirportConfig} from "@/facility/atct/kjyo";
+import {phfAirportConfig} from "@/facility/atct/kphf";
+import {nguAirportConfig} from "@/facility/atct/kngu";
+import {esnAirportConfig} from "@/facility/atct/kesn";
+import {apgAirportConfig} from "@/facility/atct/kapg";
 
 export const ENROUTE_FACILITY: EnrouteConfig = zdc_config
 
@@ -25,14 +32,21 @@ export const IDS_TRACON_FACILITIES: TraconConfig[] = [
 ];
 
 export const IDS_ATCT_FACILITIES: AirportConfig[] = [
-    dcaAirportConfig,
-    iadAirportConfig,
-    bwiAirportConfig,
-    adwAirportConfig,
     acyAirportConfig,
+    adwAirportConfig,
+    apgAirportConfig,
+    bwiAirportConfig,
+    dcaAirportConfig,
+    esnAirportConfig,
     hefAirportConfig,
+    iadAirportConfig,
+    jyoAirportConfig,
+    lfiAirportConfig,
     mtnAirportConfig,
+    nguAirportConfig,
+    ntuAirportConfig,
     orfAirportConfig,
+    phfAirportConfig,
     rduAirportConfig,
     ricAirportConfig,
 ];
