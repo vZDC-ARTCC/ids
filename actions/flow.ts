@@ -82,7 +82,7 @@ export async function setActiveFlow(icao: string, flowId: string) {
     const res = await fetch(`https://api.simtraffic.net/v1/facility/config/${icao}`, {
         method: 'POST',
         headers: {
-            "Authorization": "10705c89a58f3598cd41ca616eafe575"
+            "Authorization": process.env.SIMTRAFFIC_KEY || '',
         },
         body: JSON.stringify({
             id: icao,
