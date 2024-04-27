@@ -25,7 +25,7 @@ function AirportLiveWeather({ icao, metar, atis, condensed }: { icao: string, me
             } label="Show VATSIM ATIS" />
             {atisOpen && atis && <Typography variant={condensed ? 'h5' : 'h4'}
                                              letterSpacing={3}>{atis?.text_atis?.join(' ') || 'No VATSIM ATIS online'}</Typography>}
-            <Typography variant={condensed ? 'h5' : 'h4'} color="darkviolet"
+            <Typography variant={condensed ? 'h5' : 'h4'} color={metar ? getMetarColor(metar) : 'green'}
                         fontWeight={700}>{metar || 'No METAR found.'}</Typography>
         </Stack>
     );
